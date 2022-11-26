@@ -43,6 +43,8 @@ namespace Autoskola.Service.Services
         public TEntity Remove(TKey key)
         {
             var entity = repository.GetById(key);
+            if (entity == null)
+                throw new HttpRequestException("Entity does not exist", null, System.Net.HttpStatusCode.BadRequest);
             repository.Remove(entity);
             return entity;
         }
