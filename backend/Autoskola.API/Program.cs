@@ -38,10 +38,13 @@ services.AddDbContext<ApplicationContext>(
 services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 services.AddScoped<ICityRepository, CityRepository>();
 services.AddScoped<ICityService, CityService>();
+services.AddScoped<IUserRepository, UserRepository>();
+services.AddScoped<IUserService, UserService>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new CityProfile());
+    mc.AddProfile(new UserProfile());
 });
 IMapper mapper = mappingConfig.CreateMapper();
 services.AddSingleton(mapper);
