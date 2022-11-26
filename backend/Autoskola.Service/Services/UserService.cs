@@ -33,6 +33,16 @@ namespace Autoskola.Service.Services
             return newUser;
         }
 
+        public User Update(UserUpdateVM user)
+        {
+            var city = cityRepository.GetById(user.CityId);
+            if (city == null)
+                throw new HttpRequestException("Invalid CityId", null, HttpStatusCode.BadRequest);
+            User newUser = mapper.Map<UserUpdateVM, User>(user);
+            repository.Update(newUser);
+            return newUser;
+        }
+
         public IEnumerable<User> GetAll(string? search, int page, int pageSize)
         {
             return repository.GetAll(page, pageSize).Where(s => string.IsNullOrEmpty(search) || string.Concat(s.FirstName, " ", s.LastName).StartsWith(search));

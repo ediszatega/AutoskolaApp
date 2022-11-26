@@ -12,5 +12,6 @@ namespace Autoskola.Service.Interfaces
     {
         public IEnumerable<User> GetAll(string? search, int page, int pageSize);
         public User Add(UserAddVM user);
+        public User Update(UserUpdateVM user);
     }
 }

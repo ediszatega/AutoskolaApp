@@ -14,6 +14,7 @@ namespace Autoskola.Core.Profiles
         public UserProfile()
         {
             CreateMap<User, UserAddVM>().ReverseMap();
+            CreateMap<User, UserUpdateVM>().ReverseMap();
         }
     }
 }

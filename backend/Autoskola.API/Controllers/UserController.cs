@@ -34,5 +34,11 @@ namespace Autoskola.API.Controllers
         {
             return Ok(service.Add(user));
         }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] UserUpdateVM user)
+        {
+            return Ok(service.Update(user));
+        }
     }
 }
