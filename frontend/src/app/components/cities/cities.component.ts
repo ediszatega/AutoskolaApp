@@ -33,4 +33,26 @@ export class CitiesComponent implements OnInit {
       x.name.toLowerCase().startsWith(this.search.toLowerCase())
     );
   }
+
+  addCity() {
+    this.selected = {
+      id: 0,
+      name: '',
+      postalCode: 0,
+    };
+  }
+
+  save() {
+    this.httpClient
+      .post(ApiConfig.base_url + '/City/Add', this.selected)
+      .subscribe((x: any) => {
+        this.fetchData();
+        this.addCity();
+      });
+  }
+
+  cancel() {
+    this.selected = null;
+    this.fetchData();
+  }
 }

@@ -14,4 +14,18 @@
   </tr>
 </table>
 
+<button class="btn btn-primary" (click)="addCity()">Novi grad</button>
+
+<div *ngIf="selected != null">
+  <label>Naziv</label>
+  <input [(ngModel)]="selected.name">
+
+  <label>Poštanski broj</label>
+  <input [(ngModel)]="selected.postalCode">
+
+  <button (click)="save()">Snimi</button>
+  <button (click)="cancel()">Otkaži</button>
+</div>
+
+
 
