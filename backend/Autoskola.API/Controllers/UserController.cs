@@ -40,5 +40,11 @@ namespace Autoskola.API.Controllers
         {
             return Ok(service.Update(user));
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+            return Ok(service.Remove(id));
+        }
     }
 }
