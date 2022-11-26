@@ -34,5 +34,11 @@ namespace Autoskola.API.Controllers
         {
             return Ok(service.Add(city));
         }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] City city)
+        {
+            return Ok(service.Update(city));
+        }
     }
 }
