@@ -20,13 +20,19 @@ namespace Autoskola.API.Controllers
         [HttpGet]
         public IActionResult GetAll(string? search, int page = 1, int pageSize = 100)
         {
-                return Ok(service.GetCities(search, page, pageSize));
+            return Ok(service.GetCities(search, page, pageSize));
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById( int id)
+        public IActionResult GetById(int id)
         {
             return Ok(service.GetById(id));
+        }
+
+        [HttpPost]
+        public IActionResult Add([FromBody] CityAddVM city)
+        {
+            return Ok(service.Add(city));
         }
     }
 }
