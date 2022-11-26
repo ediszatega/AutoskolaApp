@@ -43,12 +43,21 @@ export class CitiesComponent implements OnInit {
   }
 
   save() {
-    this.httpClient
-      .post(ApiConfig.base_url + '/City/Add', this.selected)
-      .subscribe((x: any) => {
-        this.fetchData();
-        this.addCity();
-      });
+    if (this.selected.id == 0) {
+      this.httpClient
+        .post(ApiConfig.base_url + '/City/Add', this.selected)
+        .subscribe((x: any) => {
+          this.fetchData();
+          this.addCity();
+        });
+    } else {
+      this.httpClient
+        .put(ApiConfig.base_url + '/City/Update', this.selected)
+        .subscribe((x: any) => {
+          this.fetchData();
+          this.cancel();
+        });
+    }
   }
 
   cancel() {

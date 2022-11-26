@@ -11,6 +11,7 @@
   <tr *ngFor="let x of getData()">
     <td>{{x.name}}</td>
     <td>{{x.postalCode}}</td>
+    <td><button (click)="selected=x">Edit</button></td>
   </tr>
 </table>
 
