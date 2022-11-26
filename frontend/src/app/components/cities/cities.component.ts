@@ -64,4 +64,12 @@ export class CitiesComponent implements OnInit {
     this.selected = null;
     this.fetchData();
   }
+
+  removeCity(x: number) {
+    this.httpClient
+      .delete(ApiConfig.base_url + `/City/Remove/${x}`)
+      .subscribe((x: any) => {
+        this.fetchData();
+      });
+  }
 }
