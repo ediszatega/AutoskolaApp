@@ -28,5 +28,11 @@ namespace Autoskola.API.Controllers
         {
             return Ok(service.GetById(id));
         }
+
+        [HttpPost]
+        public IActionResult Add([FromBody] UserAddVM user)
+        {
+            return Ok(service.Add(user));
+        }
     }
 }
