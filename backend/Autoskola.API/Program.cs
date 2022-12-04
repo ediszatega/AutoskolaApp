@@ -15,7 +15,7 @@ var services = builder.Services;
 
 services.AddControllers();
 
-builder.Services.AddCors(options =>
+services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
