@@ -38,6 +38,7 @@ services.AddDbContext<ApplicationContext>(
 services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 services.AddScoped<ICityService, CityService>();
 services.AddScoped<IUserService, UserService>();
+services.AddScoped<ICategoryService, CategoryService>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
