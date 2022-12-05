@@ -27,6 +27,8 @@ export class UserComponent implements OnInit {
 
   getUsers() {
     if (this.allUsers == null) return [];
-    return this.allUsers;
+    return this.allUsers.filter((x: any) =>
+      x.firstName.toLowerCase().startsWith(this.search.toLowerCase())
+    );
   }
 }
