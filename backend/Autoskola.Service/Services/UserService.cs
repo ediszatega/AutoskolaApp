@@ -15,9 +15,9 @@ namespace Autoskola.Service.Services
 {
     public class UserService : BaseService<User, int>, IUserService
     {
-        private readonly ICityRepository cityRepository;
+        private readonly IRepository<City, int> cityRepository;
         private readonly IMapper mapper;
-        public UserService(IUserRepository repository, ICityRepository cityRepository, IMapper mapper) : base(repository)
+        public UserService(IRepository<User, int> repository, IRepository<City, int> cityRepository, IMapper mapper) : base(repository)
         {
             this.cityRepository = cityRepository;
             this.mapper = mapper;

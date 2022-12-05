@@ -8,24 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using Autoskola.Core.Profiles;
 using AutoMapper;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 9e33c5fb1b442166cf5084d9c553dc274c339b48
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 // Add services to the container.
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://example.com",
-                                              "http://www.contoso.com");
-                      });
-});
 
 services.AddControllers();
 
@@ -50,9 +36,7 @@ services.AddDbContext<ApplicationContext>(
     );
 
 services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
-services.AddScoped<ICityRepository, CityRepository>();
 services.AddScoped<ICityService, CityService>();
-services.AddScoped<IUserRepository, UserRepository>();
 services.AddScoped<IUserService, UserService>();
 
 var mappingConfig = new MapperConfiguration(mc =>
