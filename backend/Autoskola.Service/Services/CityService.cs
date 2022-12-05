@@ -14,14 +14,13 @@ namespace Autoskola.Service.Services
     public class CityService : BaseService<City, int>, ICityService
     {
         private readonly IMapper mapper;
-        public CityService(ICityRepository repository, IMapper mapper)  : base(repository)
+        public CityService(IRepository<City, int> repository, IMapper mapper)  : base(repository)
         {
             this.mapper = mapper;
         }
 
         public IEnumerable<City> GetCities(string? search, int page, int pageSize)
         {
-            //return repository.GetCities(search, page, pageSize);
             return repository.GetAll(page, pageSize).Where(c => string.IsNullOrWhiteSpace(search) || c.Name.StartsWith(search));
         }
 
