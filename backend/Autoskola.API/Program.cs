@@ -39,6 +39,7 @@ services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 services.AddScoped<ICityService, CityService>();
 services.AddScoped<IUserService, UserService>();
 services.AddScoped<ICategoryService, CategoryService>();
+services.AddScoped<ITestService, TestService>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
