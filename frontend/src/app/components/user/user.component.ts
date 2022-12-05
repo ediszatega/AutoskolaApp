@@ -31,4 +31,12 @@ export class UserComponent implements OnInit {
       x.firstName.toLowerCase().startsWith(this.search.toLowerCase())
     );
   }
+
+  removeUser(id: number) {
+    this.httpClient
+      .delete(ApiConfig.base_url + `/User/Remove/${id}`)
+      .subscribe((x: any) => {
+        this.fetchData();
+      });
+  }
 }

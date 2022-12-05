@@ -15,5 +15,6 @@
     <td>{{user.username}}</td>
     <td>{{user.city.name}}</td>
     <td><button>Edit</button></td>
+    <td><button (click)="removeUser(user.id)">Remove</button></td>
   </tr>
 </table>
