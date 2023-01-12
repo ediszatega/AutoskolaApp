@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace Autoskola.Service.Interfaces
 {
-    public interface IUserService : IBaseService<User, int>
+    public interface IUserService
     {
-        public IEnumerable<User> GetAll(string? search, int page, int pageSize);
-        public User Add(UserAddVM user);
-        public User Update(UserUpdateVM user);
+        Task<int> Add(UserAddVM User);
+        Task<int> Update(UserUpdateVM user);
+        Task<int> Remove(int key);
+        Task<User> GetById(int key);
+        Task<IEnumerable<User>> GetAll(string? search, int pageNumber, int pageSize);
     }
 }

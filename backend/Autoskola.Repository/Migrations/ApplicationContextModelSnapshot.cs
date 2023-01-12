@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Autoskola.Repository.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
+    [DbContext(typeof(AutoskolaContext))]
     partial class ApplicationContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

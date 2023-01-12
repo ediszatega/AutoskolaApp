@@ -24,6 +24,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="PagedList" Version="1.17.0" />
+    <PackageReference Include="PagedList.EntityFramework" Version="1.0.1" />
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
@@ -31,6 +33,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Autoskola.Repository\Autoskola.Repository.csproj" />
     <ProjectReference Include="..\Autoskola.Service\Autoskola.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Utilities\" />
   </ItemGroup>
 
 </Project>

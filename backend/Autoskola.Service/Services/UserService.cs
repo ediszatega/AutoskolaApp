@@ -1,51 +1,78 @@
 ﻿using AutoMapper;
 using Autoskola.Core.Models;
+using Autoskola.Core.Models.ExceptionHandling;
 using Autoskola.Core.ViewModels;
 using Autoskola.Repository.Interfaces;
 using Autoskola.Service.Interfaces;
+using Microsoft.IdentityModel.Protocols.WSFederation.Metadata;
 using Microsoft.IdentityModel.SecurityTokenService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Autoskola.Service.Services
 {
-    public class UserService : BaseService<User, int>, IUserService
+    public class UserService : IUserService
     {
-        private readonly IRepository<City, int> cityRepository;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        public UserService(IRepository<User, int> repository, IRepository<City, int> cityRepository, IMapper mapper) : base(repository)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            this.cityRepository = cityRepository;
+            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
 
-        public User Add(UserAddVM user)
+
+        public async Task<int> Add(UserAddVM user)
         {
-            var city = cityRepository.GetById(user.CityId);
+            var city = await unitOfWork.Cities.Get(user.CityId);
             if (city == null)
-                throw new HttpRequestException("Invalid CityId", null, HttpStatusCode.BadRequest);
-            User newUser = mapper.Map<UserAddVM, User>(user);
-            repository.Add(newUser);
-            return newUser;
+                throw new HttpException("Invalid city ID", 400);
+            var newUser = new User() { 
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Username = user.Username,
+                Password = user.Password,
+                CityId = user.CityId };
+            unitOfWork.Users.Add(newUser);
+            return await unitOfWork.Complete();
         }
 
-        public User Update(UserUpdateVM user)
+        public async Task<int> Remove(int key)
         {
-            var city = cityRepository.GetById(user.CityId);
-            if (city == null)
-                throw new HttpRequestException("Invalid CityId", null, HttpStatusCode.BadRequest);
-            User newUser = mapper.Map<UserUpdateVM, User>(user);
-            repository.Update(newUser);
-            return newUser;
+            var user = unitOfWork.Users.Get(key).Result;
+            if (user == null)
+                throw new HttpException("User with requested ID not found", 400);
+            unitOfWork.Users.Remove(user);
+            return await unitOfWork.Complete();
         }
 
-        public IEnumerable<User> GetAll(string? search, int page, int pageSize)
+        public async Task<User> GetById(int key)
         {
-            return repository.GetAll(page, pageSize).Where(s => string.IsNullOrEmpty(search) || string.Concat(s.FirstName, " ", s.LastName).StartsWith(search));
+            return await unitOfWork.Users.Get(key);
+        }
+
+        public async Task<IEnumerable<User>> GetAll(string? search, int pageNumber, int pageSize)
+        {
+            return await unitOfWork.Users.GetAll(search, pageNumber, pageSize);
+        }
+
+        public async Task<int> Update(UserUpdateVM entity)
+        {
+            var user = unitOfWork.Users.Get(entity.Id).Result;
+            if (user == null)
+                throw new HttpException("User with requested ID not found", 400);
+            user.FirstName = entity.FirstName;
+            user.LastName = entity.LastName;
+            user.Username = entity.Username;
+            user.Password = entity.Password;
+            user.CityId = entity.CityId;
+
+            return await unitOfWork.Complete();
         }
     }
 }

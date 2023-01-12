@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace Autoskola.Service.Interfaces
 {
-    public interface ITestService : IBaseService<Test, int>
+    public interface ITestService
     {
-        public Test Add(TestAddVM test);
+        Task<int> Update(Test entity);
+        Task<int> Add(TestAddVM Test);
+        Task<int> Remove(int key);
+        Task<Test> GetById(int key);
+        Task<IEnumerable<Test>> GetAll(int page, int pageSize);
     }
 }

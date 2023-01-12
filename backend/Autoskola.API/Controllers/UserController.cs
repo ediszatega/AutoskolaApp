@@ -18,33 +18,38 @@ namespace Autoskola.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(string? search, int start = 1, int range = 100)
+        public async Task<IActionResult> GetAll(string? search, int start = 1, int range = 100)
         {
-            return Ok(service.GetAll(search, start, range));
+            var result = await service.GetAll(search, start, range);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return Ok(service.GetById(id));
+            var result = await service.GetById(id);
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] UserAddVM user)
+        public async Task<IActionResult> Add([FromBody] UserAddVM user)
         {
-            return Ok(service.Add(user));
+            var result = await service.Add(user);
+            return Ok(result);
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] UserUpdateVM user)
+        public async Task<IActionResult> Update([FromBody] UserUpdateVM user)
         {
-            return Ok(service.Update(user));
+            var result = await service.Update(user);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            return Ok(service.Remove(id));
+            var result = await service.Remove(id);
+            return Ok(result);
         }
     }
 }

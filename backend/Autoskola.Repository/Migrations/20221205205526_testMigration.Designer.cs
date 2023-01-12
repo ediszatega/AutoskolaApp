@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Autoskola.Repository.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
+    [DbContext(typeof(AutoskolaContext))]
     [Migration("20221205205526_testMigration")]
     partial class testMigration
     {

@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 
 namespace Autoskola.Service.Interfaces
 {
-    public interface ICategoryService : IBaseService<Category, int>
+    public interface ICategoryService
     {
-        public Category Add(CategoryAddVM category);
+        Task<int> Add(CategoryAddVM category);
+        Task<int> Update(Category entity);
+        Task<int> Remove(int key);
+        Task<Category> GetById(int key);
+        Task<IEnumerable<Category>> GetAll(int pageNumber, int pageSize);
     }
 }
