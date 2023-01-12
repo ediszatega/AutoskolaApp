@@ -15,5 +15,4 @@ namespace Autoskola.Service.Interfaces
         Task<int> Remove(int key);
         Task<Test> GetById(int key);
         Task<IEnumerable<Test>> GetAll(int page, int pageSize);
-    }
 }
