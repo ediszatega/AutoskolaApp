@@ -12,7 +12,7 @@ namespace Autoskola.Repository.Interfaces
         ICategoryRepository Categories { get; }
         IUserRepository Users { get; }
         ITestRepository Tests { get; }
-
+        IQuestionRepository Questions { get; }
         Task<int> Complete();
     }
 }

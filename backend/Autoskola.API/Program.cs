@@ -38,7 +38,7 @@ services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 services.AddAutoMapper(typeof(Program));
 services.AddDbContext<AutoskolaContext>(
-        options => options.UseLazyLoadingProxies()
+        options => options
         .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
     );
 
@@ -47,12 +47,16 @@ services.AddScoped<ICityRepository, CityRepository>();
 services.AddScoped<IUserRepository, UserRepository>();
 services.AddScoped<ICategoryRepository, CategoryRepository>();
 services.AddScoped<ITestRepository, TestRepository>();
+services.AddScoped<IQuestionRepository, QuestionRepository>();
+
+
 
 services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped<ICityService, CityService>();
 services.AddScoped<IUserService, UserService>();
 services.AddScoped<ICategoryService, CategoryService>();
 services.AddScoped<ITestService, TestService>();
+services.AddScoped<IQuestionService, QuestionService>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
@@ -73,6 +77,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();

@@ -10,7 +10,7 @@ namespace Autoskola.Core.Models
     public class Test
     {
         public int Id { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }

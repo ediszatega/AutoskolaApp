@@ -11,19 +11,23 @@ namespace Autoskola.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AutoskolaContext _context;
-        public UnitOfWork(AutoskolaContext context, ICityRepository cities, ICategoryRepository categories, IUserRepository users, ITestRepository tests)
+        public UnitOfWork(AutoskolaContext context, ICityRepository cities,
+            ICategoryRepository categories, IUserRepository users,
+            ITestRepository tests, IQuestionRepository questions)
         {
             _context = context;
             Cities = cities;
             Categories = categories;
             Users = users;
             Tests = tests;
+            Questions = questions;
         }
 
         public ICityRepository Cities { get; set; }
         public ICategoryRepository Categories { get; set; }
         public IUserRepository Users { get; set; }
         public ITestRepository Tests { get; set; }
+        public IQuestionRepository Questions { get; set; }
 
         public async Task<int> Complete()
         {
