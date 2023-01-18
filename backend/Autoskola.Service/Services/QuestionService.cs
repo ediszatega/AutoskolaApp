@@ -11,15 +11,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using static System.Net.WebRequestMethods;
+using System.Web.Http;
 
 namespace Autoskola.Service.Services
 {
     public class QuestionService : IQuestionService
     {
         private readonly IUnitOfWork unitOfWork;
-        public QuestionService(IUnitOfWork unitOfWork)
+        private readonly IMapper mapper;
+        public QuestionService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<Question>> GetAll(int pageNumber = 1, int pageSize = 100)
@@ -27,9 +30,24 @@ namespace Autoskola.Service.Services
             return await unitOfWork.Questions.GetAll(pageNumber, pageSize);
         }
 
-        public async Task<IEnumerable<Question>> GetQuestionsByTest(int testId)
+        public async Task<IEnumerable<QuestionGetVM>> GetQuestionsByTest(int testId)
         {
-            return await unitOfWork.Questions.GetQuestionsByTest(testId);
+            var questions = await unitOfWork.Questions.GetQuestionsByTest(testId);
+            var result = new List<QuestionGetVM>();
+            foreach (var question in questions)
+            {
+                var answers = await unitOfWork.Answers.GetByQuestion(question.Id);
+                var answersVM = mapper.Map<List<AnswerGetVM>>(answers);
+                result.Add(new QuestionGetVM(){
+                    Id=question.Id,
+                    Text=question.Text,
+                    Image=question.Image,
+                    Order=question.Order,
+                    Points=question.Points,
+                    Answers=answersVM
+                });
+            }
+            return result;
         }
         public async Task<IEnumerable<Question>> GetQuestionsByType(QuestionType type, int testId)
         {
@@ -53,6 +71,20 @@ namespace Autoskola.Service.Services
                 Order = question.Order
             };
             unitOfWork.Questions.Add(newQuestion);
+            return await unitOfWork.Complete();
+        }
+        public async Task<int> AddAnswerToQuestion(int quesitonId, AnswerAddVM answer)
+        {
+            var question = await unitOfWork.Questions.Get(quesitonId);
+            if (question == null)
+                throw new HttpException("Invalid Question ID", 400);
+            var newAnswer = new Answer
+            {
+                Text = answer.Text,
+                IsCorrect = answer.IsCorrect,
+                QuestionId = quesitonId
+            };
+            unitOfWork.Answers.Add(newAnswer);
             return await unitOfWork.Complete();
         }
 

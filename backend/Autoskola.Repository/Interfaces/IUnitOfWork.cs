@@ -13,6 +13,8 @@ namespace Autoskola.Repository.Interfaces
         IUserRepository Users { get; }
         ITestRepository Tests { get; }
         IQuestionRepository Questions { get; }
+        IAnswerRepository Answers { get; }
+
         Task<int> Complete();
     }
 }

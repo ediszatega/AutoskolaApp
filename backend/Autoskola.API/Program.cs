@@ -48,8 +48,7 @@ services.AddScoped<IUserRepository, UserRepository>();
 services.AddScoped<ICategoryRepository, CategoryRepository>();
 services.AddScoped<ITestRepository, TestRepository>();
 services.AddScoped<IQuestionRepository, QuestionRepository>();
-
-
+services.AddScoped<IAnswerRepository, AnswerRepository>();
 
 services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped<ICityService, CityService>();
@@ -57,11 +56,14 @@ services.AddScoped<IUserService, UserService>();
 services.AddScoped<ICategoryService, CategoryService>();
 services.AddScoped<ITestService, TestService>();
 services.AddScoped<IQuestionService, QuestionService>();
+services.AddScoped<IAnswerService, AnswerService>();
+
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new CityProfile());
     mc.AddProfile(new UserProfile());
+    mc.AddProfile(new AnswerProfile());
 });
 IMapper mapper = mappingConfig.CreateMapper();
 services.AddSingleton(mapper);

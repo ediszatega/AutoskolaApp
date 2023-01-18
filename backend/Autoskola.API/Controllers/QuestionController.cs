@@ -49,11 +49,19 @@ namespace Autoskola.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody]QuestionAddVM question)
+        public async Task<IActionResult> Add([FromBody] QuestionAddVM question)
         {
             var result = await service.Add(question);
             return Ok(result);
         }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddAnswer(int id, [FromBody] AnswerAddVM answer)
+        {
+            var result = await service.AddAnswerToQuestion(id, answer);
+            return Ok(result);
+        }
+
         [HttpPost("{id}")]
         public async Task<IActionResult> UploadImage(int id, IFormFile image)
         {
