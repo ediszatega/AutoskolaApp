@@ -3,6 +3,7 @@ using Autoskola.Core.ViewModels;
 using Autoskola.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Http.Results;
 
 namespace Autoskola.API.Controllers
 {
@@ -18,33 +19,38 @@ namespace Autoskola.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll(string? search, int page = 1, int pageSize = 100)
+        public async Task<IActionResult> GetAll(string? search, int page = 1, int pageSize = 100)
         {
-            return Ok(service.GetCities(search, page, pageSize));
+            var result = await service.GetAll(search, page, pageSize);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            return Ok(service.GetById(id));
+            var result = await service.GetById(id);
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] CityAddVM city)
+        public async Task<IActionResult> Add([FromBody] CityAddVM city)
         {
-            return Ok(service.Add(city));
+            var result = await service.Add(city);
+            return Ok(result);
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] City city)
+        public async Task<IActionResult> Update([FromBody] City city)
         {
-            return Ok(service.Update(city));
+            var result = await service.Update(city);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            return Ok(service.Remove(id));
+            var result = await service.Remove(id);
+            return Ok(result);
         }
     }
 }

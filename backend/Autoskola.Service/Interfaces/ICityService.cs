@@ -9,9 +9,12 @@ using System.Threading.Tasks;
 
 namespace Autoskola.Service.Interfaces
 {
-    public interface ICityService : IBaseService<City,int>
+    public interface ICityService
     {
-        public IEnumerable<City> GetCities(string? search, int page, int pageSize);
-        public City Add(CityAddVM city);
+        Task<int> Add(CityAddVM city);
+        Task<int> Update(City entity);
+        Task<int> Remove(int key);
+        Task<City> GetById(int key);
+        Task<IEnumerable<City>> GetAll(string? search, int page, int pageSize);
     }
 }

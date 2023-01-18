@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Autoskola.Repository.Interfaces
 {
-    public interface IRepository<TEntity, TKey>
+    public interface IRepository<TEntity> where TEntity : class
     {
-        TEntity Add(TEntity entity);
-        TEntity Update(TEntity entity);
-        TEntity Remove(TEntity entity);
-        TEntity GetById(TKey key);
-        IEnumerable<TEntity> GetAll(int page, int pageSize);
+        Task<TEntity> Get(int id);
+        Task<IEnumerable<TEntity>> GetAll(int pageNumber, int pageSize);
+        Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
+
+        void Add(TEntity entity);
+        void AddRange(IEnumerable<TEntity> entities);
+
+        void Remove(TEntity entity);
+        void RemoveRange(IEnumerable<TEntity> entities);
     }
 }
