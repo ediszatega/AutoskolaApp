@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,18 +11,27 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 })
 export class SignupComponent implements OnInit {
   type: string="password";
+  typeConfirm: string="password";
   eyeIcon: string = "fa-eye-slash";
+  eyeIconConfirm: string = "fa-eye-slash";
   signupForm!: FormGroup;
   confirmPassword: any;
-  constructor (private fb: FormBuilder) { }
+
+  constructor (
+    private fb: FormBuilder, 
+    private service: AuthService, 
+    private router: Router,
+    private toast: NgToastService
+    ) { }
   
   ngOnInit(): void {
     this.signupForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       username: ['', Validators.required],
-      password: ['', Validators.required],
+      password: ['', Validators.compose([Validators.required,
+         Validators.pattern(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)])],
       confirmPassword: ['']
     },
     {
@@ -38,27 +50,43 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    if(this.signupForm.valid) {
-      alert("Form is valid");
-      console.log(this.signupForm.value);
+  hideShowConfirmPass() {
+    if(this.typeConfirm==="password")  {
+      this.typeConfirm = "text";
+      this.eyeIconConfirm = "fa-eye"
     }
     else {
-      alert("Form is invalid");
-      // this.validateAllFormFields(this.signupForm);
+      this.typeConfirm="password";
+      this.eyeIconConfirm="fa-eye-slash"
+    }
+  }
+  onSubmit() {
+    if(this.signupForm.valid) {
+      var signupObject = this.mapToSignupObject(this.signupForm.value);
+      this.service.register(signupObject).subscribe({
+        next:(res)=>{
+          if(res.statusCode === 200){
+            this.toast.success({summary:"SUCCESS", detail:res.message, duration: 5000});
+            this.signupForm.reset();
+            this.router.navigate(['login']);
+          }
+        },
+        error:(err)=>{
+          this.toast.success({summary:"ERROR", detail:err?.error.Message, duration: 5000});
+          console.log(err);
+        }
+      });
     }
   }
 
-  private validateAllFormFields(formGroup:FormGroup) {
-    Object.keys(formGroup.controls).forEach(field=>{
-      const control = formGroup.get(field);
-      if(control instanceof FormControl){
-        control?.markAsDirty({onlySelf:true});
-      }
-      else if(control instanceof FormGroup){
-        this.validateAllFormFields(control);
-      }
-    });
+  mapToSignupObject(formValue: any) {
+    return {
+      firstName:formValue.firstName,
+      lastName:formValue.lastName,
+      email: formValue.email,
+      username: formValue.username,
+      password: formValue.password
+    };
   }
 
   ConfirmedValidator(controlName: string, matchingControlName: string) {

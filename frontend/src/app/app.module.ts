@@ -10,9 +10,11 @@ import { CitiesComponent } from './components/cities/cities.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { AppRoutingModule } from './app-routing.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
-  declarations: [AppComponent, UserComponent, CitiesComponent, LoginComponent, SignupComponent],
+  declarations: [AppComponent, UserComponent, CitiesComponent, LoginComponent, SignupComponent, DashboardComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
@@ -23,7 +25,8 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     RouterOutlet,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgToastModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -28,6 +28,7 @@
                                 </div>
                             </div>
                             <small *ngIf="signupForm.controls['email'].dirty  && signupForm.hasError('required', 'email')" class="text-danger">*Field is required</small>
+                            <small *ngIf="signupForm.controls['email'].dirty  && signupForm.hasError('email', 'email')" class="text-danger">*Invalid email</small>
                             <div class="form-group pt-3">
                                 <div class="input-field" [class.error]="signupForm.controls['username'].dirty  && signupForm.hasError('required', 'username')">
                                     <input formControlName="username" type="text" placeholder="Username">
@@ -40,11 +41,14 @@
                                     <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
                                 </div>
                             </div>
+                            <small *ngIf="signupForm.controls['password'].dirty  && signupForm.hasError('pattern', 'password')" class="text-danger">*Password must contain at least one number, one uppercase and a
+                                lowercase letter and at least 8 characters<br />Password cannot
+                                contain whitespace</small>
                             <small *ngIf="signupForm.controls['password'].dirty  && signupForm.hasError('required', 'password')" class="text-danger">*Field is required</small>
                             <div class="form-group pt-3">
                                 <div class="input-field" [class.error]="signupForm.controls['confirmPassword'].dirty  && signupForm.hasError('required', 'confirmPassword')">
-                                    <input formControlName="confirmPassword" [type]="type" placeholder="Confirm password">
-                                    <span (click)="hideShowPass()" class="fa {{eyeIcon}}"></span>
+                                    <input formControlName="confirmPassword" [type]="typeConfirm" placeholder="Confirm password">
+                                    <span (click)="hideShowConfirmPass()" class="fa {{eyeIconConfirm}}"></span>
                                 </div>
                             </div>
                             <small *ngIf="signupForm.controls['confirmPassword'].dirty  && confirmPassword.errors?.['confirmedValidator']" class="text-danger">*Passwords do not match</small>
@@ -52,7 +56,7 @@
                                 <a idi="forgot" class="font-weight-bold">Forgot password?</a>
                             </div>
                             <button (click)="onSubmit()" type="submit" class="btn btn-primary btn-block mt-3 w-100">Sign up</button>
-                            <div class="text-center pt-4 text-muted">Already have an account? <a id="forgot" routerLink="/login">Log n</a></div>
+                            <div class="text-center pt-4 text-muted">Already have an account? <a id="forgot" routerLink="/login">Log in</a></div>
                         </form>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ using Autoskola.Core.Models;
 using Autoskola.Core.Models.ExceptionHandling;
 using Autoskola.Core.ViewModels;
 using Autoskola.Repository.Interfaces;
+using Autoskola.Service.Helpers;
 using Autoskola.Service.Interfaces;
 using Microsoft.IdentityModel.Protocols.WSFederation.Metadata;
 using Microsoft.IdentityModel.SecurityTokenService;
@@ -80,22 +81,34 @@ namespace Autoskola.Service.Services
             if (userLogin == null)
                 throw new HttpException("Bad request", 400);
             var user = await unitOfWork.Users
-                .SingleOrDefault(u=>u.Username== userLogin.Username && u.Password== userLogin.Password);
-            if (user == null)
-                throw new HttpException("Login failed", 404);
+                .SingleOrDefault(u=>u.Username== userLogin.Username);
+            if(user==null)
+                throw new HttpException("Invalid username or password", 404);
+            bool validPassword = PasswordHasher.VerifyPassword(userLogin.Password, user.Password);
+            if (!validPassword)
+                throw new HttpException("Invalid username or password", 404);
         }
 
         public async Task<int> Register(UserRegisterVM userRegister)
         {
             if (userRegister == null)
                 throw new HttpException("Bad request", 400);
+
+            var existingUsername = await unitOfWork.Users.SingleOrDefault(u=>u.Username== userRegister.Username);
+            if (existingUsername != null)
+                throw new HttpException("Username already exists", 400);
+
+            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == userRegister.Email);
+            if (existingEmail != null)
+                throw new HttpException("Email already exists", 400);
+
             var user = new User()
             {
                 FirstName = userRegister.FirstName,
                 LastName = userRegister.LastName,
                 Email = userRegister.Email,
                 Username = userRegister.Username,
-                Password = userRegister.Password,
+                Password = PasswordHasher.HashPassword(userRegister.Password),
                 CityId = 1
             };
             await unitOfWork.Users.Add(user);

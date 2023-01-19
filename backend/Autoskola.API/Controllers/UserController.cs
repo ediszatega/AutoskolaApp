@@ -21,14 +21,14 @@ namespace Autoskola.API.Controllers
         public async Task<IActionResult> Authenticate([FromBody] UserLoginVM user)
         {
             await service.Login(user);
-            return Ok("Login success");
+            return Ok(new { StatusCode=200, Message = "Login successful" });
         }
 
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] UserRegisterVM user)
         {
             await service.Register(user);
-            return Ok("User registered");
+            return Ok(new { StatusCode=200, Message ="Registration successful" });
         }
 
         [HttpGet]
