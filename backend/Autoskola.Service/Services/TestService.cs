@@ -30,7 +30,7 @@ namespace Autoskola.Service.Services
             if (category == null)
                 throw new HttpException("Invalid Category ID", 400);
             var newTest = new Test() { Description = test.Description, CategoryId = test.CategoryId };
-            unitOfWork.Tests.Add(newTest);
+            await unitOfWork.Tests.Add(newTest);
             return await unitOfWork.Complete();
         }
 

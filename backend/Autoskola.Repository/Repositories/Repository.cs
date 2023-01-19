@@ -73,7 +73,7 @@ namespace Autoskola.Repository.Repositories
             }
         }
 
-        public async virtual void Add(TEntity entity)
+        public async virtual Task Add(TEntity entity)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace Autoskola.Repository.Repositories
             }
         }
 
-        public async virtual void AddRange(IEnumerable<TEntity> entities)
+        public async virtual Task AddRange(IEnumerable<TEntity> entities)
         {
             try
             {

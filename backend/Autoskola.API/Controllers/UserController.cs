@@ -17,6 +17,20 @@ namespace Autoskola.API.Controllers
             this.service = service;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Authenticate([FromBody] UserLoginVM user)
+        {
+            await service.Login(user);
+            return Ok("Login success");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] UserRegisterVM user)
+        {
+            await service.Register(user);
+            return Ok("User registered");
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll(string? search, int start = 1, int range = 100)
         {

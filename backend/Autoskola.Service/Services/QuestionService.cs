@@ -70,7 +70,7 @@ namespace Autoskola.Service.Services
                 TestId = question.TestId,
                 Order = question.Order
             };
-            unitOfWork.Questions.Add(newQuestion);
+            await unitOfWork.Questions.Add(newQuestion);
             return await unitOfWork.Complete();
         }
         public async Task<int> AddAnswerToQuestion(int quesitonId, AnswerAddVM answer)

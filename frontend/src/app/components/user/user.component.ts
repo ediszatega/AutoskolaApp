@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ApiConfig } from '../../../services/api-config';
+import { ApiConfig } from '../../services/api-config';
 
 @Component({
   selector: 'app-user',

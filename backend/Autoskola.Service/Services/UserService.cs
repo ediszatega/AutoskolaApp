@@ -38,7 +38,7 @@ namespace Autoskola.Service.Services
                 Username = user.Username,
                 Password = user.Password,
                 CityId = user.CityId };
-            unitOfWork.Users.Add(newUser);
+            await unitOfWork.Users.Add(newUser);
             return await unitOfWork.Complete();
         }
 
@@ -72,6 +72,33 @@ namespace Autoskola.Service.Services
             user.Password = entity.Password;
             user.CityId = entity.CityId;
 
+            return await unitOfWork.Complete();
+        }
+
+        public async Task Login(UserLoginVM userLogin)
+        {
+            if (userLogin == null)
+                throw new HttpException("Bad request", 400);
+            var user = await unitOfWork.Users
+                .SingleOrDefault(u=>u.Username== userLogin.Username && u.Password== userLogin.Password);
+            if (user == null)
+                throw new HttpException("Login failed", 404);
+        }
+
+        public async Task<int> Register(UserRegisterVM userRegister)
+        {
+            if (userRegister == null)
+                throw new HttpException("Bad request", 400);
+            var user = new User()
+            {
+                FirstName = userRegister.FirstName,
+                LastName = userRegister.LastName,
+                Email = userRegister.Email,
+                Username = userRegister.Username,
+                Password = userRegister.Password,
+                CityId = 1
+            };
+            await unitOfWork.Users.Add(user);
             return await unitOfWork.Complete();
         }
     }

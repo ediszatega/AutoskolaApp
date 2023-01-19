@@ -15,5 +15,7 @@ namespace Autoskola.Service.Interfaces
         Task<int> Remove(int key);
         Task<User> GetById(int key);
         Task<IEnumerable<User>> GetAll(string? search, int pageNumber, int pageSize);
+        Task Login(UserLoginVM user);
+        Task<int> Register(UserRegisterVM user);
     }
 }
