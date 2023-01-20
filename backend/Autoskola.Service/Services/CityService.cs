@@ -25,7 +25,7 @@ namespace Autoskola.Service.Services
         public async Task<int> Add(CityAddVM city)
         {
             var newCity = new City(){ Name = city.Name, PostalCode=city.PostalCode};
-            unitOfWork.Cities.Add(newCity);
+            await unitOfWork.Cities.Add(newCity);
             return await unitOfWork.Complete();
         }
 

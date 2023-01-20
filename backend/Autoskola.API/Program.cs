@@ -9,6 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Autoskola.Core.Profiles;
 using AutoMapper;
 using Autoskola.API.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -70,6 +74,23 @@ services.AddSingleton(mapper);
 
 services.AddTransient<GlobalExceptionHandlingMiddleware>();
 
+services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("jqoABlaO91oU3Bahxv")),
+        ValidateAudience = false,
+        ValidateIssuer = false
+    };
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -85,6 +106,8 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -31,7 +31,7 @@ namespace Autoskola.Service.Services
         public async Task<int> Add(CategoryAddVM category)
         {
             var newCategory = new Category() { Name = category.Name, Description = category.Description};
-            unitOfWork.Categories.Add(newCategory);
+            await unitOfWork.Categories.Add(newCategory);
             return await unitOfWork.Complete();
         }
 

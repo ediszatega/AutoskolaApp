@@ -16,7 +16,7 @@ namespace Autoskola.API.Middlewares
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, ex.Message);
+                logger.LogError(ex, ex.Message, ex.InnerException);
 
                 if (ex is HttpException)
                 {

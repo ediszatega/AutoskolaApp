@@ -3,9 +3,8 @@ using Autoskola.Core.Models;
 using Autoskola.Core.Models.ExceptionHandling;
 using Autoskola.Core.ViewModels;
 using Autoskola.Repository.Interfaces;
+using Autoskola.Service.Helpers;
 using Autoskola.Service.Interfaces;
-using Microsoft.IdentityModel.Protocols.WSFederation.Metadata;
-using Microsoft.IdentityModel.SecurityTokenService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +37,7 @@ namespace Autoskola.Service.Services
                 Username = user.Username,
                 Password = user.Password,
                 CityId = user.CityId };
-            unitOfWork.Users.Add(newUser);
+            await unitOfWork.Users.Add(newUser);
             return await unitOfWork.Complete();
         }
 
@@ -72,6 +71,50 @@ namespace Autoskola.Service.Services
             user.Password = entity.Password;
             user.CityId = entity.CityId;
 
+            return await unitOfWork.Complete();
+        }
+
+        public async Task<object> Login(UserLoginVM userLogin)
+        {
+            if (userLogin == null)
+                throw new HttpException("Bad request", 400);
+            var user = await unitOfWork.Users
+                .SingleOrDefault(u=>u.Username== userLogin.Username);
+            if(user==null)
+                throw new HttpException("Invalid username or password", 404);
+            bool validPassword = PasswordHasher.VerifyPassword(userLogin.Password, user.Password);
+            if (!validPassword)
+                throw new HttpException("Invalid username or password", 404);
+
+            user.Token = JwtHelper.CreateToken(user);
+            await unitOfWork.Complete();
+
+            return new { StatusCode = 200, Message = "Login successful", Token = user.Token };
+        }
+
+        public async Task<int> Register(UserRegisterVM userRegister)
+        {
+            if (userRegister == null)
+                throw new HttpException("Bad request", 400);
+
+            var existingUsername = await unitOfWork.Users.SingleOrDefault(u=>u.Username== userRegister.Username);
+            if (existingUsername != null)
+                throw new HttpException("Username already exists", 400);
+
+            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == userRegister.Email);
+            if (existingEmail != null)
+                throw new HttpException("Email already exists", 400);
+
+            var user = new User()
+            {
+                FirstName = userRegister.FirstName,
+                LastName = userRegister.LastName,
+                Email = userRegister.Email,
+                Username = userRegister.Username,
+                Password = PasswordHasher.HashPassword(userRegister.Password),
+                CityId = 1
+            };
+            await unitOfWork.Users.Add(user);
             return await unitOfWork.Complete();
         }
     }

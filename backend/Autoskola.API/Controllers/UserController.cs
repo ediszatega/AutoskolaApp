@@ -1,6 +1,7 @@
 ﻿using Autoskola.Core.Models;
 using Autoskola.Core.ViewModels;
 using Autoskola.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,21 @@ namespace Autoskola.API.Controllers
             this.service = service;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Authenticate([FromBody] UserLoginVM user)
+        {
+            var result = await service.Login(user);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] UserRegisterVM user)
+        {
+            await service.Register(user);
+            return Ok(new { StatusCode=200, Message ="Registration successful" });
+        }
+
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll(string? search, int start = 1, int range = 100)
         {

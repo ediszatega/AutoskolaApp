@@ -39,14 +39,14 @@ namespace Autoskola.Repository.Repositories
 
         public async virtual Task<IEnumerable<TEntity>> GetAll(int pageNumber = 1, int pageSize = 100)
         {
-            try
-            {
+            //try
+            //{
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new HttpException("Database connection error", 500);
+            //}
                 return await _entities.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new HttpException("Database connection error", 500);
-            }
         }
 
         public async virtual Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate)
@@ -73,7 +73,7 @@ namespace Autoskola.Repository.Repositories
             }
         }
 
-        public async virtual void Add(TEntity entity)
+        public async virtual Task Add(TEntity entity)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace Autoskola.Repository.Repositories
             }
         }
 
-        public async virtual void AddRange(IEnumerable<TEntity> entities)
+        public async virtual Task AddRange(IEnumerable<TEntity> entities)
         {
             try
             {

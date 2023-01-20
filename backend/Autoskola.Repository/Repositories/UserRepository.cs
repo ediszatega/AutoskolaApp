@@ -2,10 +2,10 @@
 using Autoskola.Core.Models.ExceptionHandling;
 using Autoskola.Repository.Data;
 using Autoskola.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using PagedList.EntityFramework;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
