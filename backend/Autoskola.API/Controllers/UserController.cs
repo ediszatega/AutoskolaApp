@@ -1,6 +1,7 @@
 ﻿using Autoskola.Core.Models;
 using Autoskola.Core.ViewModels;
 using Autoskola.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,7 @@ namespace Autoskola.API.Controllers
             return Ok(new { StatusCode=200, Message ="Registration successful" });
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll(string? search, int start = 1, int range = 100)
         {

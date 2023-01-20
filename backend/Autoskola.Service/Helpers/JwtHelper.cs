@@ -28,7 +28,7 @@ namespace Autoskola.Service.Helpers
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = identity,
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddMinutes(5),
                 SigningCredentials = credentials
             };
 

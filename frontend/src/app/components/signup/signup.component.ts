@@ -72,7 +72,7 @@ export class SignupComponent implements OnInit {
           }
         },
         error:(err)=>{
-          this.toast.success({summary:"ERROR", detail:err?.error.Message, duration: 5000});
+          this.toast.error({summary:"ERROR", detail:err?.error.Message, duration: 5000});
           console.log(err);
         }
       });
