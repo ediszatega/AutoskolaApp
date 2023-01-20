@@ -20,8 +20,8 @@ namespace Autoskola.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Authenticate([FromBody] UserLoginVM user)
         {
-            await service.Login(user);
-            return Ok(new { StatusCode=200, Message = "Login successful" });
+            var result = await service.Login(user);
+            return Ok(result);
         }
 
         [HttpPost]

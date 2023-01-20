@@ -45,14 +45,12 @@ export class LoginComponent implements OnInit {
       this.service.login(this.loginForm.value).subscribe({
         next:(res)=>{
           console.log(res);
-          if(res.statusCode === 200){
-            this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000})
-            this.loginForm.reset();
-            this.router.navigate(['dashboard']);
-          }
-          else
-            this.toast.error({detail:"Error", summary:res.Message, duration: 5000})
+          
+          this.service.storeToken(res.token);
 
+          this.toast.success({detail:"SUCCESS", summary:res.message, duration: 5000})
+          this.loginForm.reset();
+          this.router.navigate(['dashboard']);
         },
         error:(err)=>{
           console.log(err);

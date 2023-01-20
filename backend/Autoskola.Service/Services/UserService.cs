@@ -5,8 +5,6 @@ using Autoskola.Core.ViewModels;
 using Autoskola.Repository.Interfaces;
 using Autoskola.Service.Helpers;
 using Autoskola.Service.Interfaces;
-using Microsoft.IdentityModel.Protocols.WSFederation.Metadata;
-using Microsoft.IdentityModel.SecurityTokenService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +74,7 @@ namespace Autoskola.Service.Services
             return await unitOfWork.Complete();
         }
 
-        public async Task Login(UserLoginVM userLogin)
+        public async Task<object> Login(UserLoginVM userLogin)
         {
             if (userLogin == null)
                 throw new HttpException("Bad request", 400);
@@ -87,6 +85,11 @@ namespace Autoskola.Service.Services
             bool validPassword = PasswordHasher.VerifyPassword(userLogin.Password, user.Password);
             if (!validPassword)
                 throw new HttpException("Invalid username or password", 404);
+
+            user.Token = JwtHelper.CreateToken(user);
+            await unitOfWork.Complete();
+
+            return new { StatusCode = 200, Message = "Login successful", Token = user.Token };
         }
 
         public async Task<int> Register(UserRegisterVM userRegister)
