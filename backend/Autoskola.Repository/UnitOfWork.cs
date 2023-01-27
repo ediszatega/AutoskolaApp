@@ -1,5 +1,6 @@
 ﻿using Autoskola.Repository.Data;
 using Autoskola.Repository.Interfaces;
+using Autoskola.Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Autoskola.Repository
         private readonly AutoskolaContext _context;
         public UnitOfWork(AutoskolaContext context, ICityRepository cities,
             ICategoryRepository categories, IUserRepository users,
-            ITestRepository tests, IQuestionRepository questions, IAnswerRepository answers)
+            ITestRepository tests, IQuestionRepository questions, IAnswerRepository answers, IVehicleRepository vehicles)
         {
             _context = context;
             Cities = cities;
@@ -22,6 +23,7 @@ namespace Autoskola.Repository
             Tests = tests;
             Questions = questions;
             Answers = answers;
+            Vehicles = vehicles;
         }
 
         public ICityRepository Cities { get; set; }
@@ -30,6 +32,7 @@ namespace Autoskola.Repository
         public ITestRepository Tests { get; set; }
         public IQuestionRepository Questions { get; set; }
         public IAnswerRepository Answers { get; set; }
+        public IVehicleRepository Vehicles { get; set; }
 
 
         public async Task<int> Complete()

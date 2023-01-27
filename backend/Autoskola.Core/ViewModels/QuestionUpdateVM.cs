@@ -13,5 +13,6 @@ namespace Autoskola.Core.ViewModels
         public string? Text { get; set; }
         public float Points { get; set; }
         public QuestionType QuestionType { get; set; }
+        public int Order { get; set; }
     }
 }
