@@ -14,5 +14,6 @@ namespace Autoskola.Service.Interfaces
         Task<MotTest> GetById(int key);
         Task<int> Add(MotTestAddVM vehicle);
         Task<int> Update(MotTestUpdateVM vehicle);
+        Task<int> Remove(int key);
     }
 }

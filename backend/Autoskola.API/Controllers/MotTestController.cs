@@ -46,5 +46,12 @@ namespace Autoskola.API.Controllers
             var result = await service.Update(mottest);
             return Ok(result);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var result = await service.Remove(id);
+            return Ok(result);
+        }
     }
 }

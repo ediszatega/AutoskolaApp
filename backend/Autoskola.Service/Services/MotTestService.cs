@@ -6,6 +6,7 @@ using Autoskola.Service.Interfaces;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,17 @@ namespace Autoskola.Service.Services
             motTest.Mileage = entity.Mileage;
             motTest.VehicleId = entity.VehicleId;
 
+            return await unitOfWork.Complete();
+        }
+
+        public async Task<int> Remove(int key)
+        {
+            var motTest = unitOfWork.MotTests.Get(key).Result;
+            if(motTest == null)
+            {
+                throw new HttpException("MotTest with requested ID not found", 400);
+            }
+            unitOfWork.MotTests.Remove(motTest);
             return await unitOfWork.Complete();
         }
     }
