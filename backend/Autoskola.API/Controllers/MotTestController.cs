@@ -4,6 +4,7 @@ using Autoskola.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using System.Runtime.InteropServices;
 
 namespace Autoskola.API.Controllers
 {
@@ -36,6 +37,13 @@ namespace Autoskola.API.Controllers
         public async Task<IActionResult> Add([FromBody] MotTestAddVM mottest)
         {
             var result = await service.Add(mottest);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] MotTestUpdateVM mottest)
+        {
+            var result = await service.Update(mottest);
             return Ok(result);
         }
     }

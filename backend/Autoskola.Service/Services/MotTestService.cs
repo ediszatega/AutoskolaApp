@@ -1,4 +1,5 @@
 ﻿using Autoskola.Core.Models;
+using Autoskola.Core.Models.ExceptionHandling;
 using Autoskola.Core.ViewModels;
 using Autoskola.Repository.Interfaces;
 using Autoskola.Service.Interfaces;
@@ -39,6 +40,21 @@ namespace Autoskola.Service.Services
                 VehicleId = mottest.VehicleId,
             };
             await unitOfWork.MotTests.Add(newMotTest);
+            return await unitOfWork.Complete();
+        }
+        
+        public async Task<int> Update(MotTestUpdateVM entity)
+        {
+            var motTest = await unitOfWork.MotTests.Get(entity.Id);
+            if(motTest == null)
+            {
+                throw new HttpException("MotTest with requested ID not found", 400);
+            }
+            motTest.Description = entity.Description;
+            motTest.Date = entity.Date;
+            motTest.Mileage = entity.Mileage;
+            motTest.VehicleId = entity.VehicleId;
+
             return await unitOfWork.Complete();
         }
     }

@@ -13,5 +13,6 @@ namespace Autoskola.Service.Interfaces
         Task<IEnumerable<MotTest>> GetMotTests(int vehicleId, string? search, int pageNumber, int pageSize);
         Task<MotTest> GetById(int key);
         Task<int> Add(MotTestAddVM vehicle);
+        Task<int> Update(MotTestUpdateVM vehicle);
     }
 }
