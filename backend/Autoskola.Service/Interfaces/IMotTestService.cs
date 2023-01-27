@@ -1,4 +1,5 @@
 ﻿using Autoskola.Core.Models;
+using Autoskola.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Autoskola.Service.Interfaces
     {
         Task<IEnumerable<MotTest>> GetMotTests(int vehicleId, string? search, int pageNumber, int pageSize);
         Task<MotTest> GetById(int key);
+        Task<int> Add(MotTestAddVM vehicle);
     }
 }

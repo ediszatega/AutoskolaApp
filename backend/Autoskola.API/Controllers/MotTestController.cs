@@ -1,4 +1,5 @@
-﻿using Autoskola.Repository.Interfaces;
+﻿using Autoskola.Core.ViewModels;
+using Autoskola.Repository.Interfaces;
 using Autoskola.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,13 @@ namespace Autoskola.API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var result = await service.GetById(id);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] MotTestAddVM mottest)
+        {
+            var result = await service.Add(mottest);
             return Ok(result);
         }
     }
