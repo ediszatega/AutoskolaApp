@@ -15,6 +15,7 @@ namespace Autoskola.Repository.Interfaces
         IQuestionRepository Questions { get; }
         IAnswerRepository Answers { get; }
         IVehicleRepository Vehicles { get; }
+        IMotTestRepository MotTests { get; }
 
         Task<int> Complete();
     }

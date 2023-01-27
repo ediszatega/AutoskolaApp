@@ -54,6 +54,7 @@ services.AddScoped<ITestRepository, TestRepository>();
 services.AddScoped<IQuestionRepository, QuestionRepository>();
 services.AddScoped<IAnswerRepository, AnswerRepository>();
 services.AddScoped<IVehicleRepository, VehiclesRepository>();
+services.AddScoped<IMotTestRepository, MotTestRepository>();
 
 services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped<ICityService, CityService>();
@@ -63,6 +64,7 @@ services.AddScoped<ITestService, TestService>();
 services.AddScoped<IQuestionService, QuestionService>();
 services.AddScoped<IAnswerService, AnswerService>();
 services.AddScoped<IVehicleService, VehicleService>();
+services.AddScoped<IMotTestService, MotTestService>();
 
 
 var mappingConfig = new MapperConfiguration(mc =>

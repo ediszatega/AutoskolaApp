@@ -22,6 +22,7 @@ namespace Autoskola.Repository.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<MotTest> MotTests { get; set; }
 
     }
 }
