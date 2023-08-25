@@ -22,9 +22,6 @@ namespace Autoskola.Repository.Repositories
         {
             return await Find(q => q.QuestionType == type && q.TestId == testId);
         }
-        public async Task<IEnumerable<Question>> GetQuestionsByTest(int testId)
-        {
-            return await _context.Set<Question>().Where(q=> q.TestId == testId).OrderBy(q=> q.Order).ToListAsync();
-        }
+        
     }
 }

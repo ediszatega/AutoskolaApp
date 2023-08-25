@@ -18,7 +18,6 @@ namespace Autoskola.Service.Interfaces
         Task<Question> GetById(int key);
         Task<IEnumerable<Question>> GetAll(int pageNumber, int pageSize);
         Task<IEnumerable<Question>> GetQuestionsByType(QuestionType type, int testId);
-        Task<IEnumerable<QuestionGetVM>> GetQuestionsByTest(int testId);
         Task<int> AddAnswerToQuestion(int quesitonId, AnswerAddVM answer);
         Task<int> UploadImage(int id, IFormFile image, string root);
     }

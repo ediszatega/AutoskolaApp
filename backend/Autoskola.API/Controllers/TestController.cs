@@ -24,10 +24,24 @@ namespace Autoskola.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllByCategory(int categoryId)
+        {
+            var result = await service.GetAllByCategory(categoryId);
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await service.GetById(id);
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdIncludeQuestionsAnswers(int id, QuestionType? questionType)
+        {
+            var result = await service.GetByIdIncludeQuestionsAnswers(id, questionType);
             return Ok(result);
         }
 
