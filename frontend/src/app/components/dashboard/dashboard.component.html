@@ -1,7 +1,28 @@
-<h1>Dashboard works!</h1>
-
-<button (click)="logout()" class="btn btn-danger">Log out</button>
-
-<ul *ngFor="let user of users">
-    <li>{{user.username}}</li>
-</ul>
+<div class="wrapper">
+  <div class="admin-nav-bar">
+    <div
+      [routerLink]="['/dashboard/users']"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <a>Korisnici</a>
+    </div>
+    <div
+      [routerLink]="['/dashboard/cities']"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <a>Gradovi</a>
+    </div>
+    <div
+      [routerLink]="['/dashboard/tests']"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <a>Testovi</a>
+    </div>
+    <div class="nav-item">
+      <a (click)="logout()"><b>Log out</b></a>
+    </div>
+  </div>
+</div>

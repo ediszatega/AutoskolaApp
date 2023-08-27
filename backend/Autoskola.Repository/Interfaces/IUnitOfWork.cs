@@ -16,7 +16,11 @@ namespace Autoskola.Repository.Interfaces
         IAnswerRepository Answers { get; }
         IVehicleRepository Vehicles { get; }
         IMotTestRepository MotTests { get; }
+<<<<<<< Updated upstream
 
+=======
+        EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+>>>>>>> Stashed changes
         Task<int> Complete();
     }
 }

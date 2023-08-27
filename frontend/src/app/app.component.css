@@ -1,0 +1,13 @@
+.page-wrapper {
+  height: 100vh;
+}
+
+.navbar {
+  height: 10%;
+  width: 100%;
+}
+
+.body {
+  height: 90%;
+  width: 100%;
+}
