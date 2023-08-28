@@ -1,6 +1,7 @@
 ﻿using Autoskola.Repository.Data;
 using Autoskola.Repository.Interfaces;
 using Autoskola.Repository.Repositories;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,7 @@ namespace Autoskola.Repository
         public IVehicleRepository Vehicles { get; set; }
         public IMotTestRepository MotTests { get; set; }
         public ICustomerRepository Customers { get; set; }
+
 
         public async Task<int> Complete()
         {

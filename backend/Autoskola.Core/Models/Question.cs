@@ -24,5 +24,6 @@ namespace Autoskola.Core.Models
         public int TestId { get; set; }
         public Test? Test { get; set; }
         public int Order { get; set; }
+        public virtual List<Answer>? Answers { get; set; }
     }
 }

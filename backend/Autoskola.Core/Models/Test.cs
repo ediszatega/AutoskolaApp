@@ -14,5 +14,7 @@ namespace Autoskola.Core.Models
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual List<Question>? Questions { get; set; }
+
     }
 }

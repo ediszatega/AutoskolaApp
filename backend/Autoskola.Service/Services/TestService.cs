@@ -4,13 +4,16 @@ using Autoskola.Core.Models.ExceptionHandling;
 using Autoskola.Core.ViewModels;
 using Autoskola.Repository.Interfaces;
 using Autoskola.Service.Interfaces;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Identity.Client.Utils.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Autoskola.Service.Services
 {
@@ -54,14 +57,44 @@ namespace Autoskola.Service.Services
             return await unitOfWork.Complete();
         }
 
-        public async Task<Test> GetById(int key)
+        public async Task<TestGetVM> GetById(int key)
         {
-            return await unitOfWork.Tests.Get(key);
+            var test = await unitOfWork.Tests.Get(key);
+            return mapper.Map<TestGetVM>(test);
         }
-
-        public async Task<IEnumerable<Test>> GetAll(int pageNumber = 1, int pageSize = 100)
+        public async Task<TestGetVM> GetByIdIncludeQuestionsAnswers(int key, QuestionType? questionType)
         {
-            return await unitOfWork.Tests.GetAll(pageNumber, pageSize);
+            var test = await unitOfWork.Tests.GetIncludeCategory(key);
+
+            await unitOfWork.Entry(test)
+                    .Collection(t => t.Questions)
+                    .LoadAsync();
+
+            if (test.Questions != null)
+            {
+                if (questionType.HasValue)
+                {
+                    test.Questions = test.Questions.Where(question => question.QuestionType == questionType).ToList();
+                }
+                foreach (var question in test.Questions)
+                {
+                    await unitOfWork.Entry(question)
+                        .Collection(q => q.Answers)
+                        .LoadAsync();
+                }
+            }
+
+            return mapper.Map<TestGetVM>(test);
+        }
+        public async Task<IEnumerable<TestGetVM>> GetAll(int pageNumber = 1, int pageSize = 100)
+        {
+            var tests = await unitOfWork.Tests.GetAll(pageNumber, pageSize);
+            return mapper.Map<List<TestGetVM>>(tests);
+        }
+        public async Task<IEnumerable<TestGetVM>> GetAllByCategory(int categoryId)
+        {
+            var tests = await unitOfWork.Tests.GetAllByCategory(categoryId);
+            return mapper.Map<List<TestGetVM>>(tests);
         }
     }
 }

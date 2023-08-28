@@ -78,6 +78,9 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new CityProfile());
     mc.AddProfile(new UserProfile());
     mc.AddProfile(new AnswerProfile());
+    mc.AddProfile(new QuestionProfile());
+    mc.AddProfile(new TestProfile());
+
 });
 IMapper mapper = mappingConfig.CreateMapper();
 services.AddSingleton(mapper);
