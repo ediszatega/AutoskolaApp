@@ -55,6 +55,8 @@ services.AddScoped<IQuestionRepository, QuestionRepository>();
 services.AddScoped<IAnswerRepository, AnswerRepository>();
 services.AddScoped<IVehicleRepository, VehiclesRepository>();
 services.AddScoped<IMotTestRepository, MotTestRepository>();
+services.AddScoped<ICustomerRepository, CustomerRepository>();
+
 
 
 services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -66,6 +68,8 @@ services.AddScoped<IQuestionService, QuestionService>();
 services.AddScoped<IAnswerService, AnswerService>();
 services.AddScoped<IVehicleService, VehicleService>();
 services.AddScoped<IMotTestService, MotTestService>();
+services.AddScoped<ICustomerService, CustomerService>();
+
 
 
 
