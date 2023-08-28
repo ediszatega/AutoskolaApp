@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Autoskola.Repository.Interfaces
         IVehicleRepository Vehicles { get; }
         IMotTestRepository MotTests { get; }
 
+        EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         Task<int> Complete();
     }
 }

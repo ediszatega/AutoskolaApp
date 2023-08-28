@@ -13,7 +13,11 @@ namespace Autoskola.Service.Interfaces
         Task<int> Update(Test entity);
         Task<int> Add(TestAddVM Test);
         Task<int> Remove(int key);
-        Task<Test> GetById(int key);
-        Task<IEnumerable<Test>> GetAll(int page, int pageSize);
+        Task<TestGetVM> GetById(int key);
+        Task<TestGetVM> GetByIdIncludeQuestionsAnswers(int key, QuestionType? questionType);
+
+        Task<IEnumerable<TestGetVM>> GetAll(int page, int pageSize);
+        Task<IEnumerable<TestGetVM>> GetAllByCategory(int categoryId);
+
     }
 }

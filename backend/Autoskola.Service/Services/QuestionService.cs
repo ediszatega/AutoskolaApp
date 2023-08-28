@@ -30,25 +30,6 @@ namespace Autoskola.Service.Services
             return await unitOfWork.Questions.GetAll(pageNumber, pageSize);
         }
 
-        public async Task<IEnumerable<QuestionGetVM>> GetQuestionsByTest(int testId)
-        {
-            var questions = await unitOfWork.Questions.GetQuestionsByTest(testId);
-            var result = new List<QuestionGetVM>();
-            foreach (var question in questions)
-            {
-                var answers = await unitOfWork.Answers.GetByQuestion(question.Id);
-                var answersVM = mapper.Map<List<AnswerGetVM>>(answers);
-                result.Add(new QuestionGetVM(){
-                    Id=question.Id,
-                    Text=question.Text,
-                    Image=question.Image,
-                    Order=question.Order,
-                    Points=question.Points,
-                    Answers=answersVM
-                });
-            }
-            return result;
-        }
         public async Task<IEnumerable<Question>> GetQuestionsByType(QuestionType type, int testId)
         {
             return await unitOfWork.Questions.GetQuestionsByType(type, testId);

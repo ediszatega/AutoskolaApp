@@ -1,0 +1,60 @@
+<div class="wrapper">
+  <div *ngIf="!test_finished" id="game" class="justify-center flex-column">
+    <h4 id="current-question">
+      {{ current_question_number_text }}/{{ number_of_questions_text }}
+    </h4>
+    <h2 id="question">{{ current_question.text }}</h2>
+    <img
+      class="question-img"
+      *ngIf="current_question.image"
+      src="{{ current_question.image }}"
+      alt=""
+    />
+    <div
+      *ngFor="let answer of this.answers"
+      class="answers justify-center flex-column"
+    >
+      <div
+        (click)="selectAnswer(answer)"
+        class="choice-container"
+        class="{{ answer.class }}"
+      >
+        <input type="checkbox" class="checkbox" [(ngModel)]="answer.checked" />
+        <p class="choice-text">{{ answer.text }}</p>
+      </div>
+    </div>
+    <div class="question-nav-buttons-container">
+      <button (click)="updateQuestion(0)" class="question-nav-button btn">
+        &#60;&#60;
+      </button>
+      <button
+        (click)="updateQuestion(current_question_number - 1)"
+        class="question-nav-button btn"
+      >
+        &#60;
+      </button>
+      <button
+        (click)="updateQuestion(current_question_number + 1)"
+        class="question-nav-button btn"
+      >
+        &#62;
+      </button>
+      <button
+        (click)="updateQuestion(number_of_questions - 1)"
+        class="question-nav-button btn"
+      >
+        &#62;&#62;
+      </button>
+      <button (click)="finishTest()" class="finish-button btn">
+        Završi test
+      </button>
+    </div>
+  </div>
+  <div *ngIf="test_finished" class="results">
+    <app-page-title title_text="Rezultati testa"></app-page-title>
+    <p>Broj osvojenih bodova: {{ points }}</p>
+    <p>Broj ukupnih bodova: {{ max_points }}</p>
+    <p>Prolaznost: {{ (points / max_points) * 100 }}%</p>
+    <button class="finish-button" routerLink="/tests">Nazad</button>
+  </div>
+</div>

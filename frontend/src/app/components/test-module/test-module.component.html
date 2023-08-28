@@ -1,0 +1,12 @@
+<div class="page-wrapper">
+  <app-page-title [title_text]="title"></app-page-title>
+  <app-test-category
+    *ngIf="!categorySelected"
+    (categoryEmitter)="handleCategorySelect($event)"
+  ></app-test-category>
+  <app-test-selection
+    *ngIf="categorySelected"
+    [category]="category"
+    (testEmitter)="handleTestSelect($event)"
+  ></app-test-selection>
+</div>

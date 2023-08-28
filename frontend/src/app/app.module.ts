@@ -13,9 +13,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NgToastModule } from 'ng-angular-popup';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { TestModuleComponent } from './components/test-module/test-module.component';
+import { TestCategoryComponent } from './components/test-module/test-category/test-category.component';
+import { TestSelectionComponent } from './components/test-module/test-selection/test-selection.component';
+import { PageTitleComponent } from './components/common/page-title/page-title.component';
+import { TestWorkingComponent } from './components/test-module/test-working/test-working.component';
 
 @NgModule({
-  declarations: [AppComponent, UserComponent, CitiesComponent, LoginComponent, SignupComponent, DashboardComponent],
+  declarations: [AppComponent, UserComponent, CitiesComponent, LoginComponent, SignupComponent, DashboardComponent, TestModuleComponent, TestCategoryComponent, TestSelectionComponent, PageTitleComponent, TestWorkingComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot([

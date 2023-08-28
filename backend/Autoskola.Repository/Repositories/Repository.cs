@@ -17,7 +17,7 @@ namespace Autoskola.Repository.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext _context;
-        private readonly DbSet<TEntity> _entities;
+        protected readonly DbSet<TEntity> _entities;
 
         public Repository(DbContext context)
         {
@@ -39,14 +39,14 @@ namespace Autoskola.Repository.Repositories
 
         public async virtual Task<IEnumerable<TEntity>> GetAll(int pageNumber = 1, int pageSize = 100)
         {
-            //try
-            //{
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new HttpException("Database connection error", 500);
-            //}
+            try
+            {
                 return await _entities.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new HttpException("Database connection error", 500);
+            }
         }
 
         public async virtual Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate)

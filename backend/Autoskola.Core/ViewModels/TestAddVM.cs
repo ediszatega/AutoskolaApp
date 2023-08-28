@@ -8,7 +8,7 @@ namespace Autoskola.Core.ViewModels
 {
     public class TestAddVM
     {
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public int CategoryId { get; set; }
     }
 }

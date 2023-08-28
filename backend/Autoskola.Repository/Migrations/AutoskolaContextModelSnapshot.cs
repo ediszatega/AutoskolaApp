@@ -43,7 +43,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Category", b =>
@@ -62,7 +62,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.City", b =>
@@ -81,7 +81,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("City");
+                    b.ToTable("City", (string)null);
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.MotTest", b =>
@@ -109,7 +109,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("MotTests");
+                    b.ToTable("MotTests", (string)null);
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Question", b =>
@@ -142,7 +142,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Test", b =>
@@ -163,7 +163,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Tests", (string)null);
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.User", b =>
@@ -199,7 +199,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Vehicle", b =>
@@ -229,7 +229,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Vehicle");
+                    b.ToTable("Vehicle", (string)null);
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Answer", b =>

@@ -9,6 +9,7 @@ namespace Autoskola.Repository.Interfaces
 {
     public interface ITestRepository : IRepository<Test>
     {
-
+        Task<Test> GetIncludeCategory(int key);
+        Task<IEnumerable<Test>> GetAllByCategory(int categoryId);
     }
 }
