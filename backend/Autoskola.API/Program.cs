@@ -56,6 +56,8 @@ services.AddScoped<IAnswerRepository, AnswerRepository>();
 services.AddScoped<IVehicleRepository, VehiclesRepository>();
 services.AddScoped<IMotTestRepository, MotTestRepository>();
 services.AddScoped<ICustomerRepository, CustomerRepository>();
+services.AddScoped<IInstructorRepository, InstructorRepository>();
+
 
 
 
@@ -69,6 +71,7 @@ services.AddScoped<IAnswerService, AnswerService>();
 services.AddScoped<IVehicleService, VehicleService>();
 services.AddScoped<IMotTestService, MotTestService>();
 services.AddScoped<ICustomerService, CustomerService>();
+services.AddScoped<IInstructorService, InstructorService>();
 
 
 
@@ -82,6 +85,8 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new TestProfile());
     mc.AddProfile(new CustomerProfile());
     mc.AddProfile(new EmployeeProfile());
+    mc.AddProfile(new InstructorProfile());
+
 
 
 });
