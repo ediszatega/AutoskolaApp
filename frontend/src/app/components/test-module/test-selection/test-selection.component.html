@@ -1,0 +1,13 @@
+<div class="page-wrapper">
+  <div class="dropdown-wrapper">
+    <select (change)="onSelect($event)">
+      <option value="">Odaberite test:</option>
+      <option *ngFor="let test of tests" [value]="test.id">
+        {{ test.description }}
+      </option>
+    </select>
+  </div>
+  <div class="button-wrapper">
+    <button (click)="onContinue()">Dalje</button>
+  </div>
+</div>

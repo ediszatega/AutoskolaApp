@@ -1,0 +1,33 @@
+<h3>Gradovi</h3>
+<input [(ngModel)]="search">
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Naziv</th>
+    <th>Poštanski broj</th>
+    <th>Akcija</th>
+  </tr>
+  </thead>
+  <tr *ngFor="let x of getData()">
+    <td>{{x.name}}</td>
+    <td>{{x.postalCode}}</td>
+    <td><button (click)="selected=x">Edit</button></td>
+    <td><button (click)="removeCity(x.id)">Remove</button></td>
+  </tr>
+</table>
+
+<button class="btn btn-primary" (click)="addCity()">Novi grad</button>
+
+<div *ngIf="selected != null">
+  <label>Naziv</label>
+  <input [(ngModel)]="selected.name">
+
+  <label>Poštanski broj</label>
+  <input [(ngModel)]="selected.postalCode">
+
+  <button (click)="save()">Snimi</button>
+  <button (click)="cancel()">Otkaži</button>
+</div>
+
+
+

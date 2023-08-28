@@ -1,0 +1,9 @@
+@import url("./assets/css/common.css");
+
+:root {
+  --main-color: #ff7a00;
+  --secondary-color: #ffe600;
+  --text-dark: #1d1d1d;
+  --text-white: #f6f6f6;
+  --gray: #e9e9e9;
+}
