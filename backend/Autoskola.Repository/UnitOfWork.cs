@@ -16,7 +16,7 @@ namespace Autoskola.Repository
         public UnitOfWork(AutoskolaContext context, ICityRepository cities,
             ICategoryRepository categories, IUserRepository users,
             ITestRepository tests, IQuestionRepository questions, IAnswerRepository answers, IVehicleRepository vehicles,
-            IMotTestRepository motTests, ICustomerRepository customers)
+            IMotTestRepository motTests, ICustomerRepository customers, IEmployeeRepository employees)
         {
             _context = context;
             Cities = cities;
@@ -28,6 +28,7 @@ namespace Autoskola.Repository
             Vehicles = vehicles;
             MotTests = motTests;
             Customers = customers;
+            Employees = employees;
         }
 
         public ICityRepository Cities { get; set; }
@@ -39,6 +40,7 @@ namespace Autoskola.Repository
         public IVehicleRepository Vehicles { get; set; }
         public IMotTestRepository MotTests { get; set; }
         public ICustomerRepository Customers { get; set; }
+        public IEmployeeRepository Employees { get; set; }
 
 
         public async Task<int> Complete()

@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Autoskola.Core.ViewModels
+namespace Autoskola.Repository.Interfaces
 {
-    public class CustomerGetVM : UserGetVM
+    public interface IEmployeeRepository : IRepository<Employee>
     {
-        
     }
 }

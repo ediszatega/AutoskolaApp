@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Autoskola.Core.ViewModels
 {
-    public class CustomerGetVM : UserGetVM
+    public class EmployeeGetVM : UserGetVM
     {
-        
+        public DateTime HireDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string? License { get; set; }
     }
 }

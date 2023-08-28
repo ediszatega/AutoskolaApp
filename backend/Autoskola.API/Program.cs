@@ -80,6 +80,9 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new AnswerProfile());
     mc.AddProfile(new QuestionProfile());
     mc.AddProfile(new TestProfile());
+    mc.AddProfile(new CustomerProfile());
+    mc.AddProfile(new EmployeeProfile());
+
 
 });
 IMapper mapper = mappingConfig.CreateMapper();

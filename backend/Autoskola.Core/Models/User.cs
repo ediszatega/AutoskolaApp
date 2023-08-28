@@ -32,6 +32,12 @@ namespace Autoskola.Core.Models
         [ForeignKey(nameof(City))]
         public int CityId { get; set; }
         public virtual City? City { get; set; }
-        public string? ProfileImage { get; set; } 
+        public string? ProfileImage { get; set; }
+        public bool IsActive { get; set; }
+
+        public User()
+        {
+            IsActive = true;
+        }
     }
 }

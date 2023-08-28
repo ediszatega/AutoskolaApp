@@ -8,6 +8,5 @@ namespace Autoskola.Core.ViewModels
 {
     public class CustomerUpdateVM : UserUpdateVM
     {
-        public bool IsActive { get; set; }
     }
 }

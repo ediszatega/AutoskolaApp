@@ -8,11 +8,9 @@ namespace Autoskola.Core.Models
 {
     public class Customer : User
     {
-        public bool IsActive { get; set; }
-
         public Customer()
         {
-            Role= Role.Customer;
+            Role = Role.Customer;
             IsActive = true;
         }
     }
