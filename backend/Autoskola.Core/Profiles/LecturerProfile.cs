@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Autoskola.Core.Profiles
 {
-    public class UserProfile : Profile
+    public class LecturerProfile : Profile
     {
-        public UserProfile()
+        public LecturerProfile()
         {
-            CreateMap<User, UserAddVM>().ReverseMap();
-            CreateMap<User, UserUpdateVM>().ReverseMap();
-            CreateMap<User, UserGetVM>();
+            CreateMap<Lecturer, LecturerAddVM>();
+            CreateMap<Lecturer, LecturerUpdateVM>();
+            CreateMap<Lecturer, LecturerGetVM>();
 
         }
     }

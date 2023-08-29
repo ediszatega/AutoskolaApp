@@ -10,5 +10,7 @@ namespace Autoskola.Repository.Interfaces
     public interface IUserRepository : IRepository<User>
     {
         Task<IEnumerable<User>> GetAll(string? search, int pageNumber, int pageSize);
+        Task<IEnumerable<User>> GetAllIncludeCities(string? search, int pageNumber, int pageSize);
+
     }
 }

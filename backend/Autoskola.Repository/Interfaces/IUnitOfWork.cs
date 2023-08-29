@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Autoskola.Core.Models;
+using Autoskola.Repository.Repositories;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,10 @@ namespace Autoskola.Repository.Interfaces
         IAnswerRepository Answers { get; }
         IVehicleRepository Vehicles { get; }
         IMotTestRepository MotTests { get; }
+        ICustomerRepository Customers { get; }
+        IEmployeeRepository Employees { get; }
+        IInstructorRepository Instructors { get; }
+        ILecturerRepository Lecturers { get; }
 
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         Task<int> Complete();

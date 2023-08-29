@@ -43,7 +43,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers", (string)null);
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Category", b =>
@@ -62,7 +62,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.City", b =>
@@ -81,7 +81,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("City", (string)null);
+                    b.ToTable("City");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.MotTest", b =>
@@ -109,7 +109,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("MotTests", (string)null);
+                    b.ToTable("MotTests");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Question", b =>
@@ -142,7 +142,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("Questions", (string)null);
+                    b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Test", b =>
@@ -163,7 +163,7 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Tests", (string)null);
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.User", b =>
@@ -177,17 +177,39 @@ namespace Autoskola.Repository.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("EmailVerified")
+                        .HasColumnType("bit");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
@@ -199,7 +221,11 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Vehicle", b =>
@@ -229,13 +255,56 @@ namespace Autoskola.Repository.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Vehicle", (string)null);
+                    b.ToTable("Vehicle");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Customer", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.User");
+
+                    b.HasDiscriminator().HasValue("Customer");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Employee", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.User");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("License")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Employee");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Instructor", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.Employee");
+
+                    b.Property<string>("DrivingLicense")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Instructor");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Lecturer", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.Employee");
+
+                    b.Property<string>("Degree")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Lecturer");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Answer", b =>
                 {
                     b.HasOne("Autoskola.Core.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -257,7 +326,7 @@ namespace Autoskola.Repository.Migrations
             modelBuilder.Entity("Autoskola.Core.Models.Question", b =>
                 {
                     b.HasOne("Autoskola.Core.Models.Test", "Test")
-                        .WithMany()
+                        .WithMany("Questions")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -296,6 +365,16 @@ namespace Autoskola.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Question", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Test", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

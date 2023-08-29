@@ -55,6 +55,13 @@ services.AddScoped<IQuestionRepository, QuestionRepository>();
 services.AddScoped<IAnswerRepository, AnswerRepository>();
 services.AddScoped<IVehicleRepository, VehiclesRepository>();
 services.AddScoped<IMotTestRepository, MotTestRepository>();
+services.AddScoped<ICustomerRepository, CustomerRepository>();
+services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+services.AddScoped<IInstructorRepository, InstructorRepository>();
+services.AddScoped<ILecturerRepository, LecturerRepository>();
+
+
+
 
 services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped<ICityService, CityService>();
@@ -65,6 +72,13 @@ services.AddScoped<IQuestionService, QuestionService>();
 services.AddScoped<IAnswerService, AnswerService>();
 services.AddScoped<IVehicleService, VehicleService>();
 services.AddScoped<IMotTestService, MotTestService>();
+services.AddScoped<ICustomerService, CustomerService>();
+services.AddScoped<IEmployeeService, EmployeeService>();
+services.AddScoped<IInstructorService, InstructorService>();
+services.AddScoped<ILecturerService, LecturerService>();
+
+
+
 
 
 var mappingConfig = new MapperConfiguration(mc =>
@@ -74,7 +88,10 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new AnswerProfile());
     mc.AddProfile(new QuestionProfile());
     mc.AddProfile(new TestProfile());
-
+    mc.AddProfile(new CustomerProfile());
+    mc.AddProfile(new EmployeeProfile());
+    mc.AddProfile(new InstructorProfile());
+    mc.AddProfile(new LecturerProfile());
 });
 IMapper mapper = mappingConfig.CreateMapper();
 services.AddSingleton(mapper);

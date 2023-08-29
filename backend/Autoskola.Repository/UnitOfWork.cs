@@ -16,7 +16,8 @@ namespace Autoskola.Repository
         public UnitOfWork(AutoskolaContext context, ICityRepository cities,
             ICategoryRepository categories, IUserRepository users,
             ITestRepository tests, IQuestionRepository questions, IAnswerRepository answers, IVehicleRepository vehicles,
-            IMotTestRepository motTests)
+            IMotTestRepository motTests, ICustomerRepository customers, IEmployeeRepository employees,
+            IInstructorRepository instructors, ILecturerRepository lecturers)
         {
             _context = context;
             Cities = cities;
@@ -27,6 +28,10 @@ namespace Autoskola.Repository
             Answers = answers;
             Vehicles = vehicles;
             MotTests = motTests;
+            Customers = customers;
+            Employees = employees;
+            Instructors = instructors;
+            Lecturers = lecturers;
         }
 
         public ICityRepository Cities { get; set; }
@@ -37,6 +42,10 @@ namespace Autoskola.Repository
         public IAnswerRepository Answers { get; set; }
         public IVehicleRepository Vehicles { get; set; }
         public IMotTestRepository MotTests { get; set; }
+        public ICustomerRepository Customers { get; set; }
+        public IEmployeeRepository Employees { get; set; }
+        public IInstructorRepository Instructors { get; set; }
+        public ILecturerRepository Lecturers { get; set; }
 
         public EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
         {

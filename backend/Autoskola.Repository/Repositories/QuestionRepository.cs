@@ -16,8 +16,6 @@ namespace Autoskola.Repository.Repositories
         {
         }
 
-        public AutoskolaContext AutoskolaContext { get { return _context as AutoskolaContext; } }
-
         public async Task<IEnumerable<Question>> GetQuestionsByType(QuestionType type, int testId)
         {
             return await Find(q => q.QuestionType == type && q.TestId == testId);
