@@ -35,11 +35,11 @@ namespace Autoskola.Service.Services
             var city = await unitOfWork.Cities.Get(entity.CityId);
             if (city == null)
                 throw new HttpException("Invalid city ID", 400);
-            var existingUsername = await unitOfWork.Users.SingleOrDefault(u => u.Username == entity.Username);
+            var existingUsername = await unitOfWork.Users.SingleOrDefault(u => u.Username == entity.Username && u.IsActive);
             if (existingUsername != null)
                 throw new HttpException("Username already exists", 400);
 
-            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == entity.Email);
+            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == entity.Email && u.IsActive);
             if (existingEmail != null)
                 throw new HttpException("Email already exists", 400);
 
@@ -93,11 +93,11 @@ namespace Autoskola.Service.Services
             if (city == null)
                 throw new HttpException("Invalid city ID", 400);
 
-            var existingUsername = await unitOfWork.Users.SingleOrDefault(u => u.Username == entity.Username);
+            var existingUsername = await unitOfWork.Users.SingleOrDefault(u => u.Username == entity.Username && u.IsActive);
             if (existingUsername != null)
                 throw new HttpException("Username already exists", 400);
 
-            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == entity.Email);
+            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == entity.Email && u.IsActive);
             if (existingEmail != null)
                 throw new HttpException("Email already exists", 400);
 
@@ -139,11 +139,11 @@ namespace Autoskola.Service.Services
             if (city == null)
                 throw new HttpException("Invalid city ID", 400);
 
-            var existingUsername = await unitOfWork.Users.SingleOrDefault(u=>u.Username== entity.Username);
+            var existingUsername = await unitOfWork.Users.SingleOrDefault(u=>u.Username == entity.Username && u.IsActive);
             if (existingUsername != null)
                 throw new HttpException("Username already exists", 400);
 
-            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == entity.Email);
+            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == entity.Email && u.IsActive);
             if (existingEmail != null)
                 throw new HttpException("Email already exists", 400);
 

@@ -38,7 +38,7 @@ namespace Autoskola.Repository.Repositories
             try
             {
                 return await AutoskolaContext.Users.Where(user => string.IsNullOrEmpty(search) ||
-                (user.FirstName + " " + user.LastName).Contains(search)).Include(user => user.City)
+                (user.FirstName + " " + user.LastName).Contains(search)).Where(user => user.IsActive).Include(user => user.City)
                 .OrderBy(u => u.FirstName).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             }
             catch (Exception ex)
