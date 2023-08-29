@@ -4,7 +4,6 @@ using Autoskola.Repository.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autoskola.Repository.Migrations
 {
     [DbContext(typeof(AutoskolaContext))]
-    [Migration("20230827224508_customers")]
-    partial class customers
+    partial class AutoskolaContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,6 +193,9 @@ namespace Autoskola.Repository.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -262,16 +262,49 @@ namespace Autoskola.Repository.Migrations
                 {
                     b.HasBaseType("Autoskola.Core.Models.User");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
                     b.HasDiscriminator().HasValue("Customer");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Employee", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.User");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("License")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Employee");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Instructor", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.Employee");
+
+                    b.Property<string>("DrivingLicense")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Instructor");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Lecturer", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.Employee");
+
+                    b.Property<string>("Degree")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Lecturer");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Answer", b =>
                 {
                     b.HasOne("Autoskola.Core.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -293,7 +326,7 @@ namespace Autoskola.Repository.Migrations
             modelBuilder.Entity("Autoskola.Core.Models.Question", b =>
                 {
                     b.HasOne("Autoskola.Core.Models.Test", "Test")
-                        .WithMany()
+                        .WithMany("Questions")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -332,6 +365,16 @@ namespace Autoskola.Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Question", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Test", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

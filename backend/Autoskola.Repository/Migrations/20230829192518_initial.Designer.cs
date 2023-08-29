@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autoskola.Repository.Migrations
 {
     [DbContext(typeof(AutoskolaContext))]
-    [Migration("20230827161319_initialMigration")]
-    partial class initialMigration
+    [Migration("20230829192518_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -183,6 +183,10 @@ namespace Autoskola.Repository.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -191,6 +195,9 @@ namespace Autoskola.Repository.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
@@ -218,6 +225,10 @@ namespace Autoskola.Repository.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Vehicle", b =>
@@ -248,6 +259,49 @@ namespace Autoskola.Repository.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Vehicle");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Customer", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.User");
+
+                    b.HasDiscriminator().HasValue("Customer");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Employee", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.User");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("License")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Employee");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Instructor", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.Employee");
+
+                    b.Property<string>("DrivingLicense")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Instructor");
+                });
+
+            modelBuilder.Entity("Autoskola.Core.Models.Lecturer", b =>
+                {
+                    b.HasBaseType("Autoskola.Core.Models.Employee");
+
+                    b.Property<string>("Degree")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Lecturer");
                 });
 
             modelBuilder.Entity("Autoskola.Core.Models.Answer", b =>

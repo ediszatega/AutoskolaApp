@@ -22,6 +22,8 @@ namespace Autoskola.Repository.Interfaces
         ICustomerRepository Customers { get; }
         IEmployeeRepository Employees { get; }
         IInstructorRepository Instructors { get; }
+        ILecturerRepository Lecturers { get; }
+
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         Task<int> Complete();
     }
