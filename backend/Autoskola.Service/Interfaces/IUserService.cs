@@ -17,9 +17,10 @@ namespace Autoskola.Service.Interfaces
         Task<UserGetVM> GetById(int key);
         Task<IEnumerable<UserGetVM>> GetAll(string? search, int pageNumber, int pageSize);
         Task<IEnumerable<UserGetVM>> GetAllIncludeCities(string? search, int pageNumber, int pageSize);
-
+        Task<IEnumerable<UserGetVM>> GetAdmins(string? search, int pageNumber, int pageSize);
         Task<object> Login(UserLoginVM user);
         Task<int> Register(UserRegisterVM user);
         Task<int> UploadProfileImage(int userId, IFormFile? file);
+        Task<int> AddAdmin(AdminAddVM entity);
     }
 }

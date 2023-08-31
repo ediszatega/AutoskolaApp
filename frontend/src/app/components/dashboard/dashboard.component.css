@@ -1,0 +1,55 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.admin-nav-bar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 20%;
+  height: 100%;
+  padding-top: 2vh;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  gap: 1vh;
+  overflow: hidden;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 5vh;
+  transition: 0.3s ease;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nav-item:hover a {
+  color: #3e6ab0;
+}
+
+.nav-item:hover {
+  background-color: #dcf5ff;
+}
+
+a {
+  color: #75726f;
+  text-decoration: none;
+}
+
+.active {
+  background-color: #dcf5ff;
+}
+
+.active a {
+  color: #3e6ab0;
+}
+
+.component {
+  width: 80%;
+  margin: 0 6vh;
+}

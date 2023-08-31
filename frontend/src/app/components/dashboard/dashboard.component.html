@@ -1,7 +1,14 @@
-<h1>Dashboard works!</h1>
+<div class="wrapper">
+  <div class="admin-nav-bar">
+    <div *ngFor="let link of links" class="nav-item {{ link.class }}">
+      <a>{{ link.label }}</a>
+    </div>
+    <div class="nav-item">
+      <a (click)="logout()"><b>Log out</b></a>
+    </div>
+  </div>
 
-<button (click)="logout()" class="btn btn-danger">Log out</button>
-
-<ul *ngFor="let user of users">
-    <li>{{user.username}}</li>
-</ul>
+  <div class="component" *ngIf="currentComponent">
+    <ng-container *ngComponentOutlet="currentComponent"></ng-container>
+  </div>
+</div>

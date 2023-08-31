@@ -1,0 +1,182 @@
+<div class="form_container">
+  <form [formGroup]="adminForm">
+    <div class="form_wrap form_grp">
+      <div
+        class="form_item"
+        [class.error]="
+          adminForm.controls['firstName'].dirty &&
+          adminForm.hasError('required', 'firstName')
+        "
+      >
+        <label>First Name</label>
+        <input formControlName="firstName" type="text" />
+        <small
+          *ngIf="
+            adminForm.controls['firstName'].dirty &&
+            adminForm.hasError('required', 'firstName')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+
+      <div
+        class="form_item"
+        [class.error]="
+          adminForm.controls['lastName'].dirty &&
+          adminForm.hasError('required', 'lastName')
+        "
+      >
+        <label>Last Name</label>
+        <input formControlName="lastName" type="text" />
+        <small
+          *ngIf="
+            adminForm.controls['lastName'].dirty &&
+            adminForm.hasError('required', 'lastName')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          adminForm.controls['email'].dirty &&
+          (adminForm.hasError('required', 'email') ||
+            adminForm.hasError('email', 'email'))
+        "
+      >
+        <label>Email Address</label>
+        <input formControlName="email" type="text" />
+        <small
+          *ngIf="
+            adminForm.controls['email'].dirty &&
+            adminForm.hasError('required', 'email')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+        <small
+          *ngIf="
+            adminForm.controls['email'].dirty &&
+            adminForm.hasError('email', 'email')
+          "
+          class="text-danger"
+          >*Invalid email</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div class="form_item">
+        <label>Phone</label>
+        <input formControlName="phoneNumber" type="text" />
+        <small
+          *ngIf="adminForm.hasError('pattern', 'phoneNumber')"
+          class="text-danger"
+          >*Invalid phone format. Please use 123456789</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          adminForm.controls['username'].dirty &&
+          adminForm.hasError('required', 'username')
+        "
+      >
+        <label>Username</label>
+        <input formControlName="username" type="text" />
+        <small
+          *ngIf="
+            adminForm.controls['username'].dirty &&
+            adminForm.hasError('required', 'username')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          adminForm.controls['password'].dirty &&
+          adminForm.hasError('required', 'password')
+        "
+      >
+        <label>Password</label>
+        <input formControlName="password" type="password" />
+        <small
+          *ngIf="
+            adminForm.controls['password'].dirty &&
+            adminForm.hasError('required', 'password')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          adminForm.controls['dateOfBirth'].dirty &&
+          (adminForm.hasError('required', 'dateOfBirth') ||
+            adminForm.hasError('pattern', 'dateOfBirth'))
+        "
+      >
+        <label>Date of Birth</label>
+        <input formControlName="dateOfBirth" type="text" />
+        <small
+          *ngIf="
+            adminForm.controls['dateOfBirth'].dirty &&
+            adminForm.hasError('required', 'dateOfBirth')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+        <small
+          *ngIf="adminForm.hasError('pattern', 'dateOfBirth')"
+          class="text-danger"
+          >*Invalid date format. Please use dd/mm/yyyy.</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          adminForm.controls['city'].dirty &&
+          adminForm.hasError('required', 'city')
+        "
+      >
+        <label>City</label>
+        <select formControlName="city">
+          <option *ngFor="let city of cities" [value]="city.id">
+            {{ city.name }}
+          </option>
+        </select>
+        <small
+          *ngIf="
+            adminForm.controls['city'].dirty &&
+            adminForm.hasError('required', 'city')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="!adminForm.valid"
+    >
+      Završi
+    </button>
+  </form>
+</div>

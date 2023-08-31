@@ -4,7 +4,7 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
@@ -13,25 +13,42 @@ import { NgToastService } from 'ng-angular-popup';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private toast: NgToastService
+  ) {}
 
-  constructor(private auth: AuthService, private router: Router, private toast: NgToastService) {}
-
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     const token = this.auth.getToken();
-    if(token){
-      request=request.clone({
-        setHeaders: {Authorization: `Bearer ${token}`}
-      })
+    if (token) {
+      request = request.clone({
+        setHeaders: { Authorization: `Bearer ${token}` },
+      });
     }
     return next.handle(request).pipe(
-      catchError((err:any)=>{
-        if(err instanceof HttpErrorResponse){
-          if(err.status === 401) {
-            this.toast.warning({detail:"Warning", summary:"Session has expired, please log in again", duration: 5000});
+      catchError((err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this.toast.warning({
+              detail: 'Upozorenje',
+              summary: 'Sesija je istekla, molimo ponovo se logirajte',
+              duration: 5000,
+            });
             this.router.navigate(['login']);
           }
+          if (err.status === 400) {
+            this.toast.error({
+              detail: 'Greška',
+              summary: err.error.Message,
+              duration: 5000,
+            });
+          }
         }
-        return throwError(()=> new Error("Some other error occured"));
+        return throwError(err);
       })
     );
   }

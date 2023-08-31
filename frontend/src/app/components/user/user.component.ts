@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ApiConfig } from '../../services/api-config';
+import { UserService } from 'src/app/services/user.service';
+import { CityService } from 'src/app/services/city.service';
+import { City } from 'src/app/models/city';
 
 @Component({
   selector: 'app-user',
@@ -8,72 +9,17 @@ import { ApiConfig } from '../../services/api-config';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  allUsers: any;
-  search: string = '';
-  selectedUser: any;
-  allCities: any;
-  cityId: number = 0;
+  cities: City[];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private cityService: CityService) {}
 
   ngOnInit(): void {
     this.fetchData();
   }
 
   private fetchData() {
-    this.httpClient
-      .get(ApiConfig.base_url + '/User/GetAll')
-      .subscribe((x: any) => {
-        this.allUsers = x;
-      });
-
-    this.httpClient.get(ApiConfig.base_url + '/City/GetAll').subscribe((x) => {
-      this.allCities = x;
+    this.cityService.getCities().subscribe((cities) => {
+      this.cities = cities;
     });
-  }
-
-  getUsers() {
-    if (this.allUsers == null) return [];
-    return this.allUsers.filter((x: any) =>
-      x.firstName.toLowerCase().startsWith(this.search.toLowerCase())
-    );
-  }
-
-  removeUser(id: number) {
-    this.httpClient
-      .delete(ApiConfig.base_url + `/User/Remove/${id}`)
-      .subscribe((x: any) => {
-        this.fetchData();
-      });
-  }
-
-  addUser() {
-    this.selectedUser = {
-      id: 0,
-      firstName: '',
-      lastName: '',
-      username: '',
-      password: '',
-      cityId: this.cityId,
-    };
-  }
-
-  save() {
-    this.selectedUser.cityId = this.cityId;
-    console.log(this.selectedUser);
-    console.log(this.cityId);
-    if (this.selectedUser.id == 0) {
-      this.httpClient
-        .post(ApiConfig.base_url + '/User/Add', this.selectedUser)
-        .subscribe((x: any) => {
-          this.fetchData();
-          this.addUser();
-        });
-    }
-  }
-
-  cancel() {
-    this.selectedUser = null;
-    this.fetchData();
   }
 }
