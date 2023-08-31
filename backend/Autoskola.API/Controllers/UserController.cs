@@ -42,6 +42,12 @@ namespace Autoskola.API.Controllers
             var result = await service.GetAllIncludeCities(search, start, range);
             return Ok(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAdmins(string? search, int start = 1, int range = 100)
+        {
+            var result = await service.GetAdmins(search, start, range);
+            return Ok(result);
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -52,6 +58,12 @@ namespace Autoskola.API.Controllers
         public async Task<IActionResult> Add([FromBody] UserAddVM user)
         {
             var result = await service.Add(user);
+            return Ok(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddAdmin([FromBody] AdminAddVM admin)
+        {
+            var result = await service.AddAdmin(admin);
             return Ok(result);
         }
         [HttpPut]

@@ -1,0 +1,44 @@
+<div class="container">
+  <h1>Admini</h1>
+  <input [(ngModel)]="searchAdmins" />
+  <table>
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Korisnicko ime</th>
+        <th>Email</th>
+        <th>Broj telefona</th>
+        <th>Datum rođenja</th>
+        <th>Grad</th>
+      </tr>
+    </thead>
+    <tr
+      *ngFor="
+        let admin of getAdmins()
+          | paginate : { itemsPerPage: 5, currentPage: page }
+      "
+    >
+      <td (click)="editAdmin(admin)">{{ admin.firstName }}</td>
+      <td (click)="editAdmin(admin)">{{ admin.lastName }}</td>
+      <td (click)="editAdmin(admin)">{{ admin.username }}</td>
+      <td (click)="editAdmin(admin)">{{ admin.email }}</td>
+      <td (click)="editAdmin(admin)">{{ admin.phoneNumber }}</td>
+      <td (click)="editAdmin(admin)">{{ admin.dateOfBirth }}</td>
+      <td (click)="editAdmin(admin)">{{ admin.city.name }}</td>
+    </tr>
+  </table>
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  <button class="btn btn-primary" (click)="addAdmin()">Novi Admin</button>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-admin-form (submit)="addPopupClosed(); fetchData()"></app-admin-form>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-admin-form
+    [admin]="selectedAdmin"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-admin-form>
+</app-popup>

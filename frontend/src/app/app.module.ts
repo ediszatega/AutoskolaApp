@@ -18,9 +18,28 @@ import { TestCategoryComponent } from './components/test-module/test-category/te
 import { TestSelectionComponent } from './components/test-module/test-selection/test-selection.component';
 import { PageTitleComponent } from './components/common/page-title/page-title.component';
 import { TestWorkingComponent } from './components/test-module/test-working/test-working.component';
+import { AdminsComponent } from './components/user/admins/admins.component';
+import { PopupComponent } from './components/common/popup/popup.component';
+import { AdminFormComponent } from './components/user/admins/admin-form/admin-form.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  declarations: [AppComponent, UserComponent, CitiesComponent, LoginComponent, SignupComponent, DashboardComponent, TestModuleComponent, TestCategoryComponent, TestSelectionComponent, PageTitleComponent, TestWorkingComponent],
+  declarations: [
+    AppComponent,
+    UserComponent,
+    CitiesComponent,
+    LoginComponent,
+    SignupComponent,
+    DashboardComponent,
+    TestModuleComponent,
+    TestCategoryComponent,
+    TestSelectionComponent,
+    PageTitleComponent,
+    TestWorkingComponent,
+    AdminsComponent,
+    PopupComponent,
+    AdminFormComponent,
+  ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
@@ -32,13 +51,16 @@ import { TestWorkingComponent } from './components/test-module/test-working/test
     RouterOutlet,
     AppRoutingModule,
     ReactiveFormsModule,
-    NgToastModule
+    NgToastModule,
+    NgxPaginationModule,
   ],
-  providers: [{
-    provide:HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

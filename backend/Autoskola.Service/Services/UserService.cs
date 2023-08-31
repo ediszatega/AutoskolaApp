@@ -83,6 +83,14 @@ namespace Autoskola.Service.Services
             var users = await unitOfWork.Users.GetAllIncludeCities(search, pageNumber, pageSize);
             return mapper.Map<List<UserGetVM>>(users);
         }
+
+        public async Task<IEnumerable<UserGetVM>> GetAdmins(string? search, int pageNumber, int pageSize)
+        {
+            var users = await unitOfWork.Users.GetAdmins(search, pageNumber, pageSize);
+            return mapper.Map<List<UserGetVM>>(users);
+        }
+
+
         public async Task<int> Update(UserUpdateVM entity)
         {
             var user = unitOfWork.Users.Get(entity.Id).Result;
@@ -93,11 +101,13 @@ namespace Autoskola.Service.Services
             if (city == null)
                 throw new HttpException("Invalid city ID", 400);
 
-            var existingUsername = await unitOfWork.Users.SingleOrDefault(u => u.Username == entity.Username && u.IsActive);
+            var existingUsername = await unitOfWork.Users
+                .SingleOrDefault(u => u.Username == entity.Username && u.Id != entity.Id && u.IsActive);
             if (existingUsername != null)
                 throw new HttpException("Username already exists", 400);
 
-            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == entity.Email && u.IsActive);
+            var existingEmail = await unitOfWork.Users
+                .SingleOrDefault(u => u.Email == entity.Email && u.Id != entity.Id && u.IsActive);
             if (existingEmail != null)
                 throw new HttpException("Email already exists", 400);
 
@@ -105,7 +115,9 @@ namespace Autoskola.Service.Services
             user.LastName = entity.LastName;
             user.Username = entity.Username;
             user.Email = entity.Email;
-            if(!string.IsNullOrEmpty(entity.Password))
+            user.PhoneNumber = entity.PhoneNumber;
+            user.DateOfBirth = entity.DateOfBirth;
+            if (!string.IsNullOrEmpty(entity.Password))
                 user.Password = PasswordHasher.HashPassword(entity.Password);
             user.CityId = entity.CityId;
 
@@ -178,6 +190,34 @@ namespace Autoskola.Service.Services
 
                 return await this.unitOfWork.Complete();
             }
+        }
+        public async Task<int> AddAdmin(AdminAddVM entity)
+        {
+            var city = await unitOfWork.Cities.Get(entity.CityId);
+            if (city == null)
+                throw new HttpException("Invalid city ID", 400);
+            var existingUsername = await unitOfWork.Users.SingleOrDefault(u => u.Username == entity.Username && u.IsActive);
+            if (existingUsername != null)
+                throw new HttpException("Username already exists", 400);
+
+            var existingEmail = await unitOfWork.Users.SingleOrDefault(u => u.Email == entity.Email && u.IsActive);
+            if (existingEmail != null)
+                throw new HttpException("Email already exists", 400);
+
+            var newUser = new User()
+            {
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                Username = entity.Username,
+                Email = entity.Email,
+                PhoneNumber = entity.PhoneNumber,
+                Password = PasswordHasher.HashPassword(entity.Password),
+                Role = Role.Admin,
+                DateOfBirth = entity.DateOfBirth,
+                CityId = entity.CityId
+            };
+            await unitOfWork.Users.Add(newUser);
+            return await unitOfWork.Complete();
         }
     }
 }
