@@ -90,7 +90,6 @@ namespace Autoskola.Service.Services
             return mapper.Map<List<UserGetVM>>(users);
         }
 
-
         public async Task<int> Update(UserUpdateVM entity)
         {
             var user = unitOfWork.Users.Get(entity.Id).Result;

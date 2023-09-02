@@ -78,6 +78,12 @@ namespace Autoskola.Service.Services
             return mapper.Map<List<CustomerGetVM>>(users);
         }
 
+        public async Task<IEnumerable<CustomerGetVM>> GetAllIncludeCities(string? search, int pageNumber, int pageSize)
+        {
+            var users = await unitOfWork.Customers.GetAllIncludeCities(search, pageNumber, pageSize);
+            return mapper.Map<List<CustomerGetVM>>(users);
+        }
+
         public async Task<int> Update(CustomerUpdateVM entity)
         {
             var customer = unitOfWork.Customers.Get(entity.Id).Result;

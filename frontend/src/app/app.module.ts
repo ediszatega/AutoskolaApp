@@ -22,6 +22,8 @@ import { AdminsComponent } from './components/user/admins/admins.component';
 import { PopupComponent } from './components/common/popup/popup.component';
 import { AdminFormComponent } from './components/user/admins/admin-form/admin-form.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CustomersComponent } from './components/user/customers/customers.component';
+import { CustomerFormComponent } from './components/user/customers/customer-form/customer-form.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AdminsComponent,
     PopupComponent,
     AdminFormComponent,
+    CustomersComponent,
+    CustomerFormComponent,
   ],
   imports: [
     BrowserModule,

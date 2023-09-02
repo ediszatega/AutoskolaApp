@@ -60,7 +60,7 @@ namespace Autoskola.Repository.Repositories
                 throw new HttpException("Database connection error", 500);
             }
         }
-
+        
         public AutoskolaContext AutoskolaContext { get { return _context as AutoskolaContext; } }
     }
 }

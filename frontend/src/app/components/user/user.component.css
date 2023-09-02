@@ -1,3 +1,9 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
 .container {
   background-color: #ffffff;
   padding: 4vh;

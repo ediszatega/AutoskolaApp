@@ -14,5 +14,6 @@ namespace Autoskola.Service.Interfaces
         Task<int> Remove(int key);
         Task<CustomerGetVM> GetById(int key);
         Task<IEnumerable<CustomerGetVM>> GetAll(int pageNumber, int pageSize);
+        Task<IEnumerable<CustomerGetVM>> GetAllIncludeCities(string? search, int pageNumber, int pageSize);
     }
 }

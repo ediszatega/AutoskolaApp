@@ -1,0 +1,182 @@
+<div class="form_container">
+  <form [formGroup]="customerForm">
+    <div class="form_wrap form_grp">
+      <div
+        class="form_item"
+        [class.error]="
+          customerForm.controls['firstName'].dirty &&
+          customerForm.hasError('required', 'firstName')
+        "
+      >
+        <label>First Name</label>
+        <input formControlName="firstName" type="text" />
+        <small
+          *ngIf="
+            customerForm.controls['firstName'].dirty &&
+            customerForm.hasError('required', 'firstName')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+
+      <div
+        class="form_item"
+        [class.error]="
+          customerForm.controls['lastName'].dirty &&
+          customerForm.hasError('required', 'lastName')
+        "
+      >
+        <label>Last Name</label>
+        <input formControlName="lastName" type="text" />
+        <small
+          *ngIf="
+            customerForm.controls['lastName'].dirty &&
+            customerForm.hasError('required', 'lastName')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          customerForm.controls['email'].dirty &&
+          (customerForm.hasError('required', 'email') ||
+            customerForm.hasError('email', 'email'))
+        "
+      >
+        <label>Email Address</label>
+        <input formControlName="email" type="text" />
+        <small
+          *ngIf="
+            customerForm.controls['email'].dirty &&
+            customerForm.hasError('required', 'email')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+        <small
+          *ngIf="
+            customerForm.controls['email'].dirty &&
+            customerForm.hasError('email', 'email')
+          "
+          class="text-danger"
+          >*Invalid email</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div class="form_item">
+        <label>Phone</label>
+        <input formControlName="phoneNumber" type="text" />
+        <small
+          *ngIf="customerForm.hasError('pattern', 'phoneNumber')"
+          class="text-danger"
+          >*Invalid phone format. Please use 123456789</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          customerForm.controls['username'].dirty &&
+          customerForm.hasError('required', 'username')
+        "
+      >
+        <label>Username</label>
+        <input formControlName="username" type="text" />
+        <small
+          *ngIf="
+            customerForm.controls['username'].dirty &&
+            customerForm.hasError('required', 'username')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          customerForm.controls['password'].dirty &&
+          customerForm.hasError('required', 'password')
+        "
+      >
+        <label>Password</label>
+        <input formControlName="password" type="password" />
+        <small
+          *ngIf="
+            customerForm.controls['password'].dirty &&
+            customerForm.hasError('required', 'password')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          customerForm.controls['dateOfBirth'].dirty &&
+          (customerForm.hasError('required', 'dateOfBirth') ||
+            customerForm.hasError('pattern', 'dateOfBirth'))
+        "
+      >
+        <label>Date of Birth</label>
+        <input formControlName="dateOfBirth" type="text" />
+        <small
+          *ngIf="
+            customerForm.controls['dateOfBirth'].dirty &&
+            customerForm.hasError('required', 'dateOfBirth')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+        <small
+          *ngIf="customerForm.hasError('pattern', 'dateOfBirth')"
+          class="text-danger"
+          >*Invalid date format. Please use dd/mm/yyyy.</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          customerForm.controls['city'].dirty &&
+          customerForm.hasError('required', 'city')
+        "
+      >
+        <label>City</label>
+        <select formControlName="city">
+          <option *ngFor="let city of cities" [value]="city.id">
+            {{ city.name }}
+          </option>
+        </select>
+        <small
+          *ngIf="
+            customerForm.controls['city'].dirty &&
+            customerForm.hasError('required', 'city')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="!customerForm.valid"
+    >
+      Završi
+    </button>
+  </form>
+</div>

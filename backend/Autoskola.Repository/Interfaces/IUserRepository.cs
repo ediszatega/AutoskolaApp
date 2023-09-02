@@ -13,6 +13,5 @@ namespace Autoskola.Repository.Interfaces
         Task<IEnumerable<User>> GetAllIncludeCities(string? search, int pageNumber, int pageSize);
         Task<IEnumerable<User>> GetAdmins(string? search, int pageNumber, int pageSize);
 
-
     }
 }

@@ -16,7 +16,13 @@
     <tr
       *ngFor="
         let admin of getAdmins()
-          | paginate : { itemsPerPage: 5, currentPage: page }
+          | paginate
+            : {
+                id: 'adminPagination',
+                itemsPerPage: 5,
+                currentPage: pageAdmin
+              };
+        let j = index
       "
     >
       <td (click)="editAdmin(admin)">{{ admin.firstName }}</td>
@@ -28,7 +34,10 @@
       <td (click)="editAdmin(admin)">{{ admin.city.name }}</td>
     </tr>
   </table>
-  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  <pagination-controls
+    id="adminPagination"
+    (pageChange)="pageAdmin = $event"
+  ></pagination-controls>
   <button class="btn btn-primary" (click)="addAdmin()">Novi Admin</button>
 </div>
 

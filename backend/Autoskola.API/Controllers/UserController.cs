@@ -48,6 +48,7 @@ namespace Autoskola.API.Controllers
             var result = await service.GetAdmins(search, start, range);
             return Ok(result);
         }
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

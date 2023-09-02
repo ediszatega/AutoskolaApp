@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
+  FormBuilder,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { City } from 'src/app/models/city';
@@ -15,15 +13,15 @@ import { createDateFromFormat } from 'src/app/services/helper/utilities';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-admin-form',
-  templateUrl: './admin-form.component.html',
-  styleUrls: ['./admin-form.component.css'],
+  selector: 'app-customer-form',
+  templateUrl: './customer-form.component.html',
+  styleUrls: ['./customer-form.component.css'],
 })
-export class AdminFormComponent implements OnInit {
-  @Input() admin: User;
+export class CustomerFormComponent implements OnInit {
+  @Input() customer: User;
   @Output() submit = new EventEmitter<void>();
 
-  adminForm!: FormGroup;
+  customerForm!: FormGroup;
   cities: City[];
 
   constructor(
@@ -32,7 +30,7 @@ export class AdminFormComponent implements OnInit {
     private toast: NgToastService,
     private fb: FormBuilder
   ) {
-    this.adminForm = this.fb.group({
+    this.customerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -45,7 +43,7 @@ export class AdminFormComponent implements OnInit {
       password: [
         '',
         (control) => {
-          if (this.admin == null) {
+          if (this.customer == null) {
             return Validators.required(control);
           } else return null;
         },
@@ -54,42 +52,35 @@ export class AdminFormComponent implements OnInit {
     });
   }
 
-  passwordValidator(control: AbstractControl): { [key: string]: any } | null {
-    if (this.admin == null) {
-      return { required: true };
-    }
-    return null;
-  }
-
   ngOnInit(): void {
     this.cityService.getCities().subscribe((cities) => {
       this.cities = cities;
     });
-    this.adminForm.reset();
-    if (this.admin != null) this.updateForm();
+    this.customerForm.reset();
+    if (this.customer != null) this.updateForm();
   }
 
   updateForm() {
-    this.adminForm.setValue({
-      firstName: this.admin.firstName,
-      lastName: this.admin.lastName,
-      email: this.admin.email,
-      phoneNumber: this.admin.phoneNumber,
-      dateOfBirth: this.admin.dateOfBirth,
-      username: this.admin.username,
+    this.customerForm.setValue({
+      firstName: this.customer.firstName,
+      lastName: this.customer.lastName,
+      email: this.customer.email,
+      phoneNumber: this.customer.phoneNumber,
+      dateOfBirth: this.customer.dateOfBirth,
+      username: this.customer.username,
       password: '',
-      city: this.admin.city.id,
+      city: this.customer.city.id,
     });
   }
 
   onSubmit() {
-    if (this.admin == null) this.addAdmin();
-    else this.editAdmin();
+    if (this.customer == null) this.addCustomer();
+    else this.editCustomer();
   }
 
-  addAdmin() {
-    const formValue = this.adminForm.value;
-    const admin = {
+  addCustomer() {
+    const formValue = this.customerForm.value;
+    const customer = {
       firstName: formValue.firstName,
       lastName: formValue.lastName,
       email: formValue.email,
@@ -99,22 +90,22 @@ export class AdminFormComponent implements OnInit {
       password: formValue.password,
       cityId: formValue.city,
     };
-    console.log(admin);
-    this.userService.addAdmin(admin).subscribe(() => {
+    console.log(customer);
+    this.userService.addCustomer(customer).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',
         summary: 'Uspješno dodan korisnik',
         duration: 5000,
       });
-      this.adminForm.reset();
+      this.customerForm.reset();
       this.submit.emit();
     });
   }
 
-  editAdmin() {
-    const formValue = this.adminForm.value;
-    const admin = {
-      id: this.admin.id,
+  editCustomer() {
+    const formValue = this.customerForm.value;
+    const customer = {
+      id: this.customer.id,
       firstName: formValue.firstName,
       lastName: formValue.lastName,
       email: formValue.email,
@@ -124,14 +115,14 @@ export class AdminFormComponent implements OnInit {
       password: formValue.password,
       cityId: formValue.city,
     };
-    console.log(admin);
-    this.userService.updateUser(admin).subscribe(() => {
+    console.log(customer);
+    this.userService.updateUser(customer).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',
         summary: 'Uspješno izmijenjen korisnik',
         duration: 5000,
       });
-      this.adminForm.reset();
+      this.customerForm.reset();
       this.submit.emit();
     });
   }
