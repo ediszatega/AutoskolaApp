@@ -26,6 +26,8 @@ import { CustomersComponent } from './components/user/customers/customers.compon
 import { CustomerFormComponent } from './components/user/customers/customer-form/customer-form.component';
 import { InstructorsComponent } from './components/user/instructors/instructors.component';
 import { InstructorFormComponent } from './components/user/instructors/instructor-form/instructor-form.component';
+import { LecturersComponent } from './components/user/lecturers/lecturers.component';
+import { LecturerFormComponent } from './components/user/lecturers/lecturer-form/lecturer-form.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { InstructorFormComponent } from './components/user/instructors/instructo
     CustomerFormComponent,
     InstructorsComponent,
     InstructorFormComponent,
+    LecturersComponent,
+    LecturerFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -55,5 +55,11 @@ namespace Autoskola.API.Controllers
             var result = await service.Deactivate(id);
             return Ok(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllIncludeCities(string? search, int start = 1, int range = 100)
+        {
+            var result = await service.GetAllIncludeCities(search, start, range);
+            return Ok(result);
+        }
     }
 }

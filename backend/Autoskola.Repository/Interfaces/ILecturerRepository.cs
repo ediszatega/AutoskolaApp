@@ -9,5 +9,6 @@ namespace Autoskola.Repository.Interfaces
 {
     public interface ILecturerRepository : IRepository<Lecturer>
     {
+        Task<IEnumerable<Lecturer>> GetAllIncludeCities(string? search, int pageNumber, int pageSize);
     }
 }

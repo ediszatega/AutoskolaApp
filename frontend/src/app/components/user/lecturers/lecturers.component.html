@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>Lectureri</h1>
+  <input [(ngModel)]="searchLecturers" />
+  <table>
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Korisnicko ime</th>
+        <th>Email</th>
+        <th>Broj telefona</th>
+        <th>Datum rođenja</th>
+        <th>Grad</th>
+        <th>Diploma</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let lecturer of getLecturers()
+            | paginate
+              : {
+                  id: 'lecturerPagination',
+                  itemsPerPage: 5,
+                  currentPage: pageLecturer
+                };
+          let j = index
+        "
+      >
+        <td (click)="editLecturer(lecturer)">{{ lecturer.firstName }}</td>
+        <td (click)="editLecturer(lecturer)">{{ lecturer.lastName }}</td>
+        <td (click)="editLecturer(lecturer)">{{ lecturer.username }}</td>
+        <td (click)="editLecturer(lecturer)">{{ lecturer.email }}</td>
+        <td (click)="editLecturer(lecturer)">
+          {{ lecturer.phoneNumber }}
+        </td>
+        <td (click)="editLecturer(lecturer)">
+          {{ lecturer.dateOfBirth }}
+        </td>
+        <td (click)="editLecturer(lecturer)">{{ lecturer.city.name }}</td>
+        <td (click)="editLecturer(lecturer)">
+          {{ lecturer.degree }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls
+    id="lecturerPagination"
+    (pageChange)="pageLecturer = $event"
+  ></pagination-controls>
+  <button class="btn btn-primary" (click)="addLecturer()">Novi Lecturer</button>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-lecturer-form
+    (submit)="addPopupClosed(); fetchData()"
+  ></app-lecturer-form>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-lecturer-form
+    [lecturer]="selectedLecturer"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-lecturer-form>
+</app-popup>

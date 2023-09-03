@@ -6,6 +6,7 @@ import { User } from '../models/user';
 import { convertDate } from './helper/utilities';
 import { Customer } from '../models/customer';
 import { Instructor } from '../models/instructor';
+import { Lecturer } from '../models/lecturer';
 
 @Injectable({
   providedIn: 'root',
@@ -49,9 +50,22 @@ export class UserService {
       .get<Instructor[]>(this.baseUrl + '/Instructor/GetAllIncludeCities')
       .pipe(
         map((instructors) =>
-          instructors.map((instructors) => ({
-            ...instructors,
-            dateOfBirth: convertDate(instructors.dateOfBirth.toString()),
+          instructors.map((instructor) => ({
+            ...instructor,
+            dateOfBirth: convertDate(instructor.dateOfBirth.toString()),
+          }))
+        )
+      );
+  }
+
+  getLecturers(): Observable<Lecturer[]> {
+    return this.http
+      .get<Lecturer[]>(this.baseUrl + '/Lecturer/GetAllIncludeCities')
+      .pipe(
+        map((lecturers) =>
+          lecturers.map((lecturer) => ({
+            ...lecturer,
+            dateOfBirth: convertDate(lecturer.dateOfBirth.toString()),
           }))
         )
       );
@@ -76,6 +90,10 @@ export class UserService {
     return this.http.post(ApiConfig.base_url + '/Instructor/Add', user);
   }
 
+  addLecturer(user: any): Observable<Object> {
+    return this.http.post(ApiConfig.base_url + '/Lecturer/Add', user);
+  }
+
   updateUser(user: any): Observable<Object> {
     return this.http.put(ApiConfig.base_url + '/User/Update', user);
   }
@@ -86,5 +104,9 @@ export class UserService {
 
   updateInstructor(user: any): Observable<Object> {
     return this.http.put(ApiConfig.base_url + '/Instructor/Update', user);
+  }
+
+  updateLecturer(user: any): Observable<Object> {
+    return this.http.put(ApiConfig.base_url + '/Lecturer/Update', user);
   }
 }

@@ -91,6 +91,12 @@ namespace Autoskola.Service.Services
             return mapper.Map<List<LecturerGetVM>>(users);
         }
 
+        public async Task<IEnumerable<LecturerGetVM>> GetAllIncludeCities(string? search, int pageNumber, int pageSize)
+        {
+            var users = await unitOfWork.Lecturers.GetAllIncludeCities(search, pageNumber, pageSize);
+            return mapper.Map<List<LecturerGetVM>>(users);
+        }
+
         public async Task<int> Update(LecturerUpdateVM entity)
         {
             var lecturer = unitOfWork.Lecturers.Get(entity.Id).Result;
