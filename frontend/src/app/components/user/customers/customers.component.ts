@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { City } from 'src/app/models/city';
-import { User } from 'src/app/models/user';
+import { Customer } from 'src/app/models/customer';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,7 +11,7 @@ export class CustomersComponent {
   allCustomers: any[] = [];
   searchCustomers: string = '';
 
-  selectedCustomer: User;
+  selectedCustomer: Customer;
   pageCustomer = 1;
 
   showAddPopup: boolean;
@@ -28,7 +27,6 @@ export class CustomersComponent {
 
   public fetchData() {
     this.userService.getCustomers().subscribe((customers) => {
-      console.log(customers);
       this.allCustomers = customers;
     });
   }
@@ -43,7 +41,7 @@ export class CustomersComponent {
   addCustomer() {
     this.showAddPopup = true;
   }
-  editCustomer(customer: User) {
+  editCustomer(customer: Customer) {
     this.selectedCustomer = customer;
     this.showEditPopup = true;
   }

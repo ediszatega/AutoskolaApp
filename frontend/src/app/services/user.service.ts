@@ -5,6 +5,7 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { User } from '../models/user';
 import { convertDate } from './helper/utilities';
 import { Customer } from '../models/customer';
+import { Instructor } from '../models/instructor';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,7 @@ export class UserService {
       )
     );
   }
+
   getCustomers(): Observable<Customer[]> {
     return this.http
       .get<Customer[]>(this.baseUrl + '/Customer/GetAllIncludeCities')
@@ -41,13 +43,23 @@ export class UserService {
         )
       );
   }
-  addCustomer(user: any): Observable<Object> {
-    return this.http.post(ApiConfig.base_url + '/Customer/Add', user);
-  }
-  removeUser(id: number): Observable<Object> {
-    return this.http.delete(ApiConfig.base_url + `/User/Remove/${id}`);
+
+  getInstructors(): Observable<Instructor[]> {
+    return this.http
+      .get<Instructor[]>(this.baseUrl + '/Instructor/GetAllIncludeCities')
+      .pipe(
+        map((instructors) =>
+          instructors.map((instructors) => ({
+            ...instructors,
+            dateOfBirth: convertDate(instructors.dateOfBirth.toString()),
+          }))
+        )
+      );
   }
 
+  removeUser(id: number): Observable<Object> {
+    return this.http.delete(ApiConfig.base_url + `/User/Deactivate/${id}`);
+  }
   addUser(user: any): Observable<Object> {
     return this.http.post(ApiConfig.base_url + '/User/Add', user);
   }
@@ -56,7 +68,23 @@ export class UserService {
     return this.http.post(ApiConfig.base_url + '/User/AddAdmin', admin);
   }
 
+  addCustomer(user: any): Observable<Object> {
+    return this.http.post(ApiConfig.base_url + '/Customer/Add', user);
+  }
+
+  addInstructor(user: any): Observable<Object> {
+    return this.http.post(ApiConfig.base_url + '/Instructor/Add', user);
+  }
+
   updateUser(user: any): Observable<Object> {
     return this.http.put(ApiConfig.base_url + '/User/Update', user);
+  }
+
+  updateCustomer(user: any): Observable<Object> {
+    return this.http.put(ApiConfig.base_url + '/Customer/Update', user);
+  }
+
+  updateInstructor(user: any): Observable<Object> {
+    return this.http.put(ApiConfig.base_url + '/Instructor/Update', user);
   }
 }

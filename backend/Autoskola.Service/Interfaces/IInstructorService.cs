@@ -12,7 +12,9 @@ namespace Autoskola.Service.Interfaces
         Task<int> Add(InstructorAddVM instructor);
         Task<int> Update(InstructorUpdateVM instructor);
         Task<int> Remove(int key);
+        Task<int> Deactivate(int key);
         Task<InstructorGetVM> GetById(int key);
         Task<IEnumerable<InstructorGetVM>> GetAll(int pageNumber, int pageSize);
+        Task<IEnumerable<InstructorGetVM>> GetAllIncludeCities(string? search, int pageNumber, int pageSize);
     }
 }

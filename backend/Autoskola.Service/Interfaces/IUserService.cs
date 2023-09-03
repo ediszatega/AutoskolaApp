@@ -14,6 +14,7 @@ namespace Autoskola.Service.Interfaces
         Task<int> Add(UserAddVM User);
         Task<int> Update(UserUpdateVM user);
         Task<int> Remove(int key);
+        Task<int> Deactivate(int key);
         Task<UserGetVM> GetById(int key);
         Task<IEnumerable<UserGetVM>> GetAll(string? search, int pageNumber, int pageSize);
         Task<IEnumerable<UserGetVM>> GetAllIncludeCities(string? search, int pageNumber, int pageSize);

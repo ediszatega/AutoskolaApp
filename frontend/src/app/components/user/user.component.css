@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 2vh;
+  gap: 6vh;
 }
 
 .container {
@@ -36,6 +36,15 @@ tr {
   transition: background-color 0.3s ease-in-out;
 }
 
-tr:hover {
+tbody tr:hover {
   background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+}
+
+.button-container button {
+  width: 50%;
 }

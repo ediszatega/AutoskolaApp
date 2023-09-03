@@ -1,32 +1,33 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormBuilder,
   FormGroup,
-  ValidationErrors,
-  ValidatorFn,
+  FormBuilder,
   Validators,
+  ValidatorFn,
+  AbstractControl,
+  ValidationErrors,
 } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { City } from 'src/app/models/city';
-import { User } from 'src/app/models/user';
+import { Instructor } from 'src/app/models/instructor';
 import { CityService } from 'src/app/services/city.service';
 import {
   createDateFromFormat,
   dateOfBirthValidator,
+  validateDateOfBirth,
 } from 'src/app/services/helper/utilities';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-admin-form',
-  templateUrl: './admin-form.component.html',
-  styleUrls: ['./admin-form.component.css'],
+  selector: 'app-instructor-form',
+  templateUrl: './instructor-form.component.html',
+  styleUrls: ['./instructor-form.component.css'],
 })
-export class AdminFormComponent implements OnInit {
-  @Input() admin: User;
+export class InstructorFormComponent {
+  @Input() instructor: Instructor;
   @Output() submit = new EventEmitter<void>();
 
-  adminForm!: FormGroup;
+  instructorForm!: FormGroup;
   cities: City[];
 
   constructor(
@@ -35,7 +36,7 @@ export class AdminFormComponent implements OnInit {
     private toast: NgToastService,
     private fb: FormBuilder
   ) {
-    this.adminForm = this.fb.group({
+    this.instructorForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -45,65 +46,61 @@ export class AdminFormComponent implements OnInit {
       password: [
         '',
         (control) => {
-          if (this.admin == null) {
+          if (this.instructor == null) {
             return Validators.required(control);
           } else return null;
         },
       ],
       city: ['', Validators.required],
+      drivingLicense: ['', Validators.pattern(/^\d+$/)],
     });
-  }
-
-  passwordValidator(control: AbstractControl): { [key: string]: any } | null {
-    if (this.admin == null) {
-      return { required: true };
-    }
-    return null;
   }
 
   ngOnInit(): void {
     this.cityService.getCities().subscribe((cities) => {
       this.cities = cities;
     });
-    this.adminForm.reset();
-    if (this.admin != null) this.updateForm();
+    this.instructorForm.reset();
+    if (this.instructor != null) this.updateForm();
+    console.log(validateDateOfBirth('11/11/2001'));
   }
 
   updateForm() {
-    this.adminForm.setValue({
-      firstName: this.admin.firstName,
-      lastName: this.admin.lastName,
-      email: this.admin.email,
-      phoneNumber: this.admin.phoneNumber,
-      dateOfBirth: this.admin.dateOfBirth,
-      username: this.admin.username,
+    this.instructorForm.setValue({
+      firstName: this.instructor.firstName,
+      lastName: this.instructor.lastName,
+      email: this.instructor.email,
+      phoneNumber: this.instructor.phoneNumber,
+      dateOfBirth: this.instructor.dateOfBirth,
+      username: this.instructor.username,
       password: '',
-      city: this.admin.city.id,
+      city: this.instructor.city.id,
+      drivingLicense: this.instructor.drivingLicense,
     });
   }
 
   onRemove() {
-    if (this.admin != null) {
-      this.userService.removeUser(this.admin.id).subscribe(() => {
+    if (this.instructor != null) {
+      this.userService.removeUser(this.instructor.id).subscribe(() => {
         this.toast.success({
           detail: 'Uspjeh',
           summary: 'Uspješno izbrisan korisnik',
           duration: 5000,
         });
-        this.adminForm.reset();
+        this.instructorForm.reset();
         this.submit.emit();
       });
     }
   }
 
   onSubmit() {
-    if (this.admin == null) this.addAdmin();
-    else this.editAdmin();
+    if (this.instructor == null) this.addInstructor();
+    else this.editInstructor();
   }
 
-  addAdmin() {
-    const formValue = this.adminForm.value;
-    const admin = {
+  addInstructor() {
+    const formValue = this.instructorForm.value;
+    const instructor = {
       firstName: formValue.firstName,
       lastName: formValue.lastName,
       email: formValue.email,
@@ -112,22 +109,23 @@ export class AdminFormComponent implements OnInit {
       username: formValue.username,
       password: formValue.password,
       cityId: formValue.city,
+      drivingLicense: formValue.drivingLicense,
     };
-    this.userService.addAdmin(admin).subscribe(() => {
+    this.userService.addInstructor(instructor).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',
         summary: 'Uspješno dodan korisnik',
         duration: 5000,
       });
-      this.adminForm.reset();
+      this.instructorForm.reset();
       this.submit.emit();
     });
   }
 
-  editAdmin() {
-    const formValue = this.adminForm.value;
-    const admin = {
-      id: this.admin.id,
+  editInstructor() {
+    const formValue = this.instructorForm.value;
+    const instructor = {
+      id: this.instructor.id,
       firstName: formValue.firstName,
       lastName: formValue.lastName,
       email: formValue.email,
@@ -136,14 +134,15 @@ export class AdminFormComponent implements OnInit {
       username: formValue.username,
       password: formValue.password,
       cityId: formValue.city,
+      drivingLicense: formValue.drivingLicense,
     };
-    this.userService.updateUser(admin).subscribe(() => {
+    this.userService.updateInstructor(instructor).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',
         summary: 'Uspješno izmijenjen korisnik',
         duration: 5000,
       });
-      this.adminForm.reset();
+      this.instructorForm.reset();
       this.submit.emit();
     });
   }

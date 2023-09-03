@@ -24,6 +24,8 @@ import { AdminFormComponent } from './components/user/admins/admin-form/admin-fo
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CustomersComponent } from './components/user/customers/customers.component';
 import { CustomerFormComponent } from './components/user/customers/customer-form/customer-form.component';
+import { InstructorsComponent } from './components/user/instructors/instructors.component';
+import { InstructorFormComponent } from './components/user/instructors/instructor-form/instructor-form.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { CustomerFormComponent } from './components/user/customers/customer-form
     AdminFormComponent,
     CustomersComponent,
     CustomerFormComponent,
+    InstructorsComponent,
+    InstructorFormComponent,
   ],
   imports: [
     BrowserModule,

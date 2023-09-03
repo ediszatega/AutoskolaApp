@@ -1,15 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { City } from 'src/app/models/city';
-import { User } from 'src/app/models/user';
+import { Customer } from 'src/app/models/customer';
 import { CityService } from 'src/app/services/city.service';
-import { createDateFromFormat } from 'src/app/services/helper/utilities';
+import {
+  createDateFromFormat,
+  dateOfBirthValidator,
+} from 'src/app/services/helper/utilities';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -18,7 +16,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./customer-form.component.css'],
 })
 export class CustomerFormComponent implements OnInit {
-  @Input() customer: User;
+  @Input() customer: Customer;
   @Output() submit = new EventEmitter<void>();
 
   customerForm!: FormGroup;
@@ -35,10 +33,7 @@ export class CustomerFormComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.pattern(/^\d{9}$/)],
-      dateOfBirth: [
-        '',
-        [Validators.required, Validators.pattern(/^\d{2}\/\d{2}\/\d{4}$/)],
-      ],
+      dateOfBirth: ['', [Validators.required, dateOfBirthValidator()]],
       username: ['', Validators.required],
       password: [
         '',
@@ -73,6 +68,20 @@ export class CustomerFormComponent implements OnInit {
     });
   }
 
+  onRemove() {
+    if (this.customer != null) {
+      this.userService.removeUser(this.customer.id).subscribe(() => {
+        this.toast.success({
+          detail: 'Uspjeh',
+          summary: 'Uspješno izbrisan korisnik',
+          duration: 5000,
+        });
+        this.customerForm.reset();
+        this.submit.emit();
+      });
+    }
+  }
+
   onSubmit() {
     if (this.customer == null) this.addCustomer();
     else this.editCustomer();
@@ -90,7 +99,6 @@ export class CustomerFormComponent implements OnInit {
       password: formValue.password,
       cityId: formValue.city,
     };
-    console.log(customer);
     this.userService.addCustomer(customer).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',
@@ -115,8 +123,7 @@ export class CustomerFormComponent implements OnInit {
       password: formValue.password,
       cityId: formValue.city,
     };
-    console.log(customer);
-    this.userService.updateUser(customer).subscribe(() => {
+    this.userService.updateCustomer(customer).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',
         summary: 'Uspješno izmijenjen korisnik',

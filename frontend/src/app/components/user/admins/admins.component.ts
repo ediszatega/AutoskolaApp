@@ -29,7 +29,6 @@ export class AdminsComponent {
 
   public fetchData() {
     this.userService.getAdmins().subscribe((admins) => {
-      console.log(admins);
       this.allAdmins = admins;
     });
   }

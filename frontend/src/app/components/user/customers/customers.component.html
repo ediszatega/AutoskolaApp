@@ -13,26 +13,28 @@
         <th>Grad</th>
       </tr>
     </thead>
-    <tr
-      *ngFor="
-        let customer of getCustomers()
-          | paginate
-            : {
-                id: 'customerPagination',
-                itemsPerPage: 5,
-                currentPage: pageCustomer
-              };
-        let j = index
-      "
-    >
-      <td (click)="editCustomer(customer)">{{ customer.firstName }}</td>
-      <td (click)="editCustomer(customer)">{{ customer.lastName }}</td>
-      <td (click)="editCustomer(customer)">{{ customer.username }}</td>
-      <td (click)="editCustomer(customer)">{{ customer.email }}</td>
-      <td (click)="editCustomer(customer)">{{ customer.phoneNumber }}</td>
-      <td (click)="editCustomer(customer)">{{ customer.dateOfBirth }}</td>
-      <td (click)="editCustomer(customer)">{{ customer.city.name }}</td>
-    </tr>
+    <tbody>
+      <tr
+        *ngFor="
+          let customer of getCustomers()
+            | paginate
+              : {
+                  id: 'customerPagination',
+                  itemsPerPage: 5,
+                  currentPage: pageCustomer
+                };
+          let j = index
+        "
+      >
+        <td (click)="editCustomer(customer)">{{ customer.firstName }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.lastName }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.username }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.email }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.phoneNumber }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.dateOfBirth }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.city.name }}</td>
+      </tr>
+    </tbody>
   </table>
   <pagination-controls
     id="customerPagination"

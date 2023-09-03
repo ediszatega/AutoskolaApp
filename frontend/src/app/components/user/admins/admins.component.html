@@ -13,26 +13,28 @@
         <th>Grad</th>
       </tr>
     </thead>
-    <tr
-      *ngFor="
-        let admin of getAdmins()
-          | paginate
-            : {
-                id: 'adminPagination',
-                itemsPerPage: 5,
-                currentPage: pageAdmin
-              };
-        let j = index
-      "
-    >
-      <td (click)="editAdmin(admin)">{{ admin.firstName }}</td>
-      <td (click)="editAdmin(admin)">{{ admin.lastName }}</td>
-      <td (click)="editAdmin(admin)">{{ admin.username }}</td>
-      <td (click)="editAdmin(admin)">{{ admin.email }}</td>
-      <td (click)="editAdmin(admin)">{{ admin.phoneNumber }}</td>
-      <td (click)="editAdmin(admin)">{{ admin.dateOfBirth }}</td>
-      <td (click)="editAdmin(admin)">{{ admin.city.name }}</td>
-    </tr>
+    <tbody>
+      <tr
+        *ngFor="
+          let admin of getAdmins()
+            | paginate
+              : {
+                  id: 'adminPagination',
+                  itemsPerPage: 5,
+                  currentPage: pageAdmin
+                };
+          let j = index
+        "
+      >
+        <td (click)="editAdmin(admin)">{{ admin.firstName }}</td>
+        <td (click)="editAdmin(admin)">{{ admin.lastName }}</td>
+        <td (click)="editAdmin(admin)">{{ admin.username }}</td>
+        <td (click)="editAdmin(admin)">{{ admin.email }}</td>
+        <td (click)="editAdmin(admin)">{{ admin.phoneNumber }}</td>
+        <td (click)="editAdmin(admin)">{{ admin.dateOfBirth }}</td>
+        <td (click)="editAdmin(admin)">{{ admin.city.name }}</td>
+      </tr>
+    </tbody>
   </table>
   <pagination-controls
     id="adminPagination"
