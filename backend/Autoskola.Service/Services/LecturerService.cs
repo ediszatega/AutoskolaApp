@@ -70,6 +70,15 @@ namespace Autoskola.Service.Services
             return await unitOfWork.Complete();
         }
 
+        public async Task<int> Deactivate(int key)
+        {
+            var user = unitOfWork.Users.Get(key).Result;
+            if (user == null)
+                throw new HttpException("User with requested ID not found", 400);
+            user.IsActive = false;
+            return await unitOfWork.Complete();
+        }
+
         public async Task<LecturerGetVM> GetById(int key)
         {
             var lecturer = await unitOfWork.Lecturers.Get(key);
@@ -79,6 +88,12 @@ namespace Autoskola.Service.Services
         public async Task<IEnumerable<LecturerGetVM>> GetAll(int pageNumber, int pageSize)
         {
             var users = await unitOfWork.Lecturers.GetAll(pageNumber, pageSize);
+            return mapper.Map<List<LecturerGetVM>>(users);
+        }
+
+        public async Task<IEnumerable<LecturerGetVM>> GetAllIncludeCities(string? search, int pageNumber, int pageSize)
+        {
+            var users = await unitOfWork.Lecturers.GetAllIncludeCities(search, pageNumber, pageSize);
             return mapper.Map<List<LecturerGetVM>>(users);
         }
 

@@ -70,6 +70,15 @@ namespace Autoskola.Service.Services
             return await unitOfWork.Complete();
         }
 
+        public async Task<int> Deactivate(int key)
+        {
+            var user = unitOfWork.Users.Get(key).Result;
+            if (user == null)
+                throw new HttpException("User with requested ID not found", 400);
+            user.IsActive = false;
+            return await unitOfWork.Complete();
+        }
+
         public async Task<EmployeeGetVM> GetById(int key)
         {
             var employee = await unitOfWork.Employees.Get(key);

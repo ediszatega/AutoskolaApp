@@ -48,6 +48,7 @@ namespace Autoskola.API.Controllers
             var result = await service.GetAdmins(search, start, range);
             return Ok(result);
         }
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -76,6 +77,12 @@ namespace Autoskola.API.Controllers
         public async Task<IActionResult> Remove(int id)
         {
             var result = await service.Remove(id);
+            return Ok(result);
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Deactivate(int id)
+        {
+            var result = await service.Deactivate(id);
             return Ok(result);
         }
         [HttpPost("{id}")]

@@ -1,0 +1,67 @@
+<div class="container">
+  <h1>Instructori</h1>
+  <input [(ngModel)]="searchInstructors" />
+  <table>
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Korisnicko ime</th>
+        <th>Email</th>
+        <th>Broj telefona</th>
+        <th>Datum rođenja</th>
+        <th>Grad</th>
+        <th>Br. vozačke dozvole</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let instructor of getInstructors()
+            | paginate
+              : {
+                  id: 'instructorPagination',
+                  itemsPerPage: 5,
+                  currentPage: pageInstructor
+                };
+          let j = index
+        "
+      >
+        <td (click)="editInstructor(instructor)">{{ instructor.firstName }}</td>
+        <td (click)="editInstructor(instructor)">{{ instructor.lastName }}</td>
+        <td (click)="editInstructor(instructor)">{{ instructor.username }}</td>
+        <td (click)="editInstructor(instructor)">{{ instructor.email }}</td>
+        <td (click)="editInstructor(instructor)">
+          {{ instructor.phoneNumber }}
+        </td>
+        <td (click)="editInstructor(instructor)">
+          {{ instructor.dateOfBirth }}
+        </td>
+        <td (click)="editInstructor(instructor)">{{ instructor.city.name }}</td>
+        <td (click)="editInstructor(instructor)">
+          {{ instructor.drivingLicense }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls
+    id="instructorPagination"
+    (pageChange)="pageInstructor = $event"
+  ></pagination-controls>
+  <button class="btn btn-primary" (click)="addInstructor()">
+    Novi Instructor
+  </button>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-instructor-form
+    (submit)="addPopupClosed(); fetchData()"
+  ></app-instructor-form>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-instructor-form
+    [instructor]="selectedInstructor"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-instructor-form>
+</app-popup>

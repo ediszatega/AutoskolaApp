@@ -1,0 +1,45 @@
+.form_container {
+  background: #fff;
+  border-radius: 3px;
+  height: auto;
+  width: 458px;
+}
+
+.form_container .form_wrap.form_grp {
+  display: flex;
+}
+
+.form_container .form_wrap.form_grp .form_item {
+  width: 50%;
+}
+
+.form_container .form_wrap.form_grp .form_item:first-child {
+  margin-right: 4%;
+}
+
+.form_container .form_item label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* input box and select box */
+
+.form_container .form_item input,
+.form_container .form_item select {
+  width: 100%;
+  border: 1px solid #dadce0;
+  border-radius: 3px;
+  padding: 6px;
+  font-size: 16px;
+}
+
+/* submit button */
+
+.btn {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.error {
+  color: red;
+}

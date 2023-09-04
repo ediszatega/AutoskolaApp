@@ -11,7 +11,10 @@ import { NgToastService } from 'ng-angular-popup';
 import { City } from 'src/app/models/city';
 import { User } from 'src/app/models/user';
 import { CityService } from 'src/app/services/city.service';
-import { createDateFromFormat } from 'src/app/services/helper/utilities';
+import {
+  createDateFromFormat,
+  dateOfBirthValidator,
+} from 'src/app/services/helper/utilities';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -37,12 +40,16 @@ export class AdminFormComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.pattern(/^\d{9}$/)],
-      dateOfBirth: [
-        '',
-        [Validators.required, Validators.pattern(/^\d{2}\/\d{2}\/\d{4}$/)],
-      ],
+      dateOfBirth: ['', [Validators.required, dateOfBirthValidator()]],
       username: ['', Validators.required],
-      password: ['', this.passwordValidator],
+      password: [
+        '',
+        (control) => {
+          if (this.admin == null) {
+            return Validators.required(control);
+          } else return null;
+        },
+      ],
       city: ['', Validators.required],
     });
   }
@@ -75,6 +82,20 @@ export class AdminFormComponent implements OnInit {
     });
   }
 
+  onRemove() {
+    if (this.admin != null) {
+      this.userService.removeUser(this.admin.id).subscribe(() => {
+        this.toast.success({
+          detail: 'Uspjeh',
+          summary: 'Uspješno izbrisan korisnik',
+          duration: 5000,
+        });
+        this.adminForm.reset();
+        this.submit.emit();
+      });
+    }
+  }
+
   onSubmit() {
     if (this.admin == null) this.addAdmin();
     else this.editAdmin();
@@ -92,7 +113,6 @@ export class AdminFormComponent implements OnInit {
       password: formValue.password,
       cityId: formValue.city,
     };
-    console.log(admin);
     this.userService.addAdmin(admin).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',
@@ -117,7 +137,6 @@ export class AdminFormComponent implements OnInit {
       password: formValue.password,
       cityId: formValue.city,
     };
-    console.log(admin);
     this.userService.updateUser(admin).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',

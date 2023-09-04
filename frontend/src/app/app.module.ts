@@ -22,6 +22,12 @@ import { AdminsComponent } from './components/user/admins/admins.component';
 import { PopupComponent } from './components/common/popup/popup.component';
 import { AdminFormComponent } from './components/user/admins/admin-form/admin-form.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CustomersComponent } from './components/user/customers/customers.component';
+import { CustomerFormComponent } from './components/user/customers/customer-form/customer-form.component';
+import { InstructorsComponent } from './components/user/instructors/instructors.component';
+import { InstructorFormComponent } from './components/user/instructors/instructor-form/instructor-form.component';
+import { LecturersComponent } from './components/user/lecturers/lecturers.component';
+import { LecturerFormComponent } from './components/user/lecturers/lecturer-form/lecturer-form.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +45,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AdminsComponent,
     PopupComponent,
     AdminFormComponent,
+    CustomersComponent,
+    CustomerFormComponent,
+    InstructorsComponent,
+    InstructorFormComponent,
+    LecturersComponent,
+    LecturerFormComponent,
   ],
   imports: [
     BrowserModule,

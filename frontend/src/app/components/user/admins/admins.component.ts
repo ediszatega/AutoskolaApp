@@ -10,13 +10,11 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./admins.component.css'],
 })
 export class AdminsComponent {
-  @Input() cities: City[];
-
   allAdmins: any[] = [];
   searchAdmins: string = '';
 
   selectedAdmin: User;
-  page = 1;
+  pageAdmin = 1;
 
   showAddPopup: boolean;
   showEditPopup: boolean;
@@ -31,7 +29,6 @@ export class AdminsComponent {
 
   public fetchData() {
     this.userService.getAdmins().subscribe((admins) => {
-      console.log(admins);
       this.allAdmins = admins;
     });
   }

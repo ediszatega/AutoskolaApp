@@ -1,0 +1,57 @@
+<div class="container">
+  <h1>Customeri</h1>
+  <input [(ngModel)]="searchCustomers" />
+  <table>
+    <thead>
+      <tr>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Korisnicko ime</th>
+        <th>Email</th>
+        <th>Broj telefona</th>
+        <th>Datum rođenja</th>
+        <th>Grad</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let customer of getCustomers()
+            | paginate
+              : {
+                  id: 'customerPagination',
+                  itemsPerPage: 5,
+                  currentPage: pageCustomer
+                };
+          let j = index
+        "
+      >
+        <td (click)="editCustomer(customer)">{{ customer.firstName }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.lastName }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.username }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.email }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.phoneNumber }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.dateOfBirth }}</td>
+        <td (click)="editCustomer(customer)">{{ customer.city.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls
+    id="customerPagination"
+    (pageChange)="pageCustomer = $event"
+  ></pagination-controls>
+  <button class="btn btn-primary" (click)="addCustomer()">Novi Customer</button>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-customer-form
+    (submit)="addPopupClosed(); fetchData()"
+  ></app-customer-form>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-customer-form
+    [customer]="selectedCustomer"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-customer-form>
+</app-popup>
