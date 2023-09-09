@@ -1,0 +1,58 @@
+<div class="form_container">
+  <form [formGroup]="testForm">
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          testForm.controls['description'].dirty &&
+          testForm.hasError('required', 'description')
+        "
+      >
+        <label>Description</label>
+        <input formControlName="description" type="text" />
+        <small
+          *ngIf="
+            testForm.controls['description'].dirty &&
+            testForm.hasError('required', 'description')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          testForm.controls['category'].dirty &&
+          testForm.hasError('required', 'category')
+        "
+      >
+        <label>Category</label>
+        <select formControlName="category">
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+        <small
+          *ngIf="
+            testForm.controls['category'].dirty &&
+            testForm.hasError('required', 'category')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="button-container">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        (click)="onTestSubmit()"
+        [disabled]="!testForm.valid"
+      >
+        Završi
+      </button>
+    </div>
+  </form>
+</div>

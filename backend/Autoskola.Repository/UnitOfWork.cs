@@ -57,9 +57,9 @@ namespace Autoskola.Repository
             return await _context.SaveChangesAsync();
         }
 
-        public async void Dispose()
+        public void Dispose()
         {
-            await _context.DisposeAsync();
+            _context.Dispose();
         }
     }
 }

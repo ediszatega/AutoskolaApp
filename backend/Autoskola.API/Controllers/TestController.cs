@@ -31,6 +31,13 @@ namespace Autoskola.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllIncludeCategory()
+        {
+            var result = await service.GetAllIncludeCategory();
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {

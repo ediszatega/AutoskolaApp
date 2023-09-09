@@ -1,0 +1,188 @@
+<div *ngIf="!questionSelected && !newQuestion" class="form_container">
+  <form [formGroup]="testForm">
+    <div class="form_wrap form_grp">
+      <div
+        class="form_item"
+        [class.error]="
+          testForm.controls['description'].dirty &&
+          testForm.hasError('required', 'description')
+        "
+      >
+        <label>Description</label>
+        <input formControlName="description" type="text" />
+        <small
+          *ngIf="
+            testForm.controls['description'].dirty &&
+            testForm.hasError('required', 'description')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+      <div
+        class="form_item"
+        [class.error]="
+          testForm.controls['category'].dirty &&
+          testForm.hasError('required', 'category')
+        "
+      >
+        <label>Category</label>
+        <select formControlName="category">
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+        <small
+          *ngIf="
+            testForm.controls['category'].dirty &&
+            testForm.hasError('required', 'category')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+  </form>
+
+  <div class="form_wrap questions_container">
+    <div
+      class="question"
+      *ngFor="let question of questions; let i = index"
+      (click)="editQuestion(question)"
+      [ngClass]="{ 'border-top': i >= 1 }"
+    >
+      <p>{{ questions.indexOf(question) + 1 }}.</p>
+      <p>{{ question.text }}</p>
+    </div>
+  </div>
+  <button class="btn btn-secondary mb-1" (click)="addNewQuestion()">
+    Dodaj pitanje
+  </button>
+  <div class="form_wrap form_grp button-container">
+    <button
+      style="margin-right: 2vh"
+      class="btn btn-danger"
+      type="submit"
+      (click)="onTestDelete()"
+      [disabled]="!testForm.valid"
+    >
+      Izbriši
+    </button>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      (click)="onTestSubmit()"
+      [disabled]="!testForm.valid"
+    >
+      Završi
+    </button>
+  </div>
+</div>
+
+<div *ngIf="questionSelected || newQuestion" class="form_container">
+  <form [formGroup]="questionForm">
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          questionForm.controls['text'].dirty &&
+          questionForm.hasError('required', 'text')
+        "
+      >
+        <label>Text</label>
+        <input formControlName="text" type="text" />
+        <small
+          *ngIf="
+            questionForm.controls['text'].dirty &&
+            questionForm.hasError('required', 'text')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap form_grp">
+      <div
+        class="form_item"
+        [class.error]="
+          questionForm.controls['points'].dirty &&
+          questionForm.hasError('required', 'points')
+        "
+      >
+        <label>Points</label>
+        <input formControlName="points" type="number" />
+
+        <small
+          *ngIf="
+            questionForm.controls['points'].dirty &&
+            questionForm.get('points').hasError('pattern')
+          "
+          class="text-danger"
+          >*Field needs to be a number</small
+        >
+      </div>
+      <div
+        class="form_item"
+        [class.error]="
+          questionForm.controls['questionType'].dirty &&
+          questionForm.hasError('required', 'questionType')
+        "
+      >
+        <label>Question type</label>
+        <select formControlName="questionType">
+          <option value="0">Teorija</option>
+          <option value="1">Znakovi</option>
+          <option value="2">Raskrsnice</option>
+        </select>
+        <small
+          *ngIf="
+            testForm.controls['category'].dirty &&
+            testForm.hasError('required', 'category')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+  </form>
+  <div class="form_wrap answers_container">
+    <div class="answer" *ngFor="let answer of answers">
+      <button
+        class="btn btn-danger delete-answer-button"
+        (click)="removeAnswer(answer)"
+      >
+        X
+      </button>
+      <input class="answer-text" type="text" [(ngModel)]="answer.text" />
+      <input
+        class="answer-checkbox"
+        type="checkbox"
+        [(ngModel)]="answer.isCorrect"
+      />
+    </div>
+    <div class="no-answers-container" *ngIf="answers.length <= 0">
+      <p>Pitanje nema odgovora</p>
+    </div>
+    <button class="btn btn-secondary mb-1" (click)="addNewAnswer()">
+      Dodaj odgovor
+    </button>
+  </div>
+  <div class="form_wrap form_grp button-container">
+    <button
+      style="margin-right: 2vh"
+      class="btn btn-danger"
+      type="submit"
+      (click)="onQuestionDelete()"
+    >
+      Izbriši
+    </button>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      (click)="onQuestionSubmit()"
+      [disabled]="!questionForm.valid"
+    >
+      Završi
+    </button>
+  </div>
+</div>

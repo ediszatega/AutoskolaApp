@@ -14,7 +14,7 @@ namespace Autoskola.Repository.Interfaces
         Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
 
-        Task Add(TEntity entity);
+        Task<TEntity> Add(TEntity entity);
         Task AddRange(IEnumerable<TEntity> entities);
 
         void Remove(TEntity entity);

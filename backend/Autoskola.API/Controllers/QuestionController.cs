@@ -35,6 +35,14 @@ namespace Autoskola.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{testId}")]
+        public async Task<IActionResult> GetByTest(int testId)
+        {
+            var result = await service.GetQuestionsByTest(testId);
+            return Ok(result);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -53,6 +61,13 @@ namespace Autoskola.API.Controllers
         public async Task<IActionResult> AddAnswer(int id, [FromBody] AnswerAddVM answer)
         {
             var result = await service.AddAnswerToQuestion(id, answer);
+            return Ok(result);
+        }
+
+        [HttpPost("{id}")]
+        public async Task<IActionResult> AddAnswers(int id, [FromBody] AnswerAddVM[] answers)
+        {
+            var result = await service.AddAnswersToQuestion(id, answers);
             return Ok(result);
         }
 

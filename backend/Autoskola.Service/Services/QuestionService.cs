@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using static System.Net.WebRequestMethods;
 using System.Web.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Autoskola.Service.Services
 {
@@ -32,27 +33,37 @@ namespace Autoskola.Service.Services
 
         public async Task<IEnumerable<Question>> GetQuestionsByType(QuestionType type, int testId)
         {
+            var test = await unitOfWork.Tests.Get(testId);
+            if (test == null)
+                throw new HttpException("Invalid Test ID", 400);
             return await unitOfWork.Questions.GetQuestionsByType(type, testId);
         }
-
-        public async Task<int> Add(QuestionAddVM question)
+        public async Task<IEnumerable<QuestionGetVM>> GetQuestionsByTest(int testId)
         {
-            var existingQuestion = await unitOfWork.Questions
-                .SingleOrDefault(q => q.Order == question.Order && q.TestId == question.TestId);
-            if (existingQuestion != null)
-                unitOfWork.Questions.Remove(existingQuestion);
+            var test = await unitOfWork.Tests.Get(testId);
+            if (test == null)
+                throw new HttpException("Invalid Test ID", 400);
+            var questions = await unitOfWork.Questions.GetQuestionsByTest(testId);
+            return mapper.Map<QuestionGetVM[]>(questions);
+        }
+
+        public async Task<QuestionGetVM> Add(QuestionAddVM question)
+        {
             var test = await unitOfWork.Tests.Get(question.TestId);
             if (test == null)
                 throw new HttpException("Invalid Test ID", 400);
+
+            var latestOrder = await unitOfWork.Questions.GetLatestOrder(question.TestId);
             var newQuestion = new Question() { 
                 Text = question.Text, 
                 Points = question.Points,
                 QuestionType = question.QuestionType,
                 TestId = question.TestId,
-                Order = question.Order
+                Order = latestOrder+1 
             };
-            await unitOfWork.Questions.Add(newQuestion);
-            return await unitOfWork.Complete();
+            var addedQuestion = await unitOfWork.Questions.Add(newQuestion);
+            await unitOfWork.Complete();
+            return mapper.Map<QuestionGetVM>(addedQuestion);
         }
         public async Task<int> AddAnswerToQuestion(int quesitonId, AnswerAddVM answer)
         {
@@ -65,7 +76,28 @@ namespace Autoskola.Service.Services
                 IsCorrect = answer.IsCorrect,
                 QuestionId = quesitonId
             };
-            unitOfWork.Answers.Add(newAnswer);
+            await unitOfWork.Answers.Add(newAnswer);
+            return await unitOfWork.Complete();
+        }
+
+        public async Task<int> AddAnswersToQuestion(int questionId, AnswerAddVM[] answers)
+        {
+            var question = await unitOfWork.Questions.Get(questionId);
+            if (question == null)
+                throw new HttpException("Invalid Question ID", 400);
+
+            List<Answer> newAnswers = new List<Answer>();
+            foreach (var answer in answers)
+            {
+                var newAnswer = new Answer
+                {
+                    Text = answer.Text,
+                    IsCorrect = answer.IsCorrect,
+                    QuestionId = questionId
+                };
+                newAnswers.Add(newAnswer);
+            }
+            await unitOfWork.Questions.UpdateAnswers(questionId, newAnswers);
             return await unitOfWork.Complete();
         }
 
@@ -74,9 +106,9 @@ namespace Autoskola.Service.Services
             var question = await unitOfWork.Questions.Get(entity.Id);
             if (question == null)
                 throw new HttpException("Question with requested ID not found", 400);
-            question.Text = question.Text;
-            question.Points = question.Points;
-            question.QuestionType = question.QuestionType;
+            question.Text = entity.Text;
+            question.Points = entity.Points;
+            question.QuestionType = entity.QuestionType;
 
             return await unitOfWork.Complete();
         }
@@ -86,6 +118,7 @@ namespace Autoskola.Service.Services
             var question = unitOfWork.Questions.Get(key).Result;
             if (question == null)
                 throw new HttpException("Question with requested ID not found", 400);
+            unitOfWork.Questions.RemoveAnswers(key);
             unitOfWork.Questions.Remove(question);
             return await unitOfWork.Complete();
         }

@@ -10,8 +10,8 @@ export interface Question {
   id?: number;
   text?: string;
   image?: string;
-  points: number;
-  order: number;
+  points?: number;
+  order?: number;
   questionType: QuestionType;
   answers?: Answer[];
 }

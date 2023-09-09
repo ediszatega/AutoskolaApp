@@ -17,11 +17,32 @@ namespace Autoskola.Repository.Repositories
         {
 
         }
+        public override void Remove(Test entity)
+        {
+            List<Question> questions = AutoskolaContext.Questions.Where(x => x.TestId == entity.Id).ToList();
+            foreach(var question in questions)
+            {
+                AutoskolaContext.RemoveRange(AutoskolaContext.Answers.Where(answer => answer.QuestionId == question.Id));
+            }
+            base.Remove(entity);
+        }
+        public async Task<List<Test>> GetAllIncludeCategory()
+        {
+            try
+            {
+                return await _entities.Include(test => test.Category).OrderBy(test => test.Category.Name)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new HttpException("Database connection error", 500);
+            }
+        }
         public async Task<Test> GetIncludeCategory(int key)
         {
             try
             {
-                return await _entities.Include(test => test.Category).FirstOrDefaultAsync(test => test.Id == key);
+                return await _entities.Include(test => test.Category).OrderBy(test => test.Category.Name).FirstOrDefaultAsync(test => test.Id == key);
             }
             catch (Exception ex)
             {
@@ -36,5 +57,7 @@ namespace Autoskola.Repository.Repositories
                 .Where(test => test.CategoryId == categoryId)
                 .ToListAsync();
         }
+        public AutoskolaContext AutoskolaContext { get { return _context as AutoskolaContext; } }
+
     }
 }

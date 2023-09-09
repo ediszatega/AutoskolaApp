@@ -73,11 +73,12 @@ namespace Autoskola.Repository.Repositories
             }
         }
 
-        public async virtual Task Add(TEntity entity)
+        public async virtual Task<TEntity> Add(TEntity entity)
         {
             try
             {
-                await _entities.AddAsync(entity);
+                var result = await _entities.AddAsync(entity);
+                return result.Entity;
             }
             catch (Exception ex)
             {

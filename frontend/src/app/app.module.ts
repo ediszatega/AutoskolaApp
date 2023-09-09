@@ -28,6 +28,9 @@ import { InstructorsComponent } from './components/user/instructors/instructors.
 import { InstructorFormComponent } from './components/user/instructors/instructor-form/instructor-form.component';
 import { LecturersComponent } from './components/user/lecturers/lecturers.component';
 import { LecturerFormComponent } from './components/user/lecturers/lecturer-form/lecturer-form.component';
+import { AdminTestModuleComponent } from './components/admin-test-module/admin-test-module.component';
+import { AddTestComponent } from './components/admin-test-module/add-test/add-test.component';
+import { EditTestComponent } from './components/admin-test-module/edit-test/edit-test.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { LecturerFormComponent } from './components/user/lecturers/lecturer-form
     InstructorFormComponent,
     LecturersComponent,
     LecturerFormComponent,
+    AdminTestModuleComponent,
+    AddTestComponent,
+    EditTestComponent,
   ],
   imports: [
     BrowserModule,
