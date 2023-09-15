@@ -1,0 +1,47 @@
+<div class="wrapper">
+  <div class="container">
+    <h1>Testovi</h1>
+    <input [(ngModel)]="searchTests" />
+    <table>
+      <thead>
+        <tr>
+          <th>Opis</th>
+          <th>Kategorija</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let test of getTests()
+              | paginate
+                : {
+                    id: 'testPagination',
+                    itemsPerPage: 5,
+                    currentPage: pageTest
+                  };
+            let j = index
+          "
+        >
+          <td (click)="editTest(test)">{{ test.description }}</td>
+          <td (click)="editTest(test)">{{ test.category.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+      id="testPagination"
+      (pageChange)="pageTest = $event"
+    ></pagination-controls>
+    <button class="btn btn-primary" (click)="addTest()">Novi Test</button>
+  </div>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-add-test (submit)="onSubmit($event)"></app-add-test>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-edit-test
+    [test]="selectedTest"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-edit-test>
+</app-popup>

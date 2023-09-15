@@ -4,6 +4,7 @@ import { Question } from './question';
 export interface Test {
   id?: number;
   description?: string;
-  category: Category;
+  categoryId: number;
+  category?: Category;
   questions?: Question[];
 }

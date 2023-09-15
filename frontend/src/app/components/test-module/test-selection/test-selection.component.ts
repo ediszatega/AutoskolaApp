@@ -16,7 +16,7 @@ export class TestSelectionComponent implements OnInit {
   constructor(private service: TestService) {}
 
   ngOnInit(): void {
-    this.service.getTests(1, 1000, this.category.id).subscribe(
+    this.service.getTestsByCategory(this.category.id).subscribe(
       (tests) => {
         this.tests = tests;
       },

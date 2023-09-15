@@ -1,6 +1,10 @@
 <div class="wrapper">
   <div class="admin-nav-bar">
-    <div *ngFor="let link of links" class="nav-item {{ link.class }}">
+    <div
+      *ngFor="let link of links; let i = index"
+      class="nav-item {{ link.class }}"
+      (click)="onLinkClick(i)"
+    >
       <a>{{ link.label }}</a>
     </div>
     <div class="nav-item">

@@ -10,5 +10,6 @@ namespace Autoskola.Repository.Interfaces
     public interface IAnswerRepository : IRepository<Answer>
     {
         Task<IEnumerable<Answer>> GetByQuestion(int questionId);
+        void RemoveByQuestion(int questionId);
     }
 }

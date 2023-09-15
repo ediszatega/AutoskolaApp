@@ -10,6 +10,10 @@ namespace Autoskola.Repository.Interfaces
     public interface IQuestionRepository : IRepository<Question>
     {
         Task<IEnumerable<Question>> GetQuestionsByType(QuestionType type, int testId);
+        Task<IEnumerable<Question>> GetQuestionsByTest(int testId);
+        Task<int> GetLatestOrder(int testId);
+        void RemoveAnswers(int questionId);
+        Task UpdateAnswers(int questionId, List<Answer> answers);
 
     }
 }

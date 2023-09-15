@@ -18,8 +18,15 @@ namespace Autoskola.Repository.Repositories
         }
         public async Task<IEnumerable<Answer>>GetByQuestion(int questionId)
         {
-            return await _context.Set<Answer>().Where(a => a.QuestionId == questionId).OrderBy(a=>a.Id).Take(4).ToListAsync();
+            return await AutoskolaContext.Answers.Where(a => a.QuestionId == questionId).ToListAsync();
         }
+
+        public async void RemoveByQuestion(int questionId)
+        {
+            var answers = await AutoskolaContext.Answers.Where(a => a.QuestionId == questionId).ToListAsync();
+            _context.Set<Answer>().RemoveRange(answers);
+        }
+
         public AutoskolaContext AutoskolaContext { get { return _context as AutoskolaContext; } }
     }
 }

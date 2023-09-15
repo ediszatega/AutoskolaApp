@@ -27,14 +27,17 @@ namespace Autoskola.Service.Services
             this.mapper = mapper;
         }
 
-        public async Task<int> Add(TestAddVM test)
+        public async Task<TestGetVM> Add(TestAddVM test)
         {
             var category = await unitOfWork.Categories.Get(test.CategoryId);
             if (category == null)
                 throw new HttpException("Invalid Category ID", 400);
             var newTest = new Test() { Description = test.Description, CategoryId = test.CategoryId };
-            await unitOfWork.Tests.Add(newTest);
-            return await unitOfWork.Complete();
+            newTest = await unitOfWork.Tests.Add(newTest);
+            await unitOfWork.Complete();
+
+            return mapper.Map<TestGetVM>(newTest);
+
         }
 
         public async Task<int> Update(Test entity)
@@ -89,6 +92,11 @@ namespace Autoskola.Service.Services
         public async Task<IEnumerable<TestGetVM>> GetAll(int pageNumber = 1, int pageSize = 100)
         {
             var tests = await unitOfWork.Tests.GetAll(pageNumber, pageSize);
+            return mapper.Map<List<TestGetVM>>(tests);
+        }
+        public async Task<IEnumerable<TestGetVM>> GetAllIncludeCategory()
+        {
+            var tests = await unitOfWork.Tests.GetAllIncludeCategory();
             return mapper.Map<List<TestGetVM>>(tests);
         }
         public async Task<IEnumerable<TestGetVM>> GetAllByCategory(int categoryId)
