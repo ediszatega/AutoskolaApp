@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Autoskola.Repository.Migrations
 {
     [DbContext(typeof(AutoskolaContext))]
-    [Migration("20230829192518_initial")]
-    partial class initial
+    [Migration("20230915210410_migration1")]
+    partial class migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

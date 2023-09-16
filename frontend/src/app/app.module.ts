@@ -31,6 +31,9 @@ import { LecturerFormComponent } from './components/user/lecturers/lecturer-form
 import { AdminTestModuleComponent } from './components/admin-test-module/admin-test-module.component';
 import { AddTestComponent } from './components/admin-test-module/add-test/add-test.component';
 import { EditTestComponent } from './components/admin-test-module/edit-test/edit-test.component';
+import { CategoryComponent } from './components/category/category.component';
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,9 @@ import { EditTestComponent } from './components/admin-test-module/edit-test/edit
     AdminTestModuleComponent,
     AddTestComponent,
     EditTestComponent,
+    CategoryComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
   ],
   imports: [
     BrowserModule,

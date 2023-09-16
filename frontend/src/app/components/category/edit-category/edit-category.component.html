@@ -1,0 +1,62 @@
+<div class="form_container">
+  <form [formGroup]="categoryForm">
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          categoryForm.controls['name'].dirty &&
+          categoryForm.hasError('required', 'name')
+        "
+      >
+        <label>Naziv</label>
+        <input formControlName="name" type="text" />
+        <small
+          *ngIf="
+            categoryForm.controls['name'].dirty &&
+            categoryForm.hasError('required', 'name')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          categoryForm.controls['description'].dirty &&
+          categoryForm.hasError('required', 'description')
+        "
+      >
+        <label>Opis</label>
+        <input formControlName="description" type="text" />
+        <small
+          *ngIf="
+            categoryForm.controls['description'].dirty &&
+            categoryForm.hasError('required', 'description')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="button-container">
+      <button
+        *ngIf="category"
+        class="btn btn-primary"
+        type="button"
+        (click)="onRemove()"
+      >
+        Izbriši
+      </button>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        (click)="onCategorySubmit()"
+        [disabled]="!categoryForm.valid"
+      >
+        Završi
+      </button>
+    </div>
+  </form>
+</div>

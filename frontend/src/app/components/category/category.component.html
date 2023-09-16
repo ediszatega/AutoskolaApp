@@ -1,0 +1,49 @@
+<div class="wrapper">
+  <div class="container">
+    <h1>Testovi</h1>
+    <input [(ngModel)]="searchCategory" />
+    <table>
+      <thead>
+        <tr>
+          <th>Naziv</th>
+          <th>Opis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let category of getCategories()
+              | paginate
+                : {
+                    id: 'categoryPagination',
+                    itemsPerPage: 5,
+                    currentPage: pageCategory
+                  };
+            let j = index
+          "
+        >
+          <td (click)="editCategory(category)">{{ category.name }}</td>
+          <td (click)="editCategory(category)">{{ category.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+      id="categoryPagination"
+      (pageChange)="pageCategory = $event"
+    ></pagination-controls>
+    <button class="btn btn-primary" (click)="addCategory()">
+      Nova kategorija
+    </button>
+  </div>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-add-category (submit)="onSubmit($event)"></app-add-category>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-edit-category
+    [category]="selectedCategory"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-edit-category>
+</app-popup>

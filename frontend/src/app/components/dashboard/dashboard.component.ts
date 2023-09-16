@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserComponent } from '../user/user.component';
 import { AdminTestModuleComponent } from '../admin-test-module/admin-test-module.component';
+import { CategoryComponent } from '../category/category.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit {
   public links = [
     { label: 'Korisnici', component: UserComponent, class: '' },
     { label: 'Testovi', component: AdminTestModuleComponent, class: '' },
+    { label: 'Kategorije', component: CategoryComponent, class: '' },
   ];
   public activeLink: number;
   public currentComponent;
