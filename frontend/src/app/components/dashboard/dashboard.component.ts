@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserComponent } from '../user/user.component';
 import { AdminTestModuleComponent } from '../admin-test-module/admin-test-module.component';
 import { CategoryComponent } from '../category/category.component';
+import { VehicleComponent } from '../vehicle/vehicle.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,13 +17,14 @@ export class DashboardComponent implements OnInit {
     { label: 'Korisnici', component: UserComponent, class: '' },
     { label: 'Testovi', component: AdminTestModuleComponent, class: '' },
     { label: 'Kategorije', component: CategoryComponent, class: '' },
+    { label: 'Vozila', component: VehicleComponent, class: '' },
   ];
   public activeLink: number;
   public currentComponent;
   constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.activeLink = 1;
+    this.activeLink = 0;
     this.currentComponent = this.links[this.activeLink].component;
     this.links[this.activeLink].class = 'active';
   }

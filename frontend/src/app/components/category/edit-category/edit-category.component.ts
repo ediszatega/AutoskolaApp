@@ -58,7 +58,6 @@ export class EditCategoryComponent implements OnInit {
   }
 
   onRemove() {
-    console.log(this.category.id);
     if (this.category != null) {
       this.categoryService.removeCategory(this.category.id).subscribe(() => {
         this.toast.success({

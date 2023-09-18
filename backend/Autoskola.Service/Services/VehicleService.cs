@@ -59,7 +59,7 @@ namespace Autoskola.Service.Services
             var vehicle = await unitOfWork.Vehicles.Get(entity.Id);
             if(vehicle == null)
             {
-                throw new HttpException("Question with requested ID not found", 400);
+                throw new HttpException("Vehicle with requested ID not found", 400);
             }
             vehicle.Model = entity.Model;
             vehicle.Make = entity.Make;

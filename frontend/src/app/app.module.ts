@@ -34,6 +34,9 @@ import { EditTestComponent } from './components/admin-test-module/edit-test/edit
 import { CategoryComponent } from './components/category/category.component';
 import { AddCategoryComponent } from './components/category/add-category/add-category.component';
 import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
+import { VehicleComponent } from './components/vehicle/vehicle.component';
+import { AddVehicleComponent } from './components/vehicle/add-vehicle/add-vehicle.component';
+import { EditVehicleComponent } from './components/vehicle/edit-vehicle/edit-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +66,9 @@ import { EditCategoryComponent } from './components/category/edit-category/edit-
     CategoryComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    VehicleComponent,
+    AddVehicleComponent,
+    EditVehicleComponent,
   ],
   imports: [
     BrowserModule,

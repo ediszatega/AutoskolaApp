@@ -23,7 +23,7 @@ namespace Autoskola.Repository.Repositories
         {
             try
             {
-                return await _context.Set<Vehicle>().Where(vehicle => string.IsNullOrEmpty(search) || vehicle.Model.StartsWith(search)).OrderBy(v => v.Model)
+                return await _context.Set<Vehicle>().Where(vehicle => string.IsNullOrEmpty(search) || vehicle.Model.StartsWith(search)).Include(vehicle => vehicle.Category).OrderBy(v => v.Model)
                     .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             }
             catch (Exception ex)

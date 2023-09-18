@@ -32,7 +32,7 @@ export class CategoryComponent implements OnInit {
   getCategories() {
     if (this.allCategories == null) return [];
     return this.allCategories.filter((x: any) =>
-      x.name.toLowerCase().startsWith(this.searchCategory.toLocaleLowerCase())
+      x.name.toLowerCase().startsWith(this.searchCategory.toLowerCase())
     );
   }
 
