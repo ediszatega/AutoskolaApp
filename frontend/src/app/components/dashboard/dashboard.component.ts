@@ -6,6 +6,7 @@ import { UserComponent } from '../user/user.component';
 import { AdminTestModuleComponent } from '../admin-test-module/admin-test-module.component';
 import { CategoryComponent } from '../category/category.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
+import { MottestComponent } from '../mottest/mottest.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
     { label: 'Testovi', component: AdminTestModuleComponent, class: '' },
     { label: 'Kategorije', component: CategoryComponent, class: '' },
     { label: 'Vozila', component: VehicleComponent, class: '' },
+    { label: 'Servisi', component: MottestComponent, class: '' },
   ];
   public activeLink: number;
   public currentComponent;

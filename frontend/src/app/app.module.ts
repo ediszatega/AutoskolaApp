@@ -37,6 +37,8 @@ import { EditCategoryComponent } from './components/category/edit-category/edit-
 import { VehicleComponent } from './components/vehicle/vehicle.component';
 import { AddVehicleComponent } from './components/vehicle/add-vehicle/add-vehicle.component';
 import { EditVehicleComponent } from './components/vehicle/edit-vehicle/edit-vehicle.component';
+import { MottestComponent } from './components/mottest/mottest.component';
+import { MottestFormComponent } from './components/mottest/mottest-form/mottest-form.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { EditVehicleComponent } from './components/vehicle/edit-vehicle/edit-veh
     VehicleComponent,
     AddVehicleComponent,
     EditVehicleComponent,
+    MottestComponent,
+    MottestFormComponent,
   ],
   imports: [
     BrowserModule,

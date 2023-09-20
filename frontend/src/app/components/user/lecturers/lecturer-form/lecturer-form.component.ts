@@ -5,7 +5,7 @@ import { City } from 'src/app/models/city';
 import { Lecturer } from 'src/app/models/lecturer';
 import { CityService } from 'src/app/services/city.service';
 import {
-  dateOfBirthValidator,
+  dateValidator,
   validateDateOfBirth,
   createDateFromFormat,
 } from 'src/app/services/helper/utilities';
@@ -34,7 +34,7 @@ export class LecturerFormComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.pattern(/^\d{9}$/)],
-      dateOfBirth: ['', [Validators.required, dateOfBirthValidator()]],
+      dateOfBirth: ['', [Validators.required, dateValidator()]],
       username: ['', Validators.required],
       password: [
         '',

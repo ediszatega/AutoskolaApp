@@ -73,7 +73,7 @@ export function validateDateOfBirth(date: string): boolean {
   return true;
 }
 
-export function dateOfBirthValidator(): ValidatorFn {
+export function dateValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) {
       return null;

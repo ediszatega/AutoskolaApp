@@ -13,7 +13,7 @@ import { User } from 'src/app/models/user';
 import { CityService } from 'src/app/services/city.service';
 import {
   createDateFromFormat,
-  dateOfBirthValidator,
+  dateValidator,
 } from 'src/app/services/helper/utilities';
 import { UserService } from 'src/app/services/user.service';
 
@@ -40,7 +40,7 @@ export class AdminFormComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.pattern(/^\d{9}$/)],
-      dateOfBirth: ['', [Validators.required, dateOfBirthValidator()]],
+      dateOfBirth: ['', [Validators.required, dateValidator()]],
       username: ['', Validators.required],
       password: [
         '',
@@ -83,6 +83,7 @@ export class AdminFormComponent implements OnInit {
   }
 
   onRemove() {
+    console.log(this.admin);
     if (this.admin != null) {
       this.userService.removeUser(this.admin.id).subscribe(() => {
         this.toast.success({
