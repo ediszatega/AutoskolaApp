@@ -104,7 +104,6 @@ export class MottestFormComponent implements OnInit {
   }
 
   onRemove() {
-    console.log(this.mottest);
     if (this.mottest != null) {
       this.mottestService.removeMotTest(this.mottest.id).subscribe(() => {
         this.toast.success({

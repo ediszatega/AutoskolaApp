@@ -1,0 +1,53 @@
+<div class="wrapper">
+  <div class="container">
+    <h1>Plaćanja</h1>
+    <input [(ngModel)]="searchPayment" />
+    <table>
+      <thead>
+        <tr>
+          <th>Opis</th>
+          <th>Količina</th>
+          <th>Datum</th>
+          <th>Korisnik</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let payment of getPayments()
+              | paginate
+                : {
+                    id: 'paymentPagination',
+                    itemsPerPage: 5,
+                    currentPage: pagePayment
+                  };
+            let j = index
+          "
+        >
+          <td (click)="editPayment(payment)">{{ payment.description }}</td>
+          <td (click)="editPayment(payment)">{{ payment.amount }}</td>
+          <td (click)="editPayment(payment)">{{ payment.date }}</td>
+          <td (click)="editPayment(payment)">
+            {{ payment.customer.firstName }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+      id="paymentPagination"
+      (pageChange)="pagePayment = $event"
+    ></pagination-controls>
+    <button class="btn btn-primary" (click)="addPayment()">Nova uplata</button>
+  </div>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-payment-form (submit)="addPopupClosed(); fetchData()"></app-payment-form>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-payment-form
+    [payment]="selectedPayment"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-payment-form>
+</app-popup>

@@ -1,0 +1,111 @@
+<div class="form_container">
+  <form [formGroup]="paymentForm">
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          paymentForm.controls['description'].dirty &&
+          paymentForm.hasError('required', 'description')
+        "
+      >
+        <label>Opis</label>
+        <input formControlName="description" type="text" />
+        <small
+          *ngIf="
+            paymentForm.controls['description'].dirty &&
+            paymentForm.hasError('required', 'description')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+      <div class="form_wrap">
+        <div
+          class="form_item"
+          [class.error]="
+            paymentForm.controls['amount'].dirty &&
+            paymentForm.hasError('required', 'amount')
+          "
+        >
+          <label>Količina</label>
+          <input formControlName="amount" type="text" />
+          <small
+            *ngIf="
+              paymentForm.controls['amount'].dirty &&
+              paymentForm.hasError('required', 'amount')
+            "
+            class="text-danger"
+            >*Field is required</small
+          >
+        </div>
+      </div>
+      <div
+        class="form_item"
+        [class.error]="
+          paymentForm.controls['date'].dirty &&
+          paymentForm.hasError('required', 'date')
+        "
+      >
+        <label>Datum</label>
+        <input formControlName="date" type="text" />
+        <small
+          *ngIf="
+            paymentForm.controls['date'].dirty &&
+            paymentForm.hasError('required', 'date')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+      <small
+        *ngIf="paymentForm.hasError('pattern', 'dateOfBirth')"
+        class="text-danger"
+        >*Invalid date format. Please use dd/mm/yyyy.</small
+      >
+    </div>
+
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          paymentForm.controls['customer'].dirty &&
+          paymentForm.hasError('required', 'customer')
+        "
+      >
+        <label>Korisnik</label>
+        <select formControlName="customer">
+          <option *ngFor="let customer of customers" [value]="customer.id">
+            {{ customer.firstName }}
+          </option>
+        </select>
+        <small
+          *ngIf="
+            paymentForm.controls['customer'].dirty &&
+            paymentForm.hasError('required', 'customer')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button
+        *ngIf="payment"
+        class="btn btn-primary"
+        type="button"
+        (click)="onRemove()"
+      >
+        Izbriši
+      </button>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        (click)="onSubmit()"
+        [disabled]="!paymentForm.valid"
+      >
+        Završi
+      </button>
+    </div>
+  </form>
+</div>
