@@ -31,6 +31,11 @@ import { LecturerFormComponent } from './components/user/lecturers/lecturer-form
 import { AdminTestModuleComponent } from './components/admin-test-module/admin-test-module.component';
 import { AddTestComponent } from './components/admin-test-module/add-test/add-test.component';
 import { EditTestComponent } from './components/admin-test-module/edit-test/edit-test.component';
+import { environment } from 'src/environments/environment';
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -71,6 +76,9 @@ import { EditTestComponent } from './components/admin-test-module/edit-test/edit
     ReactiveFormsModule,
     NgToastModule,
     NgxPaginationModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     {

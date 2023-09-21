@@ -1,11 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
+import { Observable, finalize } from 'rxjs';
 import { Answer } from 'src/app/models/answer';
 import { Category } from 'src/app/models/category';
 import { Question, QuestionType } from 'src/app/models/question';
 import { Test } from 'src/app/models/test';
 import { TestService } from 'src/app/services/test.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-edit-test',
@@ -29,10 +32,14 @@ export class EditTestComponent {
   questionSelected: boolean = false;
   selectedQuestion: Question;
 
+  image: any;
+  imageUrl: string = '';
+
   constructor(
     private testService: TestService,
     private toast: NgToastService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private afStorage: AngularFireStorage
   ) {
     this.testForm = this.fb.group({
       description: ['', Validators.required],
@@ -62,6 +69,7 @@ export class EditTestComponent {
         category: this.test.category.id,
       });
       this.questions = questions;
+      console.log(this.questions);
     });
   }
 
@@ -98,12 +106,15 @@ export class EditTestComponent {
 
   addNewQuestion() {
     this.newQuestion = true;
+    this.selectedQuestion = null;
+    this.image = null;
+    this.imageUrl = '';
+    this.answers = [];
   }
 
   editQuestion(question: Question) {
     this.questionSelected = true;
     this.selectedQuestion = question;
-    this.answers = this.selectedQuestion.answers;
     this.updateForm();
   }
 
@@ -113,10 +124,14 @@ export class EditTestComponent {
       points: this.selectedQuestion.points,
       questionType: this.selectedQuestion.questionType,
     });
+    this.imageUrl = this.selectedQuestion.image;
+    this.answers = this.selectedQuestion.answers;
+    console.log(this.selectedQuestion);
   }
 
   addNewAnswer() {
     this.answers.push({ text: '', isCorrect: false });
+    console.log(this.answers);
   }
 
   onQuestionSubmit() {
@@ -128,52 +143,91 @@ export class EditTestComponent {
   }
 
   addQuestion() {
-    const questionAdd = {
-      text: this.questionForm.value.text,
-      points: this.questionForm.value.points,
-      questionType: parseInt(this.questionForm.value.questionType),
-      testId: this.test.id,
-    };
-    this.testService.addQuestion(questionAdd).subscribe((result) => {
-      this.testService.addAnswers(result.id, this.answers).subscribe(() => {
-        this.toast.success({
-          detail: 'Uspjeh',
-          summary: 'Uspješno dodano pitanje',
-          duration: 5000,
-        });
-        this.fetchQuestions();
-        this.newQuestion = false;
-        this.selectedQuestion = null;
-        this.answers = [];
-        this.questionForm.reset();
-      });
-    });
+    const file = this.image;
+    const filePath = `QuestionImages/${uuidv4()}-${file.name}`;
+    const fileRef = this.afStorage.ref(filePath);
+    this.afStorage
+      .upload(filePath, file)
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          const downloadURL = fileRef.getDownloadURL();
+          downloadURL.subscribe((url) => {
+            if (url) {
+              const questionAdd = {
+                text: this.questionForm.value.text,
+                points: this.questionForm.value.points,
+                questionType: parseInt(this.questionForm.value.questionType),
+                testId: this.test.id,
+                image: this.imageUrl,
+              };
+              this.testService.addQuestion(questionAdd).subscribe((result) => {
+                this.testService
+                  .addAnswers(result.id, this.answers)
+                  .subscribe(() => {
+                    this.toast.success({
+                      detail: 'Uspjeh',
+                      summary: 'Uspješno dodano pitanje',
+                      duration: 5000,
+                    });
+                    this.fetchQuestions();
+                    this.newQuestion = false;
+                    this.selectedQuestion = null;
+                    this.image = null;
+                    this.imageUrl = '';
+                    this.answers = [];
+                    this.questionForm.reset();
+                  });
+              });
+            }
+          });
+        })
+      )
+      .subscribe();
   }
 
   updateQuestion() {
-    const questionUpdate = {
-      id: this.selectedQuestion.id,
-      text: this.questionForm.value.text,
-      points: this.questionForm.value.points,
-      questionType: parseInt(this.questionForm.value.questionType),
-    };
-    console.log(questionUpdate);
-    this.testService.updateQuestion(questionUpdate).subscribe(() => {
-      this.testService
-        .addAnswers(this.selectedQuestion.id, this.answers)
-        .subscribe(() => {
-          this.toast.success({
-            detail: 'Uspjeh',
-            summary: 'Uspješno izmijenjeno pitanje',
-            duration: 5000,
+    const file = this.image;
+    const filePath = `QuestionImages/${uuidv4()}-${file.name}`;
+    const fileRef = this.afStorage.ref(filePath);
+    this.afStorage
+      .upload(filePath, file)
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          const downloadURL = fileRef.getDownloadURL();
+          downloadURL.subscribe((url) => {
+            if (url) {
+              const questionUpdate = {
+                id: this.selectedQuestion.id,
+                text: this.questionForm.value.text,
+                points: this.questionForm.value.points,
+                questionType: parseInt(this.questionForm.value.questionType),
+                image: url,
+              };
+              console.log(questionUpdate);
+              this.testService.updateQuestion(questionUpdate).subscribe(() => {
+                this.testService
+                  .addAnswers(this.selectedQuestion.id, this.answers)
+                  .subscribe(() => {
+                    this.toast.success({
+                      detail: 'Uspjeh',
+                      summary: 'Uspješno izmijenjeno pitanje',
+                      duration: 5000,
+                    });
+                    this.fetchQuestions();
+                    this.questionSelected = false;
+                    this.selectedQuestion = null;
+                    this.answers = [];
+                    this.imageUrl = '';
+                    this.questionForm.reset();
+                  });
+              });
+            }
           });
-          this.fetchQuestions();
-          this.questionSelected = false;
-          this.selectedQuestion = null;
-          this.answers = [];
-          this.questionForm.reset();
-        });
-    });
+        })
+      )
+      .subscribe();
   }
 
   onQuestionDelete() {
@@ -203,5 +257,29 @@ export class EditTestComponent {
       });
       this.submit.emit();
     });
+  }
+
+  onFilesSelected(event) {
+    this.image = event.target.files[0];
+  }
+
+  uploadImage() {
+    const file = this.image;
+    const filePath = `QuestionImages/${uuidv4()}-${file.name}`;
+    const fileRef = this.afStorage.ref(filePath);
+    return this.afStorage
+      .upload(filePath, file)
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          const downloadURL = fileRef.getDownloadURL();
+          downloadURL.subscribe((url) => {
+            if (url) {
+              this.imageUrl = url;
+              console.log(this.imageUrl);
+            }
+          });
+        })
+      );
   }
 }
