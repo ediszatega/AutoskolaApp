@@ -144,6 +144,29 @@
         >
       </div>
     </div>
+    <div class="form_wrap">
+      <div class="form_item">
+        <label>Image</label>
+        <input
+          type="file"
+          id="file"
+          name="image"
+          autocomplete="off"
+          #image
+          multiple
+          (change)="onFilesSelected($event)"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div *ngIf="selectedQuestion" class="form_item image">
+        <img
+          [src]="selectedQuestion.image"
+          style="max-width: 300px; margin: 10px"
+        />
+      </div>
+    </div>
   </form>
   <div class="form_wrap answers_container">
     <div class="answer" *ngFor="let answer of answers">

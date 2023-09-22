@@ -1,8 +1,10 @@
 <div class="popup-overlay">
-  <div class="popup">
+  <div class="popup" style="max-height: 90vh; overflow-y: scroll">
     <div class="close-button-container">
       <button class="btn close-button" (click)="closePopup()">X</button>
     </div>
-    <ng-content></ng-content>
+    <div style="max-height: 80vh">
+      <ng-content></ng-content>
+    </div>
   </div>
 </div>
