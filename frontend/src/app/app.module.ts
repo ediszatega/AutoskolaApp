@@ -31,8 +31,17 @@ import { LecturerFormComponent } from './components/user/lecturers/lecturer-form
 import { AdminTestModuleComponent } from './components/admin-test-module/admin-test-module.component';
 import { AddTestComponent } from './components/admin-test-module/add-test/add-test.component';
 import { EditTestComponent } from './components/admin-test-module/edit-test/edit-test.component';
+import { CategoryComponent } from './components/category/category.component';
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
+import { VehicleComponent } from './components/vehicle/vehicle.component';
+import { AddVehicleComponent } from './components/vehicle/add-vehicle/add-vehicle.component';
+import { EditVehicleComponent } from './components/vehicle/edit-vehicle/edit-vehicle.component';
+import { MottestComponent } from './components/mottest/mottest.component';
+import { MottestFormComponent } from './components/mottest/mottest-form/mottest-form.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { PaymentFormComponent } from './components/payment/payment-form/payment-form.component';
 import { environment } from 'src/environments/environment';
-
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
@@ -67,6 +76,16 @@ import { NewsDetailsComponent } from './components/news/news-details/news-detail
     AdminTestModuleComponent,
     AddTestComponent,
     EditTestComponent,
+    CategoryComponent,
+    AddCategoryComponent,
+    EditCategoryComponent,
+    VehicleComponent,
+    AddVehicleComponent,
+    EditVehicleComponent,
+    MottestComponent,
+    MottestFormComponent,
+    PaymentComponent,
+    PaymentFormComponent,
     AdminNewsComponent,
     AddNewsComponent,
     EditNewsComponent,

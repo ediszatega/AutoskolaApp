@@ -13,7 +13,7 @@ import { Instructor } from 'src/app/models/instructor';
 import { CityService } from 'src/app/services/city.service';
 import {
   createDateFromFormat,
-  dateOfBirthValidator,
+  dateValidator,
   validateDateOfBirth,
 } from 'src/app/services/helper/utilities';
 import { UserService } from 'src/app/services/user.service';
@@ -41,7 +41,7 @@ export class InstructorFormComponent {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.pattern(/^\d{9}$/)],
-      dateOfBirth: ['', [Validators.required, dateOfBirthValidator()]],
+      dateOfBirth: ['', [Validators.required, dateValidator()]],
       username: ['', Validators.required],
       password: [
         '',

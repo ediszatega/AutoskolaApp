@@ -1,0 +1,98 @@
+<div class="form_container">
+  <form [formGroup]="vehicleForm">
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          vehicleForm.controls['model'].dirty &&
+          vehicleForm.hasError('required', 'model')
+        "
+      >
+        <label>Model</label>
+        <input formControlName="model" type="text" />
+        <small
+          *ngIf="
+            vehicleForm.controls['model'].dirty &&
+            vehicleForm.hasError('required', 'model')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          vehicleForm.controls['make'].dirty &&
+          vehicleForm.hasError('required', 'make')
+        "
+      >
+        <label>Proizvođač</label>
+        <input formControlName="make" type="text" />
+        <small
+          *ngIf="
+            vehicleForm.controls['make'].dirty &&
+            vehicleForm.hasError('required', 'make')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          vehicleForm.controls['registration'].dirty &&
+          vehicleForm.hasError('required', 'registration')
+        "
+      >
+        <label>Registracija</label>
+        <input formControlName="registration" type="text" />
+        <small
+          *ngIf="
+            vehicleForm.controls['registration'].dirty &&
+            vehicleForm.hasError('required', 'registration')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          vehicleForm.controls['category'].dirty &&
+          vehicleForm.hasError('required', 'category')
+        "
+      >
+        <label>Kategorija</label>
+        <select formControlName="category">
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+        <small
+          *ngIf="
+            vehicleForm.controls['category'].dirty &&
+            vehicleForm.hasError('required', 'category')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="button-container">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        (click)="onVehicleSubmit()"
+        [disabled]="!vehicleForm.valid"
+      >
+        Završi
+      </button>
+    </div>
+  </form>
+</div>

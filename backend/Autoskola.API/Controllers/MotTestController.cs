@@ -47,7 +47,7 @@ namespace Autoskola.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
         {
             var result = await service.Remove(id);

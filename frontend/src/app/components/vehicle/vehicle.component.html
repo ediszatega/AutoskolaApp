@@ -1,0 +1,51 @@
+<div class="wrapper">
+  <div class="container">
+    <h1>Vozila</h1>
+    <input [(ngModel)]="searchVehicle" />
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Proizvođač</th>
+          <th>Registracija</th>
+          <th>Kategorija</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let vehicle of getVehicles()
+              | paginate
+                : {
+                    id: 'vehiclePagination',
+                    itemsPerPage: 5,
+                    currentPage: pageVehicle
+                  };
+            let j = index
+          "
+        >
+          <td (click)="editVehicle(vehicle)">{{ vehicle.model }}</td>
+          <td (click)="editVehicle(vehicle)">{{ vehicle.make }}</td>
+          <td (click)="editVehicle(vehicle)">{{ vehicle.registration }}</td>
+          <td (click)="editVehicle(vehicle)">{{ vehicle.category.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+      id="categoryPagination"
+      (pageChange)="pageVehicle = $event"
+    ></pagination-controls>
+    <button class="btn btn-primary" (click)="addVehicle()">Novo vozilo</button>
+  </div>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-add-vehicle (submit)="onSubmit()"></app-add-vehicle>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-edit-vehicle
+    [vehicle]="selectedVehicle"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-edit-vehicle>
+</app-popup>

@@ -1,0 +1,51 @@
+<div class="wrapper">
+  <div class="container">
+    <h1>Servisi</h1>
+    <input [(ngModel)]="searchMottest" />
+    <table>
+      <thead>
+        <tr>
+          <th>Opis</th>
+          <th>Datum</th>
+          <th>Kilometraža</th>
+          <th>Vozilo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let mottest of getMotTests()
+              | paginate
+                : {
+                    id: 'mottestPagination',
+                    itemsPerPage: 5,
+                    currentPage: pageMottest
+                  };
+            let j = index
+          "
+        >
+          <td (click)="editMotTest(mottest)">{{ mottest.description }}</td>
+          <td (click)="editMotTest(mottest)">{{ mottest.date }}</td>
+          <td (click)="editMotTest(mottest)">{{ mottest.mileage }}</td>
+          <td (click)="editMotTest(mottest)">{{ mottest.vehicle.model }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+      id="categoryPagination"
+      (pageChange)="pageMottest = $event"
+    ></pagination-controls>
+    <button class="btn btn-primary" (click)="addMotTest()">Novi servis</button>
+  </div>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-mottest-form (submit)="addPopupClosed(); fetchData()"></app-mottest-form>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-mottest-form
+    [mottest]="selectedMottest"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-mottest-form>
+</app-popup>

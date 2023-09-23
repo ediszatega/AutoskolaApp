@@ -1,0 +1,112 @@
+<div class="form_container">
+  <form [formGroup]="mottestForm">
+    <div class="form_wrap form_grp">
+      <div
+        class="form_item"
+        [class.error]="
+          mottestForm.controls['description'].dirty &&
+          mottestForm.hasError('required', 'description')
+        "
+      >
+        <label>Opis</label>
+        <input formControlName="description" type="text" />
+        <small
+          *ngIf="
+            mottestForm.controls['description'].dirty &&
+            mottestForm.hasError('required', 'description')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+
+      <div
+        class="form_item"
+        [class.error]="
+          mottestForm.controls['date'].dirty &&
+          mottestForm.hasError('required', 'date')
+        "
+      >
+        <label>Datum</label>
+        <input formControlName="date" type="text" />
+        <small
+          *ngIf="
+            mottestForm.controls['date'].dirty &&
+            mottestForm.hasError('required', 'date')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+      <small
+        *ngIf="mottestForm.hasError('pattern', 'dateOfBirth')"
+        class="text-danger"
+        >*Invalid date format. Please use dd/mm/yyyy.</small
+      >
+    </div>
+
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          mottestForm.controls['mileage'].dirty &&
+          mottestForm.hasError('required', 'mileage')
+        "
+      >
+        <label>Kilometraža</label>
+        <input formControlName="mileage" type="text" />
+        <small
+          *ngIf="
+            mottestForm.controls['mileage'].dirty &&
+            mottestForm.hasError('required', 'mileage')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          mottestForm.controls['vehicle'].dirty &&
+          mottestForm.hasError('required', 'vehicle')
+        "
+      >
+        <label>Vozilo</label>
+        <select formControlName="vehicle">
+          <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+            {{ vehicle.model }}
+          </option>
+        </select>
+        <small
+          *ngIf="
+            mottestForm.controls['vehicle'].dirty &&
+            mottestForm.hasError('required', 'vehicle')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button
+        *ngIf="mottest"
+        class="btn btn-primary"
+        type="button"
+        (click)="onRemove()"
+      >
+        Izbriši
+      </button>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        (click)="onSubmit()"
+        [disabled]="!mottestForm.valid"
+      >
+        Završi
+      </button>
+    </div>
+  </form>
+</div>

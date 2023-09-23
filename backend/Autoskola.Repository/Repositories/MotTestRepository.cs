@@ -22,7 +22,7 @@ namespace Autoskola.Repository.Repositories
         {
             try
             {
-                return await AutoskolaContext.MotTests.Where(mottest => string.IsNullOrEmpty(search) || mottest.VehicleId == vehicleId)
+                return await AutoskolaContext.MotTests.Where(mottest => string.IsNullOrEmpty(search) || mottest.VehicleId == vehicleId).Include(mottest => mottest.Vehicle)
                     .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             }
             catch (Exception ex)
