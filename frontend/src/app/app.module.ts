@@ -36,6 +36,9 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AdminNewsComponent } from './components/admin-news/admin-news.component';
+import { AddNewsComponent } from './components/admin-news/add-news/add-news.component';
+import { EditNewsComponent } from './components/admin-news/edit-news/edit-news.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     AdminTestModuleComponent,
     AddTestComponent,
     EditTestComponent,
+    AdminNewsComponent,
+    AddNewsComponent,
+    EditNewsComponent,
   ],
   imports: [
     BrowserModule,

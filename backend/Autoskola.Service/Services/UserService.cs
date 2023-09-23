@@ -147,7 +147,8 @@ namespace Autoskola.Service.Services
             user.Token = JwtHelper.CreateToken(user);
             await unitOfWork.Complete();
 
-            return new { StatusCode = 200, Message = "Login successful", Token = user.Token };
+            var userInfo = new { id=user.Id, firstName=user.FirstName, lastName=user.LastName, role= Enum.GetName(typeof(Role), user.Role) };
+            return new { StatusCode = 200, Message = "Login successful", Token = user.Token, User=userInfo };
         }
 
         public async Task<int> Register(UserRegisterVM entity)

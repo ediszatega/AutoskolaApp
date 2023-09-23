@@ -1,0 +1,51 @@
+<div class="wrapper">
+  <div class="container">
+    <h1>Novosti</h1>
+    <input [(ngModel)]="searchNews" />
+    <table>
+      <thead>
+        <tr>
+          <th>Naslov</th>
+          <th>Datum</th>
+          <th>Autor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let news of getNews()
+              | paginate
+                : {
+                    id: 'newsPagination',
+                    itemsPerPage: 5,
+                    currentPage: pageNews
+                  };
+            let j = index
+          "
+        >
+          <td (click)="editNews(news)">{{ news.title }}</td>
+          <td (click)="editNews(news)">{{ news.date }}</td>
+          <td (click)="editNews(news)">
+            {{ news.user.firstName + " " + news.user.lastName }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls
+      id="newsPagination"
+      (pageChange)="pageNews = $event"
+    ></pagination-controls>
+    <button class="btn btn-primary" (click)="addNews()">Dodaj Novosti</button>
+  </div>
+</div>
+
+<app-popup *ngIf="showAddPopup" (close)="addPopupClosed()">
+  <app-add-news (submit)="addPopupClosed(); fetchData()"></app-add-news>
+</app-popup>
+
+<app-popup *ngIf="showEditPopup" (close)="editPopupClosed()">
+  <app-edit-news
+    [news]="selectedNews"
+    (submit)="editPopupClosed(); fetchData()"
+  ></app-edit-news>
+</app-popup>

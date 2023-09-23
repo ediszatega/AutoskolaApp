@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Autoskola.Service.Services
 {
@@ -40,6 +41,7 @@ namespace Autoskola.Service.Services
                 Title = news.Title,
                 Text = news.Text,
                 Date = news.Date,
+                Image= news.Image,
                 UserId = news.UserId
             };
             var addedNews = await unitOfWork.News.Add(newNews);
@@ -55,6 +57,7 @@ namespace Autoskola.Service.Services
             news.Title= entity.Title;
             news.Text = entity.Text;
             news.Date = entity.Date;
+            news.Image = entity.Image;
             news.UserId = entity.UserId;
 
             return await unitOfWork.Complete();
