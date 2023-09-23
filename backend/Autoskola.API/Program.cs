@@ -59,9 +59,7 @@ services.AddScoped<ICustomerRepository, CustomerRepository>();
 services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 services.AddScoped<IInstructorRepository, InstructorRepository>();
 services.AddScoped<ILecturerRepository, LecturerRepository>();
-
-
-
+services.AddScoped<INewsRepository, NewsRepository>();
 
 services.AddScoped<IUnitOfWork, UnitOfWork>();
 services.AddScoped<ICityService, CityService>();
@@ -76,10 +74,7 @@ services.AddScoped<ICustomerService, CustomerService>();
 services.AddScoped<IEmployeeService, EmployeeService>();
 services.AddScoped<IInstructorService, InstructorService>();
 services.AddScoped<ILecturerService, LecturerService>();
-
-
-
-
+services.AddScoped<INewsService, NewsService>();
 
 var mappingConfig = new MapperConfiguration(mc =>
 {
@@ -92,6 +87,7 @@ var mappingConfig = new MapperConfiguration(mc =>
     mc.AddProfile(new EmployeeProfile());
     mc.AddProfile(new InstructorProfile());
     mc.AddProfile(new LecturerProfile());
+    mc.AddProfile(new NewsProfile());
 });
 IMapper mapper = mappingConfig.CreateMapper();
 services.AddSingleton(mapper);
