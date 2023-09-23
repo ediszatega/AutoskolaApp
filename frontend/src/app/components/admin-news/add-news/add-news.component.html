@@ -1,0 +1,69 @@
+<div class="form_container">
+  <form [formGroup]="newsForm">
+    <div class="form_wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          newsForm.controls['title'].dirty &&
+          newsForm.hasError('required', 'title')
+        "
+      >
+        <label>Title</label>
+        <input formControlName="title" type="text" />
+        <small
+          *ngIf="
+            newsForm.controls['title'].dirty &&
+            newsForm.hasError('required', 'title')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form-wrap">
+      <div
+        class="form_item"
+        [class.error]="
+          newsForm.controls['text'].dirty &&
+          newsForm.hasError('required', 'text')
+        "
+      >
+        <label>Text</label>
+        <textarea formControlName="text"></textarea>
+        <small
+          *ngIf="
+            newsForm.controls['text'].dirty &&
+            newsForm.hasError('required', 'text')
+          "
+          class="text-danger"
+          >*Field is required</small
+        >
+      </div>
+    </div>
+    <div class="form_wrap">
+      <div class="form_item">
+        <label>Image</label>
+        <input
+          type="file"
+          id="file"
+          name="image"
+          autocomplete="off"
+          #image
+          multiple
+          (change)="onFileSelected($event)"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="button-container">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        (click)="onSubmit()"
+        [disabled]="!newsForm.valid"
+      >
+        Završi
+      </button>
+    </div>
+  </form>
+</div>

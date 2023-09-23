@@ -57,6 +57,7 @@ namespace Autoskola.Service.Services
             var newQuestion = new Question() { 
                 Text = question.Text, 
                 Points = question.Points,
+                Image = question.Image,
                 QuestionType = question.QuestionType,
                 TestId = question.TestId,
                 Order = latestOrder+1 
@@ -108,6 +109,7 @@ namespace Autoskola.Service.Services
                 throw new HttpException("Question with requested ID not found", 400);
             question.Text = entity.Text;
             question.Points = entity.Points;
+            question.Image = entity.Image;
             question.QuestionType = entity.QuestionType;
 
             return await unitOfWork.Complete();

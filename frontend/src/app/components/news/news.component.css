@@ -1,0 +1,165 @@
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 6rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  max-width: 1200px;
+}
+
+.news-item-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #b5b5b5;
+  margin-bottom: 2rem;
+}
+
+.news-image {
+  width: 30%;
+  height: 180px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.news-content {
+  width: 70%;
+  padding: 1rem 0 1rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: space-between;
+}
+
+.title-text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .news-item {
+    text-align: center;
+  } */
+
+.news-title-wrapper {
+  display: block;
+}
+
+.news-title {
+  font-size: 2rem;
+  margin-top: 15px;
+  cursor: pointer;
+  color: var(--text-dark);
+  transition: color 0.3s;
+}
+
+.news-title:hover {
+  color: #615656;
+}
+
+.news-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-align: left;
+  color: #707070;
+}
+
+.date-author {
+  color: #707070;
+  font-size: 0.7rem;
+}
+
+.add-news {
+  background-color: var(--main-color);
+  color: var(--text-white);
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 10px 15px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination li {
+  margin: 20px 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.pagination li a {
+  padding: 5px;
+}
+
+.pagination li.active a {
+  background-color: var(--main-color);
+  color: var(--text-white);
+}
+
+@media (max-width: 1000px) {
+  .container {
+    width: 90%;
+  }
+
+  .news-title {
+    font-size: 1.7rem;
+  }
+
+  .news-text {
+    font-size: 0.85rem;
+  }
+
+  .date-author {
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .news-item-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .news-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  .news-content {
+    width: 100%;
+    padding: 1rem 0;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+  }
+
+  .news-title {
+    font-size: 2rem;
+  }
+
+  .news-text {
+    font-size: 1.05rem;
+  }
+
+  .date-author {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+  }
+}

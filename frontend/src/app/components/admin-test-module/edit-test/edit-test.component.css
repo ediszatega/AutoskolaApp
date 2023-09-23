@@ -22,6 +22,12 @@
   margin-bottom: 5px;
 }
 
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* input box and select box */
 
 .form_container .form_item input,
@@ -118,4 +124,8 @@
 
 .border-top {
   border-top: #dadce0 solid 1px;
+}
+
+img {
+  border: 2px #575656 dashed;
 }

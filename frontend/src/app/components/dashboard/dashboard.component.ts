@@ -8,6 +8,7 @@ import { CategoryComponent } from '../category/category.component';
 import { VehicleComponent } from '../vehicle/vehicle.component';
 import { MottestComponent } from '../mottest/mottest.component';
 import { PaymentComponent } from '../payment/payment.component';
+import { AdminNewsComponent } from '../admin-news/admin-news.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit {
     { label: 'Vozila', component: VehicleComponent, class: '' },
     { label: 'Servisi', component: MottestComponent, class: '' },
     { label: 'Plaćanja', component: PaymentComponent, class: '' },
+    { label: 'Novosti', component: AdminNewsComponent, class: '' },
   ];
   public activeLink: number;
   public currentComponent;

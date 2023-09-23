@@ -41,6 +41,15 @@ import { MottestComponent } from './components/mottest/mottest.component';
 import { MottestFormComponent } from './components/mottest/mottest-form/mottest-form.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentFormComponent } from './components/payment/payment-form/payment-form.component';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AdminNewsComponent } from './components/admin-news/admin-news.component';
+import { AddNewsComponent } from './components/admin-news/add-news/add-news.component';
+import { EditNewsComponent } from './components/admin-news/edit-news/edit-news.component';
+import { NewsComponent } from './components/news/news.component';
+import { NewsDetailsComponent } from './components/news/news-details/news-details.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +86,11 @@ import { PaymentFormComponent } from './components/payment/payment-form/payment-
     MottestFormComponent,
     PaymentComponent,
     PaymentFormComponent,
+    AdminNewsComponent,
+    AddNewsComponent,
+    EditNewsComponent,
+    NewsComponent,
+    NewsDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,6 +105,9 @@ import { PaymentFormComponent } from './components/payment/payment-form/payment-
     ReactiveFormsModule,
     NgToastModule,
     NgxPaginationModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
   ],
   providers: [
     {

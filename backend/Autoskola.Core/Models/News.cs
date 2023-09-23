@@ -1,18 +1,19 @@
-﻿using Autoskola.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Autoskola.Core.ViewModels
+namespace Autoskola.Core.Models
 {
-    public class QuestionUpdateVM
+    public class News
     {
         public int Id { get; set; }
+        public string? Title { get; set; }
         public string? Text { get; set; }
-        public float Points { get; set; }
+        public DateTime Date { get; set; }
         public string? Image { get; set; }
-        public QuestionType QuestionType { get; set; }
+        public int UserId { get; set; }
+        public User? User { get; set; }
     }
 }

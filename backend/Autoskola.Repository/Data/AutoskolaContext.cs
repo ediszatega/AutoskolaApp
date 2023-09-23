@@ -28,6 +28,7 @@ namespace Autoskola.Repository.Data
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<MotTest> MotTests { get; set; }
         public DbSet<Payment> Payment { get; set; }
+        public DbSet<News> News { get; set; }
 
     }
 }

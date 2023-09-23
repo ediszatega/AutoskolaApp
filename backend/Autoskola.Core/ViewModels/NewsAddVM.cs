@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Autoskola.Core.ViewModels
 {
-    public class QuestionUpdateVM
+    public class NewsAddVM
     {
-        public int Id { get; set; }
+        public string? Title { get; set; }
         public string? Text { get; set; }
-        public float Points { get; set; }
+        public DateTime Date { get; set; }
         public string? Image { get; set; }
-        public QuestionType QuestionType { get; set; }
+        public int UserId { get; set; }
     }
 }
