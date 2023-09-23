@@ -41,7 +41,10 @@
       </div>
       <div class="form_wrap">
         <div class="form_item image">
-          <img [src]="news.image" style="max-width: 300px; margin: 10px" />
+          <img
+            src="data:image/png;base64,{{ news.image }}"
+            style="max-width: 300px; margin: 10px"
+          />
         </div>
       </div>
     </div>

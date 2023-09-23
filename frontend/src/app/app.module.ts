@@ -39,6 +39,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AdminNewsComponent } from './components/admin-news/admin-news.component';
 import { AddNewsComponent } from './components/admin-news/add-news/add-news.component';
 import { EditNewsComponent } from './components/admin-news/edit-news/edit-news.component';
+import { NewsComponent } from './components/news/news.component';
+import { NewsDetailsComponent } from './components/news/news-details/news-details.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { EditNewsComponent } from './components/admin-news/edit-news/edit-news.c
     AdminNewsComponent,
     AddNewsComponent,
     EditNewsComponent,
+    NewsComponent,
+    NewsDetailsComponent,
   ],
   imports: [
     BrowserModule,

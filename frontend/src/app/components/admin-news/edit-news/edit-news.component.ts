@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NgToastService } from 'ng-angular-popup';
 import { News } from 'src/app/models/news';
 import { AuthService } from 'src/app/services/auth.service';
+import { createDateFromFormat } from 'src/app/services/helper/utilities';
 import { NewsService } from 'src/app/services/news.service';
 
 @Component({
@@ -34,16 +35,20 @@ export class EditNewsComponent {
       title: this.news.title,
       text: this.news.text,
     });
-    console.log(this.news);
+    this.image = this.news.image;
   }
 
   onSubmit() {
     const formValue = this.newsForm.value;
     const news = {
+      id: this.news.id,
       title: formValue.title,
       text: formValue.text,
       image: this.image,
+      date: createDateFromFormat(this.news.date),
+      userId: this.news.user.id,
     };
+    console.log(news);
     this.newsService.updateNews(news).subscribe(() => {
       this.toast.success({
         detail: 'Uspjeh',

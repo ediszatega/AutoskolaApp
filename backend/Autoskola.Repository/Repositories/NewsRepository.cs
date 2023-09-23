@@ -18,6 +18,10 @@ namespace Autoskola.Repository.Repositories
         {
             return await AutoskolaContext.News.Skip((pageNumber - 1) * pageSize).Take(pageSize).Include(news=>news.User).ToListAsync();
         }
+        public override async Task<News> Get(int id)
+        {
+            return await AutoskolaContext.News.Include(news => news.User).FirstAsync(news=>news.Id == id);
+        }
         public AutoskolaContext AutoskolaContext { get { return _context as AutoskolaContext; } }
 
     }

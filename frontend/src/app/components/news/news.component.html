@@ -1,0 +1,47 @@
+<div class="page-wrapper">
+  <app-page-title title_text="Novosti"></app-page-title>
+  <div class="container">
+    <div
+      *ngFor="
+        let newsItem of newsList.slice(
+          (currentPage - 1) * itemsPerPage,
+          currentPage * itemsPerPage
+        )
+      "
+      class="news-item-container"
+    >
+      <img
+        (click)="navigateToNewsDetail(newsItem.id)"
+        src="data:image/png;base64,{{ newsItem.image }}"
+        class="news-image"
+        alt="News Image"
+      />
+      <div class="news-content">
+        <div class="title-text">
+          <div class="news-title-wrapper">
+            <a (click)="navigateToNewsDetail(newsItem.id)" class="news-title">
+              {{ newsItem.title }}
+            </a>
+          </div>
+          <p class="news-text">
+            {{ newsItem.text | slice : 0 : 150
+            }}{{ newsItem.text.length > 150 ? "..." : "" }}
+          </p>
+        </div>
+        <div class="date-author">
+          {{ newsItem.date }} |
+          {{ newsItem.user.firstName + " " + newsItem.user.lastName }}
+        </div>
+      </div>
+    </div>
+
+    <ul class="pagination">
+      <li
+        *ngFor="let page of pageNumbers"
+        [class.active]="page === currentPage"
+      >
+        <a (click)="changePage(page)">{{ page }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
