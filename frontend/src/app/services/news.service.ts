@@ -16,11 +16,15 @@ export class NewsService {
     return this.http.get<News[]>(this.baseUrl + '/News/GetAll');
   }
 
+  getNewsById(id): Observable<Object> {
+    return this.http.get<News>(this.baseUrl + '/News/GetById/' + id);
+  }
+
   addNews(news: any): Observable<Object> {
     return this.http.post(this.baseUrl + '/News/Add', news);
   }
 
-  updateNews(news: News): Observable<Object> {
+  updateNews(news: any): Observable<Object> {
     return this.http.put(this.baseUrl + '/News/Update', news);
   }
 

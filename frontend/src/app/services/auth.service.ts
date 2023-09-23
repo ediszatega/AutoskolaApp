@@ -30,6 +30,11 @@ export class AuthService {
     return JSON.parse(user);
   }
 
+  getRole() {
+    let user = localStorage.getItem('user');
+    return JSON.parse(user).role;
+  }
+
   getToken() {
     return localStorage.getItem('token');
   }

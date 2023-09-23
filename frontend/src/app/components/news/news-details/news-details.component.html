@@ -1,0 +1,13 @@
+<div class="page-wrapper">
+  <p class="news-title">{{ news.title }}</p>
+  <p class="date-author">
+    {{ news.date }} | {{ news.user.firstName + " " + news.user.lastName }}
+  </p>
+  <!-- ____________________________________________________________ -->
+  <div class="image-container">
+    <img src="data:image/png;base64,{{ news.image }}" alt="News Image" />
+  </div>
+  <div class="news-content-wrapper">
+    <p class="news-content">{{ news.text }}</p>
+  </div>
+</div>
