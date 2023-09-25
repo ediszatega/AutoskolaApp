@@ -8,6 +8,7 @@ import { TestModuleComponent } from './components/test-module/test-module.compon
 import { TestWorkingComponent } from './components/test-module/test-working/test-working.component';
 import { NewsComponent } from './components/news/news.component';
 import { NewsDetailsComponent } from './components/news/news-details/news-details.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'tests/:id', component: TestWorkingComponent },
   { path: 'news', component: NewsComponent },
   { path: 'news/:id', component: NewsDetailsComponent },
+  { path: '', component: LandingPageComponent },
 ];
 
 @NgModule({

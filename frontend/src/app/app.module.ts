@@ -51,6 +51,7 @@ import { EditNewsComponent } from './components/admin-news/edit-news/edit-news.c
 import { NewsComponent } from './components/news/news.component';
 import { NewsDetailsComponent } from './components/news/news-details/news-details.component';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { NavbarComponent } from './components/common/navbar/navbar.component';
     NewsComponent,
     NewsDetailsComponent,
     NavbarComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
