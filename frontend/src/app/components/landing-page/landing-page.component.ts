@@ -59,7 +59,24 @@ export class LandingPageComponent {
       additionalInstructionDescription:
         'Broj časova obuke upravljanja motornim vozilom zavisi od kategorije koju polažete. Nakon uspješno završene obuke na vozilu kandidat izlazi na polaganje praktičnog dijela obuke iz poznavanja upravljanja vozilom. Polaganje se vrši pred komisijom koju organizuje Ministarstvo obrazovanja.',
     },
-    // Add more phases here
+  ];
+
+  reviews = [
+    {
+      img: '../../../assets/review1.jpg',
+      name: 'Mersad Graho',
+      text: 'Veliko hvala autoškoli "A&S" koja nam je omogućila sve potrebne uvjete za sitcanje znanja koje ćemo svakako nastaviti da primjenjujemo dalje u praktičnim uvjetima. Uz najbolju predavačicu Sanidu Prevljak smo i na šaljive načine uspjeli naučiti mnogo toga, te sam uz njen trud, rad i zalaganje koji je uložila da nam na što bolji način prenese svoje stečeno znanje uspješno položio teoretski ispit.',
+    },
+    {
+      img: '../../../assets/review3.jpg',
+      name: 'Adnana Landžo',
+      text: 'Najpristupačniji put do vozačkog ispita! Uz pomoć naše divne Sanide i njene posvećenosti svom radu i nesebičnog pružanja znanja sve nedoumice i prepreke za savladavanje teoretskog dijela vozačkog ispita padaju u vodu. Sve pohvale i sve preporuke od srca.',
+    },
+    {
+      img: '../../../assets/review2.jpg',
+      name: 'Larisa Halilović',
+      text: 'Prije svega Sanida je dobar čovjek, a zatim i najbolji predavač. Svoje znanje na nas prenosi sa velikom profesionalnošću. Trudi se da se maksimalno posveti svakom kandidatu i da što jednostavnije pojasni. Sve preporuke za Sanidu i autoškolu "A&S" jer sigurno nećete pogriješiti u odabiru. Svojim radom i pozitivnošću uspije da sa svakim kandidatom uspostavi super komunikaciju, rad, red i disciplinu.',
+    },
   ];
 
   ngOnInit(): void {
