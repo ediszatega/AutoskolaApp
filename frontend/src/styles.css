@@ -1,12 +1,22 @@
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none !important;
+  list-style: none;
+}
+
+/* :fullscreen {
+  height: 100%;
+} */
+
+html {
+  height: 100%;
 }
 
 body {
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #f8f9fb;
 }
 

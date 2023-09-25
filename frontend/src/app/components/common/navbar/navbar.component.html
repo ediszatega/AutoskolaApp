@@ -1,0 +1,131 @@
+<header>
+  <a class="logo" [routerLink]="['/pocetna']" (click)="navLinkClicked()"
+    >Autoškola "A&S"</a
+  >
+
+  <ul class="navbar" [ngClass]="{ open: sideMenuOpened }">
+    <li>
+      <a
+        [routerLink]="['o-nama']"
+        routerLinkActive="active"
+        (click)="navLinkClicked()"
+        >O nama</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="['/novosti']"
+        href="#"
+        routerLinkActive="active"
+        (click)="navLinkClicked()"
+        >Novosti</a
+      >
+    </li>
+    <!-- <li *ngIf="!authService.passwordEntered">
+        <a
+          [routerLink]="['/test-login']"
+          href="#"
+          routerLinkActive="active"
+          (click)="navLinkClicked()"
+          >Testovi</a
+        >
+      </li>
+      <li *ngIf="authService.passwordEntered">
+        <a
+          [routerLink]="['/testovi']"
+          routerLinkActive="active"
+          (click)="navLinkClicked()"
+          >Testovi</a
+        >
+      </li>
+      <li *ngIf="authService.isLoggedIn">
+        <a
+          [routerLink]="['/test-password']"
+          href="#"
+          routerLinkActive="active"
+          (click)="navLinkClicked()"
+          >Šifra</a
+        >
+      </li>
+      <li *ngIf="authService.isLoggedIn">
+        <a
+          [routerLink]="['/sign-up']"
+          href="#"
+          routerLinkActive="active"
+          (click)="navLinkClicked()"
+          >Korisnik</a
+        >
+      </li>
+      <li>
+        <a href="#" routerLinkActive="active" (click)="navLinkClicked()"
+          >Pitanja</a
+        >
+      </li> -->
+    <li>
+      <a
+        [routerLink]="['/galerija']"
+        routerLinkActive="active"
+        (click)="navLinkClicked()"
+        >Galerija</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLink]="['/kontakt']"
+        routerLinkActive="active"
+        (click)="navLinkClicked()"
+        >Kontakt</a
+      >
+    </li>
+  </ul>
+  <div class="main">
+    <!--     <a
+      *ngIf="!authService.isLoggedIn"
+      href="#"
+      [routerLink]="['/login']"
+      routerLinkActive="active"
+      class="user account"
+      >Prijavi se</a
+    >
+    <a
+      *ngIf="authService.isLoggedIn"
+      href="#"
+      routerLinkActive="active"
+      class="account"
+      (click)="authService.SignOut()"
+      >Odjavi se</a
+    > -->
+    <svg
+      id="burger-menu"
+      (click)="toggleSideMenu()"
+      width="35"
+      height="35"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M5 7H19"
+        stroke="#F6F6F6"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M5 12H19"
+        stroke="#F6F6F6"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M5 17H19"
+        stroke="#F6F6F6"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  </div>
+</header>
+
+<!-- <a class="button" routerLink="/user">User</a>
+<a class="button" routerLink="/path-cities">Gradovi</a>
+<a class="button" routerLink="/tests">Testovi</a> -->
