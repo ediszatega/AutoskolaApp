@@ -73,4 +73,36 @@
       </div>
     </div>
   </div>
+  <!-- PHASES SECTION -->
+  <div class="phases-section">
+    <div class="section-title">
+      <p>Šta je sve potrebno da biste dobili vozačku dozvolu?</p>
+    </div>
+    <div class="phases">
+      <div *ngFor="let phase of phases" class="phase">
+        <div class="number">
+          <p>{{ phase.number }}.</p>
+        </div>
+        <div class="instruction">
+          <p class="instruction-title">{{ phase.instructionTitle }}</p>
+          <p class="instruction-description">
+            {{ phase.instructionDescription }}
+          </p>
+          <p
+            *ngIf="phase.moreLess && phase.additionalInstructionDescription"
+            class="instruction-description"
+          >
+            {{ phase.additionalInstructionDescription }}
+          </p>
+          <p
+            *ngIf="phase.additionalInstructionDescription"
+            class="read-more-less"
+            (click)="readMoreLess(phase.number)"
+          >
+            {{ phase.number === openPhase ? "Prikaži manje" : "Prikaži više" }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
