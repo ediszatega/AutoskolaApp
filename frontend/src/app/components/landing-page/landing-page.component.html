@@ -112,7 +112,7 @@
         <p>Šta drugi kažu o nama</p>
       </div>
       <div class="review-cards">
-        <!-- CARD 1 -->
+        <!-- CARD -->
         <div *ngFor="let review of reviews" class="review-card">
           <div class="review-image">
             <img [src]="review.img" alt="" />
@@ -122,5 +122,247 @@
         </div>
       </div>
     </div>
+  </div>
+  <!-- FAQ SECTION -->
+  <div class="faq-section">
+    <div class="section-title inverted">
+      <p>Česta pitanja</p>
+    </div>
+    <main class="faq-content">
+      <div class="faq-image">
+        <img
+          src="../../../assets/faq-img.jpg"
+          alt="Vožnja automobila"
+          class="faq-img"
+        />
+      </div>
+      <div class="faq-questions">
+        <div class="questions-answers">
+          <!-- FAQ Area-->
+          <div
+            class="card fadeInUp"
+            data-wow-delay="0.2s"
+            style="
+              visibility: visible;
+              animation-delay: 0.2s;
+              animation-name: fadeInUp;
+            "
+          >
+            <div class="card-header" id="headingOne">
+              <h6
+                class="mb-0 collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                Kada i gdje se mogu upisati u autoškolu "A&S"?<span
+                  class="lni-chevron-up"
+                ></span>
+              </h6>
+            </div>
+            <div
+              class="collapse"
+              id="collapseOne"
+              aria-labelledby="headingOne"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="card-body">
+                <p>
+                  Upis novi kandidata je svaki radni dan u terminima od 8h do
+                  18h. Prijava za novu grupu kandidata teoretske nastave se
+                  šalje svake sedmice.
+                </p>
+                <p>
+                  Šta za Vas to znači? Da svaki dan ima termin za kandidate koji
+                  su već prijavljeni na teoretsku nastavu u tekućoj sedmici i Vi
+                  na tom času ne možete prisustovati.
+                </p>
+                <p>
+                  Međutim, isti dan u drugom terminu koji Vama odgovara je
+                  vrijeme nastave za nove kandidate, kandidate koji još nemaju
+                  18 godina (3mjeseca prije punoljetstva) , kandidate koji su
+                  odgodili izlazak na polaganje pa izlaze na iduće i rijetke
+                  kandidate ponovce.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card border-0 wow fadeInUp"
+            data-wow-delay="0.3s"
+            style="
+              visibility: visible;
+              animation-delay: 0.3s;
+              animation-name: fadeInUp;
+            "
+          >
+            <div class="card-header" id="headingTwo">
+              <h6
+                class="mb-0 collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="true"
+                aria-controls="collapseTwo"
+              >
+                Koje dokumente moram imati da bi se prijavio u autoškolu?<span
+                  class="lni-chevron-up"
+                ></span>
+              </h6>
+            </div>
+            <div
+              class="collapse"
+              id="collapseTwo"
+              aria-labelledby="headingTwo"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="card-body">
+                <p>
+                  Za upis u autoškolu potrebno je imati ličnu kartu i ljekarsko
+                  uvjerenje. Kandidati mlađi od 18g (3mjeseca do punoljestva)
+                  mogu prisustovati teoretskoj nastavi bez lične karte. Ako
+                  imate vozačku dozvolu B kategorije i želite polagati za
+                  C1,C,CE,D1,D trebate imati važeću vozačku dozvolu za navedenu
+                  kategoriju.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card fadeInUp"
+            data-wow-delay="0.2s"
+            style="
+              visibility: visible;
+              animation-delay: 0.2s;
+              animation-name: fadeInUp;
+            "
+          >
+            <div class="card-header" id="headingThree">
+              <h6
+                class="mb-0 collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="true"
+                aria-controls="collapseThree"
+              >
+                Kako se može platiti obuka?<span class="lni-chevron-up"></span>
+              </h6>
+            </div>
+            <div
+              class="collapse"
+              id="collapseThree"
+              aria-labelledby="headingThree"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="card-body">
+                <p>
+                  Nema više razloga da odgađate polaganje vozačkog ispita, niti
+                  izgovora
+                </p>
+                <p>
+                  Od proceduralnog do finansijskog dijela, učinili smo vozački
+                  ispit najpristupačnijim ikad !
+                </p>
+                <p>
+                  💸 Plaćanje na rate kompletne obuke na način na koji sami sebi
+                  odredite ratu.
+                </p>
+                <p>💰 GOTOVINSKO PLAĆANJE - POPUST !</p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card border-0 wow fadeInUp"
+            data-wow-delay="0.3s"
+            style="
+              visibility: visible;
+              animation-delay: 0.3s;
+              animation-name: fadeInUp;
+            "
+          >
+            <div class="card-header" id="headingFour">
+              <h6
+                class="mb-0 collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFour"
+                aria-expanded="true"
+                aria-controls="collapseFour"
+              >
+                Koliko važi ljekarsko uvjerenje?<span
+                  class="lni-chevron-up"
+                ></span>
+              </h6>
+            </div>
+            <div
+              class="collapse"
+              id="collapseFour"
+              aria-labelledby="headingFour"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="card-body">
+                <p>
+                  Ljekarsko uvjerenje važi godinu dana od datuma vađenja
+                  ljekarskog uvjerenja.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card fadeInUp"
+            data-wow-delay="0.2s"
+            style="
+              visibility: visible;
+              animation-delay: 0.2s;
+              animation-name: fadeInUp;
+            "
+          >
+            <div class="card-header" id="headingFive">
+              <h6
+                class="mb-0 collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFive"
+                aria-expanded="true"
+                aria-controls="collapseFive"
+              >
+                Da li nudite kondicisku vožnju za vozače koji su položili a nisu
+                dugo vozili?<span class="lni-chevron-up"></span>
+              </h6>
+            </div>
+            <div
+              class="collapse"
+              id="collapseFive"
+              aria-labelledby="headingFive"
+              data-bs-parent="#faqAccordion"
+            >
+              <div class="card-body">
+                <p>
+                  Veoma često se dogodi da položite vozački ispit i da nakon
+                  toga rijetko ili nikada ne vozite. Posljedica toga je da više
+                  niste sigurni u svoje vozačke sposobnosti i u poznavanje
+                  saobraćajnih propisa i sigurnosnih pravila. Nemojte se
+                  zabrinjavati ako niste vozili duži vremenski period, jer to je
+                  vještina koja se nikad ne zaboravlja. Možemo je usporediti sa
+                  vožnjom bicikla, naučili ste ga voziti, niste ga vozili par
+                  godina i sigurno bi ga vozili bez problema. Ipak većini vozača
+                  koji nisu dugo vozili potrebno je nekoliko sati privikavanja
+                  na tehniku vožnje i na vožnju u složenim saobraćajnim
+                  uslovima, jer automobil može biti opasno prevozno sredstvo za
+                  drugog sudionika u prometu ali i za vas. Steći ćete sigurnost
+                  u upravljanju motornim vozilom i ponoviti prometne propise i
+                  sigurnosna pravila.
+                </p>
+                <p>
+                  Naš program je individualni i potpuno se prilagođava Vašim
+                  potrebama. Vrši se analiza Vaših pogrešaka kod upravljanja
+                  vozilom te se obuka usmjerava ciljano ka poboljšanju koje
+                  dovodi do sigurnog upravljanja vozilom koje je i Vaš i naš
+                  cilj.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 </div>

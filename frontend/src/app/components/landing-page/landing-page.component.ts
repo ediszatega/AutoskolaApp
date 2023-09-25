@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class LandingPageComponent {
   openPhase: number | null = null; // Track the currently open phase
+  openQuestion: number | null = null; // Track the currently open question
 
   phases = [
     {
@@ -79,6 +80,68 @@ export class LandingPageComponent {
     },
   ];
 
+  faq = [
+    {
+      question: 'Kada i gdje se mogu upisati u autoškolu "A&S"?',
+      answers: [
+        'Upis novi kandidata je svaki radni dan u terminima od 8h do 18h. Prijava za novu grupu kandidata teoretske nastave se šalje svake sedmice.',
+        'Šta za Vas to znači? Da svaki dan ima termin za kandidate koji su već prijavljeni na teoretsku nastavu u tekućoj sedmici i Vi na tom času ne možete prisustovati.',
+        'Međutim, isti dan u drugom terminu koji Vama odgovara je vrijeme nastave za nove kandidate, kandidate koji još nemaju 18 godina (3mjeseca prije punoljetstva) , kandidate koji su odgodili izlazak na polaganje pa izlaze na iduće i rijetke kandidate ponovce.',
+      ],
+      isOpened: false,
+    },
+    {
+      question: 'Koje dokumente moram imati da bi se prijavio u autoškolu?',
+      answers: [
+        'Za upis u autoškolu potrebno je imati ličnu kartu i ljekarsko uvjerenje. Kandidati mlađi od 18g (3mjeseca do punoljestva) mogu prisustovati teoretskoj nastavi bez lične karte. Ako imate vozačku dozvolu B kategorije i želite polagati za C1,C,CE,D1,D trebate imati važeću vozačku dozvolu za navedenu kategoriju.',
+      ],
+      isOpened: false,
+    },
+    {
+      question: 'Kako se može platiti obuka?',
+      answers: [
+        'Nema više razloga da odgađate polaganje vozačkog ispita, niti izgovora',
+        'Od proceduralnog do finansijskog dijela, učinili smo vozački ispit najpristupačnijim ikad !',
+        '💸 Plaćanje na rate kompletne obuke na način na koji sami sebi odredite ratu.',
+        '💰 GOTOVINSKO PLAĆANJE - POPUST !',
+      ],
+      isOpened: false,
+    },
+    {
+      question: 'Koliko važi ljekarsko uvjerenje?',
+      answers: [
+        'Ljekarsko uvjerenje važi godinu dana od datuma vađenja ljekarskog uvjerenja.',
+      ],
+      isOpened: false,
+    },
+    {
+      question:
+        'Da li nudite kondicisku vožnju za vozače koji su položili a nisu dugo vozili?',
+      answers: [
+        'Veoma često se dogodi da položite vozački ispit i da nakon toga rijetko ili nikada ne vozite. Posljedica toga je da više niste sigurni u svoje vozačke sposobnosti i u poznavanje saobraćajnih propisa i sigurnosnih pravila. Nemojte se zabrinjavati ako niste vozili duži vremenski period, jer to je vještina koja se nikad ne zaboravlja. Možemo je usporediti sa vožnjom bicikla, naučili ste ga voziti, niste ga vozili par godina i sigurno bi ga vozili bez problema. Ipak većini vozača koji nisu dugo vozili potrebno je nekoliko sati privikavanja na tehniku vožnje i na vožnju u složenim saobraćajnim uslovima, jer automobil može biti opasno prevozno sredstvo za drugog sudionika u prometu ali i za vas. Steći ćete sigurnost u upravljanju motornim vozilom i ponoviti prometne propise i sigurnosna pravila.',
+        'Naš program je individualni i potpuno se prilagođava Vašim potrebama. Vrši se analiza Vaših pogrešaka kod upravljanja vozilom te se obuka usmjerava ciljano ka poboljšanju koje dovodi do sigurnog upravljanja vozilom koje je i Vaš i naš cilj.',
+      ],
+      isOpened: false,
+    },
+  ];
+
+  questionOpenClose(index: number) {
+    // If clicking on the currently open question, close it
+    if (this.openQuestion === index - 1) {
+      this.faq[index - 1].isOpened = false;
+      this.openQuestion = null;
+    } else {
+      // Close the previously open question (if any)
+      if (this.openQuestion !== null) {
+        this.faq[this.openQuestion].isOpened = false;
+      }
+
+      // Open the clicked question
+      this.faq[index - 1].isOpened = true;
+      this.openQuestion = index - 1;
+    }
+  }
+
   ngOnInit(): void {
     window.scrollTo(0, 0);
   }
@@ -100,5 +163,5 @@ export class LandingPageComponent {
     }
   }
 
-  questions = document.querySelectorAll('.questions-answers');
+  /*   questions = document.querySelectorAll('.questions-answers'); */
 }
