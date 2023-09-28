@@ -1,12 +1,12 @@
 <header>
-  <a class="logo" [routerLink]="['/pocetna']" (click)="navLinkClicked()"
+  <a class="logo" [routerLink]="['']" (click)="navLinkClicked()"
     >Autoškola "A&S"</a
   >
 
   <ul class="navbar" [ngClass]="{ open: sideMenuOpened }">
     <li>
       <a
-        [routerLink]="['o-nama']"
+        [routerLink]="['about-us']"
         routerLinkActive="active"
         (click)="navLinkClicked()"
         >O nama</a
