@@ -52,6 +52,7 @@ import { NewsComponent } from './components/news/news.component';
 import { NewsDetailsComponent } from './components/news/news-details/news-details.component';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { FooterComponent } from './components/common/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
     NewsDetailsComponent,
     NavbarComponent,
     LandingPageComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
