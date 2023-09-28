@@ -80,7 +80,7 @@ export class LandingPageComponent {
     },
   ];
 
-  faq = [
+/*   faq = [
     {
       question: 'Kada i gdje se mogu upisati u autoškolu "A&S"?',
       answers: [
@@ -123,24 +123,7 @@ export class LandingPageComponent {
       ],
       isOpened: false,
     },
-  ];
-
-  questionOpenClose(index: number) {
-    // If clicking on the currently open question, close it
-    if (this.openQuestion === index - 1) {
-      this.faq[index - 1].isOpened = false;
-      this.openQuestion = null;
-    } else {
-      // Close the previously open question (if any)
-      if (this.openQuestion !== null) {
-        this.faq[this.openQuestion].isOpened = false;
-      }
-
-      // Open the clicked question
-      this.faq[index - 1].isOpened = true;
-      this.openQuestion = index - 1;
-    }
-  }
+  ]; */
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -162,6 +145,23 @@ export class LandingPageComponent {
       this.openPhase = phaseNumber;
     }
   }
+
+/*   questionOpenClose(index: number) {
+    // If clicking on the currently open question, close it
+    if (this.openQuestion === index - 1) {
+      this.faq[index - 1].isOpened = false;
+      this.openQuestion = null;
+    } else {
+      // Close the previously open question (if any)
+      if (this.openQuestion !== null) {
+        this.faq[this.openQuestion].isOpened = false;
+      }
+
+      // Open the clicked question
+      this.faq[index - 1].isOpened = true;
+      this.openQuestion = index - 1;
+    }
+  } */
 
   /*   questions = document.querySelectorAll('.questions-answers'); */
 }
