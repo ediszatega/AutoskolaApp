@@ -54,6 +54,7 @@ import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { FooterComponent } from './components/common/footer/footer.component';
 import { AboutUsComponent } from './components/landing-page/about-us/about-us.component';
+import { ContactComponent } from './components/landing-page/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { AboutUsComponent } from './components/landing-page/about-us/about-us.co
     LandingPageComponent,
     FooterComponent,
     AboutUsComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

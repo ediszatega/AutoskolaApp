@@ -10,6 +10,7 @@ import { NewsComponent } from './components/news/news.component';
 import { NewsDetailsComponent } from './components/news/news-details/news-details.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { AboutUsComponent } from './components/landing-page/about-us/about-us.component';
+import { ContactComponent } from './components/landing-page/contact/contact.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'news/:id', component: NewsDetailsComponent },
   { path: '', component: LandingPageComponent },
   { path: 'about-us', component: AboutUsComponent },
+  { path: 'contact', component: ContactComponent },
 ];
 
 @NgModule({

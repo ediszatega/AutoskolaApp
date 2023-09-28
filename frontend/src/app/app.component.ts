@@ -12,7 +12,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     if (
       window.location.href == 'http://localhost:4200/' ||
-      window.location.href == 'http://localhost:4200/about-us/'
+      window.location.href == 'http://localhost:4200/about-us/' ||
+      window.location.href == 'http://localhost:4200/contact/'
     ) {
       this.landingPage = true;
     }
