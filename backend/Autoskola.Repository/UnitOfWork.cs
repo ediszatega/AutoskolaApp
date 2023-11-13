@@ -17,7 +17,8 @@ namespace Autoskola.Repository
             ICategoryRepository categories, IUserRepository users,
             ITestRepository tests, IQuestionRepository questions, IAnswerRepository answers, IVehicleRepository vehicles,
             IMotTestRepository motTests, ICustomerRepository customers, IEmployeeRepository employees,
-            IInstructorRepository instructors, ILecturerRepository lecturers, IPaymentRepository payments, INewsRepository news)
+            IInstructorRepository instructors, ILecturerRepository lecturers, IPaymentRepository payments, INewsRepository news, 
+            IReviewRepository reviews)
         {
             _context = context;
             Cities = cities;
@@ -34,6 +35,7 @@ namespace Autoskola.Repository
             Lecturers = lecturers;
             Payments = payments;
             News = news;
+            Reviews = reviews;
         }
 
         public ICityRepository Cities { get; set; }
@@ -50,6 +52,7 @@ namespace Autoskola.Repository
         public ILecturerRepository Lecturers { get; set; }
         public IPaymentRepository Payments { get; set; }
         public INewsRepository News { get; set; }
+        public IReviewRepository Reviews{ get; set; }
 
         public EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class
         {

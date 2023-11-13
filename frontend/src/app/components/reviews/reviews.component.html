@@ -1,0 +1,21 @@
+<div class="page-wrapper">
+  <div class="reviews-container">
+    <div class="employee-container" *ngFor="let employee of employees">
+      <div class="employee-image">
+        <img
+          *ngIf="!employee.profileImage"
+          src="../../../assets/dummy-profile-pic.jpg"
+        />
+        <img
+          *ngIf="employee.profileImage"
+          src="data:image;base64, {{ employee.profileImage }}"
+        />
+      </div>
+      <div class="employee-info">
+        <h3>{{ employee.firstName }} {{ employee.lastName }}</h3>
+        <small>{{ employee.score }}</small>
+        <p>{{ employee.role }} | {{ employee.city.name }}</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Autoskola.Repository.Interfaces
 {
-    public interface IEmployeeRepository : IRepository<Employee>
+    public interface IReviewRepository : IRepository<Review>
     {
-        Task<IEnumerable<Employee>> GetAllIncludeCities(string? search, int pageNumber, int pageSize);
+        Task<IEnumerable<Review>> GetByEmployee(int id);
     }
 }

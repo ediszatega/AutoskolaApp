@@ -16,5 +16,6 @@ namespace Autoskola.Service.Interfaces
 
         Task<EmployeeGetVM> GetById(int key);
         Task<IEnumerable<EmployeeGetVM>> GetAll(int pageNumber, int pageSize);
+        Task<IEnumerable<EmployeeScoreVM>> GetAllWithScore();
     }
 }

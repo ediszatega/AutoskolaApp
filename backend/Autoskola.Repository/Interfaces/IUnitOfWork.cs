@@ -25,6 +25,7 @@ namespace Autoskola.Repository.Interfaces
         ILecturerRepository Lecturers { get; }
         IPaymentRepository Payments { get; }
         INewsRepository News { get; }
+        IReviewRepository Reviews { get; }
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         Task<int> Complete();
     }

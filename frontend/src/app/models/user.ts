@@ -20,5 +20,6 @@ export interface User {
   username?: string;
   city?: City;
   profileImage?: string;
+  score?: string;
   isActive?: boolean;
 }

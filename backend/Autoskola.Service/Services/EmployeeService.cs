@@ -91,6 +91,31 @@ namespace Autoskola.Service.Services
             return mapper.Map<List<EmployeeGetVM>>(users);
         }
 
+        public async Task<IEnumerable<EmployeeScoreVM>> GetAllWithScore()
+        {
+            var employees = await unitOfWork.Employees.GetAllIncludeCities("", 1, 5);
+            var employeesWithScore = new List<EmployeeScoreVM>();
+
+            foreach (var employee in employees)
+            {
+                var scores = await unitOfWork.Reviews.GetByEmployee(employee.Id);
+                var averageScore = scores.Count() > 0 ? scores.Average(x => x.Score) : 0;
+                var employeeWithScore = new EmployeeScoreVM
+                {
+                    Id = employee.Id,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    City = employee.City,
+                    ProfileImage = employee.ProfileImage,
+                    Score = averageScore,
+                    Role = Enum.GetName(typeof(Role), employee.Role),
+                };
+                employeesWithScore.Add(employeeWithScore);
+            }
+
+            return employeesWithScore;
+        }
+
         public async Task<int> Update(EmployeeUpdateVM entity)
         {
             var employee = unitOfWork.Employees.Get(entity.Id).Result;

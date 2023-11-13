@@ -1,7 +1,13 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiConfig } from './api-config';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import {
+  Observable,
+  ObservedValuesFromArray,
+  catchError,
+  map,
+  throwError,
+} from 'rxjs';
 import { User } from '../models/user';
 import { convertDate } from './helper/utilities';
 import { Customer } from '../models/customer';
@@ -69,6 +75,10 @@ export class UserService {
           }))
         )
       );
+  }
+
+  getEmployeesWithScore(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl + '/Employee/GetAllWithScore');
   }
 
   removeUser(id: number): Observable<Object> {

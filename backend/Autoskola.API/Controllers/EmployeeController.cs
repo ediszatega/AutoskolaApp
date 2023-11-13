@@ -24,6 +24,12 @@ namespace Autoskola.API.Controllers
             var result = await service.GetAll(start, range);
             return Ok(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllWithScore()
+        {
+            var result = await service.GetAllWithScore();
+            return Ok(result);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
